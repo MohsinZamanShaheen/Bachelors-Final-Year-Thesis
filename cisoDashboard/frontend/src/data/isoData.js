@@ -253,7 +253,7 @@ export const controls = {
         }
     },
     "Technological Controls": {
-        color: tokens("dark").others[400],
+        color: tokens("dark").others[500],
         data:{
             tech_1: {
                 title: "User endpoint devices",
@@ -648,7 +648,7 @@ export const controles = {
         }
     },
     "Controles Tecnológicos": {
-        color: tokens("dark").others[400],
+        color: tokens("dark").others[500],
         data:{
             tech_1: {
                 title: "Dispositivos de usuario final",

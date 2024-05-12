@@ -31,7 +31,8 @@ export const tokens = (mode) => ({
         100: "#de3e3e",
         200: "#6d5ee0",
         300: "#6ddbd7",
-        400: "#ffffff"
+        400: "#ffffff",
+        500: "#89CFF0"
       }
     } : {
       primary:{
@@ -60,7 +61,8 @@ export const tokens = (mode) => ({
         100: "#de3e3e",
         200: "#6d5ee0",
         300: "#6ddbd7",
-        400: "#ffffff"
+        400: "#ffffff",
+        500: "#89CFF0"
       }
   }),
 });

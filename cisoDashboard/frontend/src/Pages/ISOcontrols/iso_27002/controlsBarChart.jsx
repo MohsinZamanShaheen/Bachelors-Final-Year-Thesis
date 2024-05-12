@@ -57,7 +57,8 @@ const ControlsBarChart = ({ isDashboard = false}) => {
           },
           legend: {
             text: {
-              fill: colors.textColor[100]
+              fill: colors.textColor[100],
+              fontSize: 11,
             },
           },
           ticks: {
@@ -72,7 +73,7 @@ const ControlsBarChart = ({ isDashboard = false}) => {
         },
         legends: {
           text: {
-            fill: colors.textColor[100]
+            fill: colors.textColor[100],
           },
         },
         tooltip: {
@@ -141,14 +142,14 @@ const ControlsBarChart = ({ isDashboard = false}) => {
       }}
       legends={[
         {
-          dataFrom: "keys",
+          dataFrom: "indexes",
           anchor: "bottom-right",
           direction: "column",
           justify: false,
           translateX: 120,
           translateY: 0,
-          itemsSpacing: 2,
-          itemWidth: 100,
+          itemsSpacing: 3,
+          itemWidth: 120,
           itemHeight: 20,
           itemDirection: "left-to-right",
           itemOpacity: 0.85,
@@ -163,10 +164,6 @@ const ControlsBarChart = ({ isDashboard = false}) => {
           ],
         },
       ]}
-      role="application"
-      barAriaLabel={function (e) {
-        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
-      }}
     />
   );
 };

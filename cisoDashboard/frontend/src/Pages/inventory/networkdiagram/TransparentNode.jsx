@@ -35,7 +35,7 @@ export default memo(({ data }) => {
       <div className="inner">
         <CustomIcon customIcon={data.imageUrl} />
       </div>
-      {data.type == "firewall"  && (
+      {data.type === "firewall"  && (
         <>
           <Handle type="source" position={Position.Right} id='fa' />
           <Handle type="source" position={Position.Left} id='fb' />
@@ -44,7 +44,7 @@ export default memo(({ data }) => {
           <Handle type="target" position={Position.Bottom} id='fd'/>
         </>
       )}
-      {data.type=="switch" && (
+      {data.type==="switch" && (
         <>
         <Handle type="source" position={Position.Right} id='sa' />
           <Handle type="source" position={Position.Left} id='sb' />
@@ -53,43 +53,43 @@ export default memo(({ data }) => {
           <Handle type="target" position={Position.Bottom} id='se'/>
         </>
       )}
-      {data.type=="modem" && (
+      {data.type==="modem" && (
         <>
         <Handle type="target" position={Position.Right} />
         <Handle type="source" position={Position.Left} />
         </>
       )}
-       {data.type=="router" && (
+       {data.type==="router" && (
         <>
         <Handle type="source" position={Position.Right} />
         <Handle type="target" position={Position.Left} />
         </>
       )}
-      {data.type=="cloud" && (
+      {data.type==="cloud" && (
         <>
         <Handle type="source" position={Position.Right} />
         <Handle type="target" position={Position.Left} />
         </>
       )}
-      {data.type=="server" && (
+      {data.type==="server" && (
         <>
         <Handle type="source" position={Position.Right} />
         <Handle type="target" position={Position.Left} />
         </>
       )}
-      {data.type=="pc"&& (
+      {data.type==="pc"&& (
         <>
         <Handle type="target" position={Position.Top} />
         <Handle type="source" position={Position.Bottom} />
         </>
       )}
-      {data.type == "laptop" && (
+      {data.type === "laptop" && (
         <>
         <Handle type="target" position={Position.Top} />
         <Handle type="source" position={Position.Bottom} />
         </>
       )}
-      {data.type=="fax" && (
+      {data.type==="fax" && (
         <>
         <Handle type="target" position={Position.Top} />
         <Handle type="source" position={Position.Bottom} />
