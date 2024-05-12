@@ -24,7 +24,7 @@ import HomePage from "./Pages/Home/home";
 import { AuthContext } from "./Context/AuthContext";
 import Settings from "./Pages/Settings/settings";
 import OrganizationChartCustom from "./Pages/inventory/org_diagram";
-import SystemsDiagram from "./Pages/inventory/network_diagram";
+import OverviewFlow from "./Pages/inventory/networkdiagram/network_diagram";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -63,7 +63,7 @@ function App() {
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/org_diag" element={<OrganizationChartCustom />} />
-                    <Route path="/net_diag" element={<SystemsDiagram />} />
+                    <Route path="/net_diag" element={<OverviewFlow />} />
                   </Routes>
                 </main>
               </div>
