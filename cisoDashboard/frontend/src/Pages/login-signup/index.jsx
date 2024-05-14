@@ -1,6 +1,6 @@
 import { useState, useContext } from "react";
 import { tokens } from "../../theme";
-import { Typography, Box, Button, useTheme, TextField,} from "@mui/material";
+import { Typography, Box, Button, useTheme, TextField } from "@mui/material";
 import Link from "@mui/material/Link";
 import styled from "styled-components";
 import { AuthContext } from "../../Context/AuthContext";
@@ -75,7 +75,7 @@ function LoginComp() {
   const colors = tokens(theme.palette.mode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {handleLogin} = useContext(AuthContext);
+  const { handleLogin } = useContext(AuthContext);
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -112,7 +112,7 @@ function LoginComp() {
         minHeight: "400px",
         display: "flex",
         margin: "auto",
-        marginTop: "20px"
+        marginTop: "20px",
       }}
     >
       <Box
@@ -147,7 +147,7 @@ function LoginComp() {
             <InputField type="text" placeholder="Name" />
             <InputField type="email" placeholder="Email" />
             <InputField type="password" placeholder="Password" />
-            <ButtonComp value="Sign Up" backgroundColor="#ff4b2b" />
+            <ButtonComp value="Sign Up" backgroundColor={colors.buttonColor[200]} />
           </form>
         </Box>
       </Box>
@@ -166,7 +166,7 @@ function LoginComp() {
       >
         <Box
           sx={{
-            backgroundColor: colors.textColor[100],
+            backgroundColor: colors.primary[100],
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -203,7 +203,7 @@ function LoginComp() {
             </Link>
             <ButtonComp
               value="Sign In"
-              backgroundColor="#ff4b2b"
+              backgroundColor={colors.buttonColor[200]}
               onClick={handleSubmit}
             />
           </form>
@@ -245,7 +245,7 @@ function LoginComp() {
             }}
           >
             <Typography variant="h1" fontWeight="bold" sx={{ m: "0" }}>
-              Welcome Back!
+              Already have an account!
             </Typography>
             <Typography
               sx={{
@@ -256,7 +256,7 @@ function LoginComp() {
                 margin: "20px 0 30px",
               }}
             >
-              To keep connected with us please login with your personal info
+              Please Sign in with your personal info and access the dashboard
             </Typography>
             <ButtonComp
               backgroundColor="transparent"
@@ -274,7 +274,7 @@ function LoginComp() {
             }}
           >
             <Typography variant="h1" fontWeight="bold" sx={{ m: "0" }}>
-              Hello, Friend!
+              Not Registered yet!
             </Typography>
             <Typography
               sx={{
@@ -285,7 +285,7 @@ function LoginComp() {
                 margin: "20px 0 30px",
               }}
             >
-              Enter Your personal details and start journey with us
+              Sin up to register in a go and join your organization
             </Typography>
             <ButtonComp
               backgroundColor="transparent"

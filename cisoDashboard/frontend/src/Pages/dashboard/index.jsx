@@ -44,7 +44,7 @@ const Dashboard = () => {
                 backgroundColor:
                   theme.palette.mode == "dark"
                     ? colors.primary[100]
-                    : colors.textColor[100],
+                    : colors.primary[100],
               },
             }}
           >

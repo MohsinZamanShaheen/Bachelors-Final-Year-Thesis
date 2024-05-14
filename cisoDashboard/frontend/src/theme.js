@@ -17,7 +17,8 @@ export const tokens = (mode) => ({
         200: "#a9b2bb" // light grey
       },
       buttonColor:{
-        100: "#3c50e0" //  light blue
+        100: "#3c50e0", //  light blue
+        200: "#ff4b2b" // orange
       },
       elementBorders: {
         100: "#a9b2bb", // light grey
@@ -47,7 +48,8 @@ export const tokens = (mode) => ({
         300: "#ffffff" // white
       },
       buttonColor:{
-        100: "#3c50e0" //  light blue
+        100: "#3c50e0", //  light blue
+        200: "#ff4b2b" // orange
       },
       elementBorders: {
         100: "#a9b2bb", // light grey

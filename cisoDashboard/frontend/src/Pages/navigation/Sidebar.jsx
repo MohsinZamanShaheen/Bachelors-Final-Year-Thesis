@@ -20,8 +20,8 @@ import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
-import CloudQueueIcon from '@mui/icons-material/CloudQueue';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import CloudQueueIcon from "@mui/icons-material/CloudQueue";
+import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -212,6 +212,30 @@ const Sidebar = () => {
               color={colors.sameColors[200]}
               sx={{ m: "15px 0 5px 20px" }}
             >
+              Inventory
+            </Typography>
+
+            <Item
+              title="Organization Diagram"
+              to="/org_diag"
+              icon={<CorporateFareIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Item
+              title="Network Diagram"
+              to="/net_diag"
+              icon={<CloudQueueIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+
+            <Typography
+              variant="h6"
+              color={colors.sameColors[200]}
+              sx={{ m: "15px 0 5px 20px" }}
+            >
               Events
             </Typography>
 
@@ -240,39 +264,9 @@ const Sidebar = () => {
             />
 
             <Item
-              title="Profile"
-              to="/profile"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
               title="Settings"
               to="/settings"
               icon={<SettingsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Typography
-              variant="h6"
-              color={colors.sameColors[200]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Inventory
-            </Typography>
-
-            <Item
-              title="Organization Diagram"
-              to="/org_diag"
-              icon={<CorporateFareIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Item
-              title="Network Diagram"
-              to="/net_diag"
-              icon={<CloudQueueIcon />}
               selected={selected}
               setSelected={setSelected}
             />

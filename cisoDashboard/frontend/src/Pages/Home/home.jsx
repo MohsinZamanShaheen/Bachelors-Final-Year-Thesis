@@ -6,7 +6,9 @@ import {
   Button,
   useTheme,
   Box,
+  Container,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
 import LoginComp from "../login-signup";
 
@@ -22,42 +24,82 @@ const HomePage = () => {
   return (
     <Box
       sx={{
-        backgroundImage: `url("../../assets/backgroundImgHome.jpg")`,
+        backgroundImage: `url("../../assets/main_background.jpg")`, // Consider using a high-quality image or a gradient similar to image 1
         backgroundSize: "cover",
+        backgroundPosition: "center",
         height: "100vh",
+        color: colors.textColor[100],
       }}
     >
-      <AppBar position="static" sx={{ backgroundColor: colors.primary[100]}}>
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: "transparent", boxShadow: "none" }}
+      >
         <Toolbar>
-          <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            Home
-          </Typography>
-          <Button color="inherit" onClick={handleLoginClick}>
-            Login
-          </Button>
+          <Box
+            sx={{ flexGrow: 1, display: "flex", alignItems: "center", ml: 10 }}
+          >
+            <Link
+              to="/"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              <img
+                src="../../assets/homeLogo2.png"
+                alt="Company Logo"
+                style={{ height: 80, width: 120 }}
+              />
+            </Link>
+          </Box>
+          {/* <Link
+              to="/login"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                textDecoration: "none",
+                color: "inherit",
+              }}
+              > */}
+            <Button  
+            variant="contained"
+            onClick={handleLoginClick}
+            style={{ backgroundColor:colors.buttonColor[200] , color: 'white', height: '45px' }}>
+              Access Dashboard
+            </Button>
         </Toolbar>
       </AppBar>
-      <Box>
-        {!showLogin && (
-          <Box mt={30} textAlign="center">
-            <Typography variant="h1" color={colors.textColor[100][100]}>
-              CISO Dashboard{" "}
+      <Container maxWidth="lg" sx={{ pt: 8, pb: 6, textAlign: "center" }}>
+        {!showLogin ? (
+          <>
+            <Typography variant="h2" sx={{ fontWeight: "bold" }}>
+              Landing template for startups
             </Typography>
-            <Typography variant="h4" color={colors.textColor[100][600]} mt={3}>
-              This is a dashboard for the Chief Information Security Officer
-              (CISO) to manage the security of the organization.
+            <Typography variant="h5" sx={{ my: 3 }}>
+              Our landing page template works on all devices, so you only have
+              to set it up once, and get beautiful results forever.
             </Typography>
-          </Box>
+            <Box>
+              <Button variant="contained" sx={{ m: 1, backgroundColor:colors.buttonColor[200] , color: 'white' }}>
+                Github
+              </Button>
+              <Button variant="outlined" sx={{ m: 1 }}>
+                Learn more
+              </Button>
+            </Box>
+          </>
+        ) : (
+          <>
+          <Typography variant="h2" sx={{ fontWeight: "bold", mb:6 }}>
+              ACCESS YOUR FAVORITE DASHBOARD ON THE GO!
+            </Typography>
+          <LoginComp />
+          </>
         )}
-        {showLogin && (
-          <Box textAlign="center">
-            <Typography variant="h1" color={colors.textColor[100][500]} sx={{ mt: 20 }}>
-              Log In
-            </Typography>
-            <LoginComp/>
-          </Box>
-        )}
-      </Box>
+      </Container>
     </Box>
   );
 };

@@ -47,17 +47,17 @@ const Settings = () => {
               value={value}
               onChange={handleChange}
             >
-              <Tab sx={{minWidth: "100%"}}  label="General Profile" value={0} />
+              <Tab sx={{minWidth: "100%",fontWeight: "bold"}}  label="General Profile" value={0} />
               <Divider />
-              <Tab sx={{minWidth: "100%"}} label="Change password" value={1} />
+              <Tab sx={{minWidth: "100%",fontWeight: "bold"}} label="Change password" value={1} />
               <Divider />
-              <Tab sx={{minWidth: "100%"}} label="Users and Permissions"value={2}/>
+              <Tab sx={{minWidth: "100%",fontWeight: "bold"}} label="Users and Permissions"value={2}/>
               <Divider />
-              <Tab sx={{minWidth: "100%"}} label="Social links" value={3} />
+              <Tab sx={{minWidth: "100%",fontWeight: "bold"}} label="Social links" value={3} />
               <Divider />
-              <Tab sx={{minWidth: "100%"}} label="Connections" value={4} />
+              <Tab sx={{minWidth: "100%",fontWeight: "bold"}} label="Connections" value={4} />
               <Divider />
-              <Tab sx={{minWidth: "100%"}} label="Logs" value={5} />
+              <Tab sx={{minWidth: "100%",fontWeight: "bold"}} label="Logs" value={5} />
               <Divider />
             </Tabs>
           </Box>

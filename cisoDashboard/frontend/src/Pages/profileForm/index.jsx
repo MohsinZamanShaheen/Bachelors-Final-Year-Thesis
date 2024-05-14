@@ -1,20 +1,23 @@
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, useTheme } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../Components/global/Header";
+import { tokens } from "../../theme";
 
 const ProfileForm = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
 
   const handleFormSubmit = (values) => {
     console.log(values);
   };
 
   return (
+
     <Box m="20px">
       <Header title="CREATE USER" subtitle="Create a New User Profile" />
-
       <Formik
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
@@ -117,7 +120,23 @@ const ProfileForm = () => {
               />
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" color="secondary" variant="contained">
+              <Button type="submit" sx={{
+              backgroundColor:  theme.palette.mode == "dark"
+              ? colors.sameColors[200]
+              : colors.sameColors[100],
+              color: theme.palette.mode == "dark"
+              ? colors.sameColors[100]
+              : colors.sameColors[200],
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "10px 20px",
+              "&:hover": {
+                backgroundColor:
+                  theme.palette.mode == "dark"
+                    ? colors.sameColors[200]
+                    : colors.sameColors[100],
+              },
+              }}>
                 Create New User
               </Button>
             </Box>
