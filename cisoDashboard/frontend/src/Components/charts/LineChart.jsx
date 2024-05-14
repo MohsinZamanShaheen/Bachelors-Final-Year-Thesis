@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { mockLineData as data } from "../../data/mockData";
 
-const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
+const LineChart = ({ isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -97,7 +97,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
           itemHeight: 20,
           itemOpacity: 0.75,
           symbolSize: 12,
-          symbolShape: "circle",
+          symbolShape:"circle",
           symbolBorderColor: "rgba(0, 0, 0, .5)",
           effects: [
             {

@@ -505,19 +505,19 @@ export const mockPieData = [
 export const mockCanvaPieData = [
 {
   id: "haskell",
-  label: "65 Critical",
+  label: "Critical",
   value: 30,
   color: "hsl(359, 99%, 45%)"
 },
 {
   id: "sass",
-  label: "800 High",
+  label: "High",
   value: 80,
   color: "hsl(273, 70%, 50%)"
 },
 {
   id: "c",
-  label: "3400 Medium",
+  label: "Medium",
   value: 200,
   color: "hsl(27, 99%, 45%)"
 }
@@ -834,6 +834,14 @@ export const mockLineData = [
       { x: "December", y: 5000 },
     ],
   },
+];
+
+export const bubbleData = [
+  { id: 'NY',name: 'USA', value: 15, x: 270, y: 150 },
+  { id: 'LON',name: 'UK', value: 15, x: 430, y: 140 },
+  { id: 'BJS',name: 'China', value: 30, x: 600, y: 140 },
+  { id: 'MUM',name: 'India', value: 5, x: 570, y: 210 },
+  { id: 'RIO',name: 'Saudia', value: 25, x: 500, y: 200 }
 ];
 
 

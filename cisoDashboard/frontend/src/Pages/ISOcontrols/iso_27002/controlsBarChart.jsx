@@ -153,7 +153,7 @@ const ControlsBarChart = ({ isDashboard = false}) => {
           itemHeight: 20,
           itemDirection: "left-to-right",
           itemOpacity: 0.85,
-          symbolSize: 20,
+          symbolSize: 8,
           effects: [
             {
               on: "hover",

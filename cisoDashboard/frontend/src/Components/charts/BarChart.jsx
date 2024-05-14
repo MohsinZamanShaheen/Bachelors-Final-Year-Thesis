@@ -3,7 +3,7 @@ import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../../theme";
 import { mockBarData as data } from "../../data/mockData";
 
-const BarChart = ({ isDashboard = false }) => {
+const BarChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
@@ -81,7 +81,7 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Threats", // changed
+        legend: "Threats", // changed
         legendPosition: "middle",
         legendOffset: 32,
       }}
@@ -89,12 +89,12 @@ const BarChart = ({ isDashboard = false }) => {
         tickSize: 5,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Loss", // changed
+        legend: "Loss", // changed
         legendPosition: "middle",
         legendOffset: -40,
         format: value => `$${value}M`,
       }}
-      enableLabel={false}
+      enableLabel={true}
       labelSkipWidth={12}
       labelSkipHeight={12}
       labelTextColor={{
@@ -125,10 +125,6 @@ const BarChart = ({ isDashboard = false }) => {
           ],
         },
       ]}
-      role="application"
-      barAriaLabel={function (e) {
-        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
-      }}
     />
   );
 };

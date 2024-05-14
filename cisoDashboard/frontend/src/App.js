@@ -6,10 +6,6 @@ import TopNavbar from "./Pages/navigation/TopNavbar";
 import Sidebar from "./Pages/navigation/Sidebar";
 import Dashboard from "./Pages/dashboard";
 import Calendar from "./Pages/calender/calender";
-import Bar from "./Pages/bar";
-import Line from "./Pages/line";
-import Pie from "./Pages/pie";
-import Geography from "./Pages/geography";
 import ProfileForm from "./Pages/profileForm";
 import FAQ from "./Pages/faq";
 import Team from "./Pages/team";
@@ -51,10 +47,6 @@ function App() {
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/newprofile" element={<ProfileForm />} />
                     <Route path="/faq" element={<FAQ />} />
-                    <Route path="/bar" element={<Bar />} />
-                    <Route path="/pie" element={<Pie />} />
-                    <Route path="/line" element={<Line />} />
-                    <Route path="/geography" element={<Geography />} />
                     <Route path="/contacts" element={<Contacts />} />
                     <Route path="/invoices" element={<Invoices />} />
                     <Route path="/team" element={<Team />} />
