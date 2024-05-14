@@ -61,7 +61,7 @@ const Dashboard = () => {
        }}
       >
         {/* ROW 1 */}
-        {['New Threats', 'Remaining budget', 'Number of Clients', 'Traffic Received', 'Traffic Received'].map((item, index) => (
+        {['New Threats', 'Remaining budget', 'Number of Users', 'Traffic Received', 'Daily Threat Cost'].map((item, index) => (
           <Grid item xs={12} sm={6} md={2.3} key={index}
                 style={{
                   backgroundColor: colors.primary[100],
@@ -69,7 +69,7 @@ const Dashboard = () => {
                   display: 'flex',
                 }}>
             <NumericStat
-              title={["25", "$59,342.32", "32,441", "1,325,134","1,325,134"][index]}
+              title={["25", "$59,342.32", "32,441", "1,325,134","$371.87K"][index]}
               subtitle={item}
               progress={[0.26, 0.50, 0.30, 0.80, 0.80][index]}
               increase={["+14%", "50%", "+5%", "+43%","+43%"][index]}

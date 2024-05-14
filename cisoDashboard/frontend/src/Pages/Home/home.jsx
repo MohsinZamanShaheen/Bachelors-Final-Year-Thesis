@@ -76,11 +76,10 @@ const HomePage = () => {
         {!showLogin ? (
           <>
             <Typography variant="h2" sx={{ fontWeight: "bold" }}>
-              Landing template for startups
+                Central Command for Cybersecurity
             </Typography>
             <Typography variant="h5" sx={{ my: 3 }}>
-              Our landing page template works on all devices, so you only have
-              to set it up once, and get beautiful results forever.
+              Optimized for seamless integration across all platforms, our CISO dashboard ensures real-time monitoring, comprehensive control, and strategic security insights to protect your organization against evolving threats.
             </Typography>
             <Box>
               <Button variant="contained" sx={{ m: 1, backgroundColor:colors.buttonColor[200] , color: 'white' }}>
