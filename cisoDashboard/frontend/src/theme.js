@@ -14,7 +14,9 @@ export const tokens = (mode) => ({
       },
       textColor:{
         100: "#ffffff", // white
-        200: "#a9b2bb" // light grey
+        200: "#a9b2bb", // light grey
+        300: "#000000", // green
+        400: "#50C878" // green
       },
       buttonColor:{
         100: "#3c50e0", //  light blue
@@ -29,11 +31,14 @@ export const tokens = (mode) => ({
         200: "#ffffff"
       },
       others:{
-        100: "#de3e3e",
-        200: "#6d5ee0",
-        300: "#6ddbd7",
-        400: "#ffffff",
-        500: "#89CFF0"
+        100: "#de3e3e", // red shade
+        200: "#6d5ee0", // purple
+        300: "#6ddbd7", // cian
+        400: "#ffffff", // white
+        500: "#89CFF0", // light blue
+        600: "#000000", // black
+        700: "#50C878", // green
+        800: "#ff4b2b" // orange
       }
     } : {
       primary:{
@@ -45,7 +50,8 @@ export const tokens = (mode) => ({
       textColor:{
         100: "#000000", // black
         200: "#a9b2bb", // light grey
-        300: "#ffffff" // white
+        300: "#ffffff", // white
+        400: "#50C878" // green
       },
       buttonColor:{
         100: "#3c50e0", //  light blue
@@ -60,11 +66,14 @@ export const tokens = (mode) => ({
         200: "#ffffff"
       },
       others:{
-        100: "#de3e3e",
-        200: "#6d5ee0",
-        300: "#6ddbd7",
-        400: "#ffffff",
-        500: "#89CFF0"
+        100: "#de3e3e", // red shade
+        200: "#6d5ee0", // purple
+        300: "#6ddbd7", // cian
+        400: "#ffffff", // white
+        500: "#89CFF0", // light blue
+        600: "#000000", // black
+        700: "#50C878", // green
+        800: "#ff4b2b" // orange
       }
   }),
 });

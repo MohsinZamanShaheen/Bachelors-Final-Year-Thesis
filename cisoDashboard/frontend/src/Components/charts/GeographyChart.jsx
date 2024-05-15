@@ -9,7 +9,7 @@ const GeographyChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   return (
-    <div style={{ height: 500, position: 'relative' }}>
+    <div style={{ height: 332, position: 'relative', backgroundColor:"grey" }}>
       <ResponsiveChoropleth
         data={data}
         theme={{
@@ -55,8 +55,8 @@ const GeographyChart = () => {
         label="properties.name"
         valueFormat=".2s"
         enableGraticule={true}
-        projectionScale={100}
-        projectionTranslation={[0.5, 0.5]}
+        projectionScale={80}
+        projectionTranslation={[0.6, 0.5]}
         projectionRotation={[0, 0, 0]}
         colors="nivo"
         borderWidth={1.5}
@@ -67,7 +67,7 @@ const GeographyChart = () => {
             direction: "column",
             justify: true,
             translateX: 20,
-            translateY: -100,
+            translateY: -20,
             itemsSpacing: 0,
             itemWidth: 94,
             itemHeight: 18,

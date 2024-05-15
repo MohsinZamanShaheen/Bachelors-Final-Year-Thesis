@@ -1,15 +1,13 @@
 import { ResponsivePieCanvas } from "@nivo/pie";
-import { mockCanvaPieData as data } from "../../data/mockData";
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
 
-const PieStat = () => {
+const PieStat = ({dataInfo}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
   return (
     <ResponsivePieCanvas
-      data={data}
+      data={dataInfo}
       theme={{
         legends: {
           text: {
@@ -26,7 +24,7 @@ const PieStat = () => {
           },
         },
       }}
-      colors={data.map((d) => d.color)}
+      colors={dataInfo.map((d) => d.color)}
       margin={{ top: 40, right: 200, bottom: 40, left: 80 }}
       innerRadius={0.75}
       padAngle={0.7}

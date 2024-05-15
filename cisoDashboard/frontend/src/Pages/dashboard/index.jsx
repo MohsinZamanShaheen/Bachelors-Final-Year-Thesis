@@ -1,8 +1,15 @@
-import { Box, Button, IconButton, Typography, useTheme,Grid } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Typography,
+  useTheme,
+  Grid,
+  Link,
+} from "@mui/material";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
 import VpnLockOutlinedIcon from "@mui/icons-material/VpnLockOutlined";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -12,11 +19,34 @@ import LineChart from "../../Components/charts/LineChart";
 import GeographyChart from "../../Components/charts/GeographyChart";
 import BarChart from "../../Components/charts/BarChart";
 import NumericStat from "../../Components/stats/NumericStat";
+import MajorInsights from "../../Components/stats/MajorInsights";
 import ProgressCircle from "../../Components/stats/ProgressCircle";
 import PieStat from "../../Components/stats/pieStat";
 import ControlsBarChart from "../ISOcontrols/iso_27002/controlsBarChart";
-import { CheckedRowsContext } from "../../Context/CheckedRowContext";
 import HomeIcon from "@mui/icons-material/Home";
+import MyGaugeChart from "../../Components/charts/GaugeChart";
+import MTTRChart from "../../Components/charts/MTTRChart";
+import { mockCanvaPieData as dataPie } from "../../data/mockData";
+
+const insightsData = [
+  { value: 616, description: "Alerts can..." },
+  { value: 287, description: "Assets with critical vulnerabilities" },
+  {
+    value: 141,
+    description: "Internet facing assets with critical vulnerabilities",
+  },
+  { value: 287, description: "Assets with critical vulnerabilities" },
+  {
+    value: 141,
+    description: "Internet facing assets with critical vulnerabilities",
+  },
+];
+
+const attackPathsData = [
+  { value: 1280, description: "Data: Data exposure" },
+  { value: 288, description: "Access: Broad..." },
+  { value: 195, description: "Access: Host compromise" },
+];
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -29,63 +59,185 @@ const Dashboard = () => {
         <Header
           title="DASHBOARD"
           subtitle="Welcome to your dashboard"
-          items={[
-            { label: "Home", href: "/", icon: HomeIcon }
-          ]}
+          items={[{ label: "Home", href: "/", icon: HomeIcon }]}
         />
-          <Button
-            sx={{
-              backgroundColor: colors.buttonColor[100],
-              color: "white",
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-              "&:hover": {
-                backgroundColor:
-                  theme.palette.mode == "dark"
-                    ? colors.primary[100]
-                    : colors.primary[100],
-              },
-            }}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
+        <Button
+          sx={{
+            backgroundColor: colors.buttonColor[100],
+            color: "white",
+            fontSize: "14px",
+            fontWeight: "bold",
+            padding: "10px 20px",
+            "&:hover": {
+              backgroundColor:
+                theme.palette.mode == "dark"
+                  ? colors.primary[100]
+                  : colors.primary[100],
+            },
+          }}
+        >
+          <DownloadOutlinedIcon sx={{ mr: "10px" }} />
+          Download Reports
+        </Button>
       </Grid>
 
       {/* GRID & CHARTS */}
-      <Grid container
-       style={{
-        display:"flex",
-        justifyContent: "space-evenly",
-       }}
+      <Grid
+        container
+        style={{
+          display: "flex",
+          justifyContent: "space-evenly",
+        }}
       >
         {/* ROW 1 */}
-        {['New Threats', 'Remaining budget', 'Number of Users', 'Traffic Received', 'Daily Threat Cost'].map((item, index) => (
-          <Grid item xs={12} sm={6} md={2.3} key={index}
-                style={{
-                  backgroundColor: colors.primary[100],
-                  border: `1px solid ${colors.elementBorders[100]}`,
-                  display: 'flex',
-                }}>
+        {[
+          "New Threats",
+          "Remaining budget",
+          "Number of Users",
+          "Traffic Received",
+          "Daily Threat Cost",
+        ].map((item, index) => (
+          <Grid
+            item
+            xs={12}
+            sm={6}
+            md={2.3}
+            key={index}
+            style={{
+              backgroundColor: colors.primary[100],
+              border: `1px solid ${colors.elementBorders[100]}`,
+              display: "flex",
+            }}
+          >
             <NumericStat
-              title={["25", "$59,342.32", "32,441", "1,325,134","$371.87K"][index]}
+              title={
+                ["25", "$59,342.32", "32,441", "1,325,134", "$371.87K"][index]
+              }
               subtitle={item}
-              progress={[0.26, 0.50, 0.30, 0.80, 0.80][index]}
-              increase={["+14%", "50%", "+5%", "+43%","+43%"][index]}
-              icon={[
-                <VpnLockOutlinedIcon sx={{ color: colors.textColor[100], fontSize: "26px" }} />,
-                <PointOfSaleIcon sx={{ color: colors.textColor[100], fontSize: "26px" }} />,
-                <PersonAddIcon sx={{ color: colors.textColor[100], fontSize: "26px" }} />,
-                <TrafficIcon sx={{ color: colors.textColor[100], fontSize: "26px" }} />,
-                <TrafficIcon sx={{ color: colors.textColor[100], fontSize: "26px" }} />
-              ][index]}
+              progress={[0.26, 0.5, 0.1, 0.8, 0.29][index]}
+              increase={["+14%", "50%", "+10%", "+73%", "+29%"][index]}
+              icon={
+                [
+                  <VpnLockOutlinedIcon
+                    sx={{ color: colors.textColor[100], fontSize: "26px" }}
+                  />,
+                  <PointOfSaleIcon
+                    sx={{ color: colors.textColor[100], fontSize: "26px" }}
+                  />,
+                  <PersonAddIcon
+                    sx={{ color: colors.textColor[100], fontSize: "26px" }}
+                  />,
+                  <TrafficIcon
+                    sx={{ color: colors.textColor[100], fontSize: "26px" }}
+                  />,
+                  <TrafficIcon
+                    sx={{ color: colors.textColor[100], fontSize: "26px" }}
+                  />,
+                ][index]
+              }
             />
-            </Grid>
+          </Grid>
         ))}
 
         {/* ROW 2 */}
-        <Grid item xs={12} md={8} mt={2}
+
+        
+        <Grid
+          item
+          xs={12}
+          md={3.9}
+          mt={2}
+          height="fit-content"
+          backgroundColor={colors.primary[100]}
+          border={`1px solid  ${colors.elementBorders[100]}`}
+        >
+          <Box>
+            <MTTRChart/>
+          </Box>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          md={3.9}
+          mt={2}
+          backgroundColor={colors.primary[100]}
+          border={`1px solid  ${colors.elementBorders[100]}`}
+        >
+          <Box>
+            <MyGaugeChart/>
+          </Box>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          md={3.9}
+          mt={2}
+          backgroundColor={colors.primary[100]}
+          border={`1px solid ${colors.elementBorders[100]}`}
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+            borderBottom={`4px solid ${colors.primary[100]}`}
+            colors={colors.textColor[100]}
+            p="15px"
+          >
+            <Typography
+              color={colors.textColor[100]}
+              variant="h5"
+              fontWeight="600"
+            >
+              Recent Transactions
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              maxHeight: 600,
+              overflowY: "auto",
+            }}
+          >
+            {mockTransactions.map((transaction, i) => (
+              <Box
+                key={`${transaction.txId}-${i}`}
+                display="flex"
+                justifyContent="space-between"
+                alignItems="center"
+                borderBottom={`4px solid ${colors.textColor[100]}`}
+                p="15px"
+              >
+                <Box>
+                  <Typography
+                    color={colors.primary[100]}
+                    variant="h5"
+                    fontWeight="600"
+                  >
+                    {transaction.txId}
+                  </Typography>
+                  <Typography color={colors.textColor[100]}>
+                    {transaction.user}
+                  </Typography>
+                </Box>
+                <Box color={colors.textColor[100]}>{transaction.date}</Box>
+                <Box
+                  backgroundColor={colors.primary[100]}
+                  p="5px 10px"
+                  borderRadius="4px"
+                >
+                  ${transaction.cost}
+                </Box>
+              </Box>
+            ))}
+          </Box>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          md={7.9}
+          mt={2}
           backgroundColor={colors.primary[100]}
           border={`1px solid  ${colors.elementBorders[100]}`}
         >
@@ -102,7 +254,7 @@ const Dashboard = () => {
                 fontWeight="600"
                 color={colors.textColor[100]}
               >
-                Total Costs
+                Total Costs (last year data)
               </Typography>
               <Typography
                 variant="h3"
@@ -129,11 +281,17 @@ const Dashboard = () => {
               </IconButton>
             </Box>
           </Box>
-          <Box height="250px" m="-20px 30px 0 0">
-            <LineChart isDashboard={true} />
+          <Box height="300px" m="-20px 30px 0 0">
+            <LineChart />
           </Box>
         </Grid>
-        <Grid item xs={12} md={3.8} mt={2}
+
+
+        <Grid
+          item
+          xs={12}
+          md={3.9}
+          mt={2}
           backgroundColor={colors.primary[100]}
           border={`1px solid  ${colors.elementBorders[100]}`}
         >
@@ -142,42 +300,108 @@ const Dashboard = () => {
             fontWeight="600"
             sx={{ padding: "30px 30px 0 30px" }}
           >
-            Alerts
+            Return on Investment of IT department
+          </Typography>
+          <Box
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            mt="25px"
+          >
+            <Box height="210px">
+              <ProgressCircle
+                progress="0.80"
+                size="200"
+                text="153,26% (+1.8%)"
+              />
+            </Box>
+            <Typography
+              variant="h5"
+              color={colors.textColor[100]}
+              sx={{ mt: "15px" }}
+            >
+              $1,488,352 revenue generated
+            </Typography>
+            <Typography sx={{ mb: "15px" }}>
+              Includes extra misc expenditures and costs
+            </Typography>
+          </Box>
+        </Grid>
+
+        <Grid
+          item
+          xs={12}
+          md={3.9}
+          mt={2}
+          backgroundColor={colors.primary[100]}
+          border={`1px solid  ${colors.elementBorders[100]}`}
+        >
+          <Box
+            display="flex"
+            justifyContent="space-between"
+            alignItems="end"
+            pr={2}
+          >
+            <Typography
+              variant="h3"
+              fontWeight="600"
+              sx={{ padding: "30px 30px 0 30px" }}
+            >
+              Alerts
+            </Typography>
+            <Link href="#" variant="body2">
+              See All
+            </Link>
+          </Box>
+          <Typography
+            variant="h5"
+            fontWeight="150"
+            sx={{ padding: "0 0 0 30px", color: colors.elementBorders[100] }}
+          >
+            By Severity
           </Typography>
           <Box height="250px" mt="-10px">
-            <PieStat />
+            <PieStat dataInfo={dataPie}/>
+          </Box>
+        </Grid>
+
+        
+
+        <Grid
+          item
+          xs={12}
+          md={3.9}
+          mt={2}
+          backgroundColor={colors.primary[100]}
+          border={`1px solid  ${colors.elementBorders[100]}`}
+        >
+          <Box sx={{ p: 2 }}>
+            <MajorInsights insights={insightsData} isInsights={true} />
           </Box>
         </Grid>
 
         {/* ROW 3 */}
-        {/* <Box
-              gridColumn="span 4"
-              gridRow="span 2"
-              backgroundColor={colors.primary[400]}
-              p="30px"
-            >
-              <Typography variant="h5" fontWeight="600">
-                Campaign
-              </Typography>
-              <Box
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                mt="25px"
-              >
-                <ProgressCircle size="125" />
-                <Typography
-                  variant="h5"
-                  color={colors.greenAccent[500]}
-                  sx={{ mt: "15px" }}
-                >
-                  $48,352 revenue generated
-                </Typography>
-                <Typography>Includes extra misc expenditures and costs</Typography>
-              </Box>
-            </Box> */}
-        <Grid item xs={12} md={5.9} mt={2}
-          sx={{ height: 'fit-content' }}
+
+        <Grid
+          item
+          xs={12}
+          md={3.9}
+          mt={2}
+          backgroundColor={colors.primary[100]}
+          border={`1px solid  ${colors.elementBorders[100]}`}
+        >
+          <Box sx={{ p: 2, backgroundColor: colors.primary[100] }}>
+            <MajorInsights insights={attackPathsData} isInsights={false} />
+          </Box>
+        </Grid>
+
+        {/* ROW 4 */}
+        <Grid
+          item
+          xs={12}
+          md={5.9}
+          mt={2}
+          sx={{ height: "fit-content" }}
           backgroundColor={colors.primary[100]}
           border={`1px solid  ${colors.elementBorders[100]}`}
         >
@@ -192,8 +416,12 @@ const Dashboard = () => {
             <ControlsBarChart isDashboard={true} />
           </Box>
         </Grid>
-        <Grid item xs={12} md={5.9} mt={2}
-          sx={{ height: 'fit-content' }}
+        <Grid
+          item
+          xs={12}
+          md={5.9}
+          mt={2}
+          sx={{ height: "fit-content" }}
           backgroundColor={colors.primary[100]}
           border={`1px solid  ${colors.elementBorders[100]}`}
         >
@@ -208,60 +436,14 @@ const Dashboard = () => {
             <BarChart />
           </Box>
         </Grid>
-        <Grid item xs={12} md={4} mt={2}
-          backgroundColor={colors.primary[100]}
-          border={`1px solid  ${colors.elementBorders[100]}`}
-        >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            borderBottom={`4px solid ${colors.primary[100]}`}
-            colors={colors.textColor[100]}
-            p="15px"
-          >
-            <Typography
-              color={colors.textColor[100]}
-              variant="h5"
-              fontWeight="600"
-            >
-              Recent Transactions
-            </Typography>
-          </Box>
-          {mockTransactions.map((transaction, i) => (
-            <Box
-              key={`${transaction.txId}-${i}`}
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-              borderBottom={`4px solid ${colors.textColor[100]}`}
-              p="15px"
-            >
-              <Box>
-                <Typography
-                  color={colors.primary[100]}
-                  variant="h5"
-                  fontWeight="600"
-                >
-                  {transaction.txId}
-                </Typography>
-                <Typography color={colors.textColor[100]}>
-                  {transaction.user}
-                </Typography>
-              </Box>
-              <Box color={colors.textColor[100]}>{transaction.date}</Box>
-              <Box
-                backgroundColor={colors.primary[100]}
-                p="5px 10px"
-                borderRadius="4px"
-              >
-                ${transaction.cost}
-              </Box>
-            </Box>
-          ))}
-        </Grid>
-        <Grid item xs={12} md={5} mt={2}
-          sx={{ height: 'fit-content' }}
+
+        {/* ROW 5 */}
+        <Grid
+          item
+          xs={12}
+          md={5}
+          mt={2}
+          sx={{ height: "fit-content" }}
           backgroundColor={colors.primary[100]}
           padding="30px"
           border={`1px solid  ${colors.elementBorders[100]}`}
@@ -274,7 +456,7 @@ const Dashboard = () => {
             Vulnerability Map
           </Typography>
           <Box>
-            <GeographyChart/>
+            <GeographyChart />
           </Box>
         </Grid>
       </Grid>

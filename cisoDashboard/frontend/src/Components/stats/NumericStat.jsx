@@ -21,7 +21,7 @@ const NumericStat = ({ title, subtitle, icon, progress, increase }) => {
           <ProgressCircle progress={progress} />
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="h5" color={colors.textColor[200]}>
+          <Typography variant="h5"  color={colors.textColor[200]}>
             {subtitle}
           </Typography>
         </Grid>

@@ -3,7 +3,7 @@ import { useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { mockLineData as data } from "../../data/mockData";
 
-const LineChart = ({ isDashboard = false }) => {
+const LineChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -43,7 +43,8 @@ const LineChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
+      //colors={isDashboard ? { datum: "color" } : { scheme: "nivo" }} // added
+      colors={{ scheme: "nivo" }}
       margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
       xScale={{ type: "point" }}
       yScale={{
@@ -60,9 +61,9 @@ const LineChart = ({ isDashboard = false }) => {
       axisBottom={{
         orient: "bottom",
         tickSize: 0,
-        tickPadding: 5,
+        tickPadding: 7,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "transportation", // added
+        legend: "timeline", // added
         legendOffset: 36,
         legendPosition: "middle",
       }}
@@ -72,8 +73,8 @@ const LineChart = ({ isDashboard = false }) => {
         tickSize: 3,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "count", // added
-        legendOffset: -40,
+        legend: "costs", // added
+        legendOffset: -50,
         legendPosition: "middle",
       }}
       enableGridX={false}

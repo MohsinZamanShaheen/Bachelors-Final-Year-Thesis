@@ -26,7 +26,7 @@ const transformData = (controls) => {
 
   // Add total checked controls bar to the data array
   data.push({
-    category: 'Total Checked Controls',
+    category: 'Total Checked',
     checked: (totalChecked / 93) * 100, // Replace 93 with the actual total number of controls if it's dynamic
     color: 'red', 
   });
@@ -37,7 +37,7 @@ const transformData = (controls) => {
 
 
 
-const ControlsBarChart = ({ isDashboard = false}) => {
+const ControlsBarChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const data = transformData(controls);
