@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
@@ -21,10 +21,16 @@ import { AuthContext } from "./Context/AuthContext";
 import Settings from "./Pages/Settings/settings";
 import OrganizationChartCustom from "./Pages/inventory/org_diagram";
 import OverviewFlow from "./Pages/inventory/networkdiagram/network_diagram";
+import AlertTable from "./Pages/Alerts";
 
 function App() {
   const [theme, colorMode] = useMode();
   const { isLoggedIn } = useContext(AuthContext);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -38,12 +44,11 @@ function App() {
               </Routes>
             ) : (
               <div className="app">
-                <Sidebar />
+                <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
                 <main className="content">
-                  <TopNavbar />
+                  <TopNavbar handleDrawerToggle={handleDrawerToggle} />
                   <Routes>
                     <Route path="/" element={<Dashboard />} />
-                    {/* <Route path="/dashboard2" element={<Dashboard2 />} /> */}
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/newprofile" element={<ProfileForm />} />
                     <Route path="/faq" element={<FAQ />} />
@@ -56,6 +61,7 @@ function App() {
                     <Route path="/settings" element={<Settings />} />
                     <Route path="/org_diag" element={<OrganizationChartCustom />} />
                     <Route path="/net_diag" element={<OverviewFlow />} />
+                    <Route path="/detailedAlerts" element={<AlertTable />} />
                   </Routes>
                 </main>
               </div>

@@ -1,294 +1,267 @@
-import { useState } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { useState, useEffect } from "react";
+import {
+  Box,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Toolbar,
+  useTheme,
+  Divider,
+  Typography,
+  Avatar,
+  useMediaQuery,
+} from "@mui/material";
 import { Link } from "react-router-dom";
-import "react-pro-sidebar/dist/css/styles.css";
-import { tokens } from "../../theme";
+import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
 import ChecklistOutlinedIcon from "@mui/icons-material/ChecklistOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import CloudQueueIcon from "@mui/icons-material/CloudQueue";
-import FormatListNumberedIcon from "@mui/icons-material/FormatListNumbered";
+import { tokens } from "../../theme";
 
-const Item = ({ title, to, icon, selected, setSelected }) => {
+const drawerWidth = 240;
+
+const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  return (
-    <MenuItem
-      active={selected === title}
+  const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
+  const [selected, setSelected] = useState("Dashboard");
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  useEffect(() => {
+    // Reset the collapsed state when screen size changes
+    if (!isMdUp) {
+      setIsCollapsed(false);
+    }
+  }, [isMdUp]);
+
+  const Item = ({ title, to, icon }) => (
+    <ListItem
+      button
+      component={Link}
+      to={to}
+      selected={selected === title}
+      onClick={() => setSelected(title)}
       style={{
         color: colors.sameColors[200],
+        padding: "8px 20px",
       }}
-      onClick={() => setSelected(title)}
-      icon={icon}
     >
-      <Typography>{title}</Typography>
-      <Link to={to} />
-    </MenuItem>
+      <ListItemIcon
+        style={{
+          color: colors.sameColors[200],
+          minWidth: "40px",
+        }}
+      >
+        {icon}
+      </ListItemIcon>
+      <ListItemText primary={title} />
+    </ListItem>
   );
-};
 
-const Sidebar = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [selected, setSelected] = useState("Dashboard");
-  const [open, setOpen] = useState(false);
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  return (
-    <Box
-      sx={{
-        position: "sticky",
-        top: 0,
-        height: "100%",
-        overflowY: "auto",
-        borderRight: `3px solid  ${colors.elementBorders[100]}`,
-        "& .pro-sidebar-inner": {
-          background: `${colors.sameColors[100]}`,
-        },
-        "& .pro-icon-wrapper": {
-          backgroundColor: "transparent !important",
-        },
-        "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
-        },
-        "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
-        },
-        "& .pro-menu-item.active": {
-          color: "#6870fa !important",
-        },
-      }}
-    >
-      <ProSidebar collapsed={isCollapsed}>
-        <Menu iconShape="square">
-          {/* ONLY MENU ICON IF COLLAPSED */}
-          <MenuItem
+  const drawer = (
+    <div>
+      <Toolbar>
+        {isMdUp ? (
+          <IconButton
             onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
+            edge="start"
             style={{
-              margin: "10px 0 20px 0",
               color: colors.sameColors[200],
             }}
           >
-            {/* LOGO AND MENU ICON IF NOT COLLAPSED */}
-            {!isCollapsed && (
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                ml="15px"
-              >
-                <Typography variant="h3" color={colors.sameColors[200]}>
-                  ADMIN
-                </Typography>
-                <IconButton
-                  style={{ color: colors.sameColors[200] }}
-                  onClick={() => setIsCollapsed(!isCollapsed)}
-                >
-                  <MenuOutlinedIcon />
-                </IconButton>
-              </Box>
-            )}
-          </MenuItem>
+            <MenuOutlinedIcon />
+          </IconButton>
+        ) : (
+          <IconButton onClick={handleDrawerToggle} edge="start">
+            <MenuOutlinedIcon />
+          </IconButton>
+        )}
+      </Toolbar>
 
-          {!isCollapsed && (
-            <Box mb="25px">
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <img
-                  alt="profile-user"
-                  width="100px"
-                  height="100px"
-                  src={`../../assets/tst.jpg`}
-                  style={{ cursor: "pointer", borderRadius: "50%" }}
-                />
-              </Box>
-              <Box textAlign="center">
-                <Typography
-                  variant="h2"
-                  color={colors.sameColors[200]}
-                  fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
-                >
-                  Mohsin
-                </Typography>
-                <Typography variant="h5" color={colors.sameColors[200]}>
-                  Ciso
-                </Typography>
-              </Box>
-            </Box>
-          )}
+      {!isCollapsed && (
+        <Box mb="25px" mt="15px" sx={{ textAlign: "center" }}>
+          <Avatar
+            alt="profile-user"
+            src={`../../assets/tst.jpg`}
+            sx={{ width: 100, height: 100, margin: "0 auto" }}
+          />
+          <Typography
+            variant="h2"
+            color={colors.sameColors[200]}
+            fontWeight="bold"
+            sx={{ m: "10px 0 0 0" }}
+          >
+            Mohsin
+          </Typography>
+          <Typography variant="h5" color={colors.sameColors[200]}>
+            Ciso
+          </Typography>
+        </Box>
+      )}
+      <List>
+        <Item title="Dashboard" to="/" icon={<HomeOutlinedIcon />} /> 
+        {!isCollapsed && (
+          <Typography
+            variant="h6"
+            color={colors.sameColors[200]}
+            sx={{ mt: "15px", mb: "5px", ml: "16px" }}
+          >
+            Data
+          </Typography>
+        )}
+        <Item title="Manage Team" to="/team" icon={<PeopleOutlinedIcon />} />
+        <Item
+          title="Contacts Information"
+          to="/contacts"
+          icon={<ContactsOutlinedIcon />}
+        />
+        <Item
+          title="Invoices Balances"
+          to="/invoices"
+          icon={<ReceiptOutlinedIcon />}
+        /> 
+        {!isCollapsed && (
+          <Typography
+            variant="h6"
+            color={colors.sameColors[200]}
+            sx={{ mt: "15px", mb: "5px", ml: "16px" }}
+          >
+            ISO
+          </Typography>
+        )}
+        <Item
+          title="ISO 2701"
+          to="/iso2701"
+          icon={<FormatListNumberedIcon />}
+        />
+        <Item
+          title="ISO 27002"
+          to="/iso27002"
+          icon={<ChecklistOutlinedIcon />}
+        /> 
+        {!isCollapsed && (
+          <Typography
+            variant="h6"
+            color={colors.sameColors[200]}
+            sx={{ mt: "15px", mb: "5px", ml: "16px" }}
+          >
+            Alerts
+          </Typography>
+        )}
+        <Item
+          title="Alerts"
+          to="/detailedAlerts"
+          icon={<FormatListNumberedIcon />}
+        /> 
+        {!isCollapsed && (
+          <Typography
+            variant="h6"
+            color={colors.sameColors[200]}
+            sx={{ mt: "15px", mb: "5px", ml: "16px" }}
+          >
+            Inventory
+          </Typography>
+        )}
+        <Item
+          title="Organization Diagram"
+          to="/org_diag"
+          icon={<CorporateFareIcon />}
+        />
+        <Item
+          title="Network Diagram"
+          to="/net_diag"
+          icon={<CloudQueueIcon />}
+        /> 
+        {!isCollapsed && (
+          <Typography
+            variant="h6"
+            color={colors.sameColors[200]}
+            sx={{ mt: "15px", mb: "5px", ml: "16px" }}
+          >
+            Events
+          </Typography>
+        )}
+        <Item
+          title="Calendar"
+          to="/calendar"
+          icon={<CalendarTodayOutlinedIcon />}
+        />
+        {!isCollapsed && (
+          <Typography
+            variant="h6"
+            color={colors.sameColors[200]}
+            sx={{ mt: "15px", mb: "5px", ml: "16px" }}
+          >
+            Users
+          </Typography>
+        )}
+        <Item title="Profile Form" to="/newprofile" icon={<GroupAddIcon />} />
+        <Item title="Settings" to="/settings" icon={<SettingsOutlinedIcon />} /> 
+        {!isCollapsed && (
+          <Typography
+            variant="h6"
+            color={colors.sameColors[200]}
+            sx={{ mt: "15px", mb: "5px", ml: "16px" }}
+          >
+            Help
+          </Typography>
+        )}
+        <Item title="FAQ Page" to="/faq" icon={<HelpOutlineOutlinedIcon />} />
+      </List>
+    </div>
+  );
 
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
-            {/* The ITEM COMPONENT CREATED ABOVE*/}
-            <Item
-              title="Dashboard"
-              to="/"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            {/* <Item
-                title="Dashboard 2"
-                to="/dashboard2"
-                icon={<HomeOutlinedIcon />}
-                selected={selected}
-                setSelected={setSelected}
-              /> */}
-
-            <Typography
-              variant="h6"
-              color={colors.sameColors[200]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Data
-            </Typography>
-            <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Contacts Information"
-              to="/contacts"
-              icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Invoices Balances"
-              to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.sameColors[200]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              ISO
-            </Typography>
-
-            <Item
-              title="ISO 2701"
-              to="/iso2701"
-              icon={<FormatListNumberedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Item
-              title="ISO 27002"
-              to="/iso27002"
-              icon={<ChecklistOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.sameColors[200]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Inventory
-            </Typography>
-
-            <Item
-              title="Organization Diagram"
-              to="/org_diag"
-              icon={<CorporateFareIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Item
-              title="Network Diagram"
-              to="/net_diag"
-              icon={<CloudQueueIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.sameColors[200]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Events
-            </Typography>
-
-            <Item
-              title="Calendar"
-              to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.sameColors[200]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Users
-            </Typography>
-
-            <Item
-              title="Profile Form"
-              to="/newprofile"
-              icon={<GroupAddIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Item
-              title="Settings"
-              to="/settings"
-              icon={<SettingsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-
-            <Typography
-              variant="h6"
-              color={colors.sameColors[200]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Help
-            </Typography>
-
-            <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-          </Box>
-        </Menu>
-      </ProSidebar>
+  return (
+    <Box
+      component="nav"
+      sx={{
+        width: { md: isCollapsed ? 60 : drawerWidth },
+        flexShrink: { md: 0 },
+        backgroundColor: colors.sameColors[100]
+      }}
+      aria-label="mailbox folders"
+    >
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{ keepMounted: true }} // Better open performance on mobile.
+        sx={{
+          display: { xs: "block", md: "none" },
+          "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth,  backgroundColor: colors.sameColors[100] },
+        }}
+      >
+        {drawer}
+      </Drawer>
+      <Drawer
+        variant="permanent"
+        sx={{
+          display: { xs: "none", md: "block" },
+          "& .MuiDrawer-paper": {
+            boxSizing: "border-box",
+            width: isCollapsed ? 60 : drawerWidth,
+            overflowX: "hidden",
+            overflowY: "auto",
+            transition: "width 0.3s",
+            backgroundColor: colors.sameColors[100],
+          },
+        }}
+        open
+      >
+        {drawer}
+      </Drawer>
     </Box>
   );
 };

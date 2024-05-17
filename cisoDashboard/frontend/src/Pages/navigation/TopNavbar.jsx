@@ -6,6 +6,12 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  Toolbar,
+  AppBar,
+  Hidden,
+  Select,
+  Typography,
+  Avatar,
 } from "@mui/material";
 import { useContext, useState } from "react";
 import { ColorModeContext, tokens } from "../../theme";
@@ -13,13 +19,13 @@ import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { AuthContext } from "../../Context/AuthContext";
-import Select from "@mui/material/Select";
-import DescriptionAlerts from "../notifications";
 import { useNavigate } from "react-router-dom";
+import DescriptionAlerts from "../notifications";
 
-const TopNavbar = () => {
+const TopNavbar = ({ handleDrawerToggle }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const { handleLogout } = useContext(AuthContext);
   const [unit, setUnit] = useState("");
@@ -51,55 +57,90 @@ const TopNavbar = () => {
   const colorMode = useContext(ColorModeContext);
 
   return (
-    <Box
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      paddingLeft={"10px"}
-    >
-      {/* SELECT UNIT */}
-      <Box sx={{ minWidth: 200}}>
-        <FormControl fullWidth variant="filled">
-          <InputLabel id="demo-simple-select-label">Select Unit</InputLabel>
-          <Select color="primary"
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={unit}
-            label="Select Unit"
-            onChange={handleChange}
+    <AppBar position="sticky" sx={{ backgroundColor: theme.palette.mode == "dark" ? colors.primary[100] : "#f1f5f9", }}>
+      <Toolbar sx={{ backgroundColor: theme.palette.mode == "dark" ? colors.primary[100] : "#f1f5f9", }}>
+        <Hidden mdUp>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            style={{
+              color: colors.textColor[100],
+            }}
           >
-            <MenuItem value={10}>Unit Rehab</MenuItem>
-            <MenuItem value={20}>Unit 2</MenuItem>
-            <MenuItem value={30}>BCN-Check</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-      <Box display="flex" justifyContent="space-between" p={2}>
-        {/* SEARCH BAR */}
-        <Box
-          display="flex"
-          backgroundColor={colors.primary[100]}
-          borderRadius="3px"
-          border={`1px solid  ${colors.elementBorders[100]}`}
-        >
-          <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
-          <IconButton type="button" sx={{ p: 1 }}>
-            <SearchIcon />
+            <MenuIcon />
           </IconButton>
-        </Box>
-
-        {/* ICONS TO OTHER PAGES */}
-        <Box display="flex" ml={2}>
-          <IconButton onClick={colorMode.toggleColorMode}>
+          <FormControl
+            variant="filled"
+            sx={{ minWidth: 180, ml: 2 }}
+          >
+            <InputLabel id="demo-simple-select-label">Select Unit</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={unit}
+              label="Select Unit"
+              onChange={handleChange}
+            >
+              <MenuItem value={10}>Unit Rehab</MenuItem>
+              <MenuItem value={20}>Unit 2</MenuItem>
+              <MenuItem value={30}>BCN-Check</MenuItem>
+            </Select>
+          </FormControl>
+        </Hidden>
+        <Hidden mdDown>
+          <Box display="flex" alignItems="center" mr={2}>
+            <img
+              src="../../assets/homeLogo2.png"
+              alt="Logo"
+              style={{ height: "70px"}}
+            />
+            <FormControl
+              variant="filled"
+              sx={{ minWidth: 200 }}
+            >
+              <InputLabel id="demo-simple-select-label">Select Unit</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={unit}
+                label="Select Unit"
+                onChange={handleChange}
+              >
+                <MenuItem value={10}>Unit Rehab</MenuItem>
+                <MenuItem value={20}>Unit 2</MenuItem>
+                <MenuItem value={30}>BCN-Check</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
+        </Hidden>
+        <Box sx={{ flexGrow: 1 }} />
+        <Box display="flex" alignItems="center">
+          <Hidden mdDown>
+            <Box
+              display="flex"
+              backgroundColor={colors.primary[100]}
+              borderRadius="3px"
+              border={`1px solid  ${colors.elementBorders[100]}`}
+              mr={2}
+            >
+              <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
+              <IconButton type="button" sx={{ p: 1 }}>
+                <SearchIcon />
+              </IconButton>
+            </Box>
+          </Hidden>
+          <IconButton onClick={colorMode.toggleColorMode} sx={{color: colors.textColor[100]}}>
             {theme.palette.mode === "dark" ? (
               <DarkModeOutlinedIcon />
             ) : (
               <LightModeOutlinedIcon />
             )}
           </IconButton>
-          <DescriptionAlerts />
-          <IconButton onClick={handleClick} >
-            <PersonOutlinedIcon/>
+          <DescriptionAlerts sx={{color: colors.textColor[100]}} />
+          <IconButton onClick={handleClick} sx={{color: colors.textColor[100],}}>
+            <Avatar alt="User Image" src="../../assets/tst.jpg" />
           </IconButton>
           <Menu
             anchorEl={anchorEl}
@@ -111,8 +152,8 @@ const TopNavbar = () => {
             <MenuItem onClick={logoutUser}>Logout</MenuItem>
           </Menu>
         </Box>
-      </Box>
-    </Box>
+      </Toolbar>
+    </AppBar>
   );
 };
 

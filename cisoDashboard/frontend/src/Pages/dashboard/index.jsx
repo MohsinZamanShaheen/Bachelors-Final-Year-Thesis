@@ -5,7 +5,6 @@ import {
   Typography,
   useTheme,
   Grid,
-  Link,
 } from "@mui/material";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
@@ -27,6 +26,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import MyGaugeChart from "../../Components/charts/GaugeChart";
 import MTTRChart from "../../Components/charts/MTTRChart";
 import { mockCanvaPieData as dataPie } from "../../data/mockData";
+import { Link as RouterLink } from 'react-router-dom';
 
 const insightsData = [
   { value: 616, description: "Alerts can..." },
@@ -349,9 +349,11 @@ const Dashboard = () => {
             >
               Alerts
             </Typography>
-            <Link href="#" variant="body2">
-              See All
-            </Link>
+            <Typography variant="body2">
+              <RouterLink to="/detailedAlerts" style={{ textDecoration: 'none', color: theme.palette.primary.main }}>
+                See All
+              </RouterLink>
+            </Typography>
           </Box>
           <Typography
             variant="h5"

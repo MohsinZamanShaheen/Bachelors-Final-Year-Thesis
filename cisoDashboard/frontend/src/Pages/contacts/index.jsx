@@ -66,46 +66,46 @@ const Contacts = () => {
       <Box
         m="40px 0 0 0"
         height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.textColor[100],
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: theme.palette.mode === "dark" ? colors.sameColors[200] : colors.sameColors[100],
-            borderBottom: `8px solid ${colors.elementBorders[100]}`,
-            color: theme.palette.mode === "dark" ? colors.sameColors[100] : colors.sameColors[200],
-          },
-          "& .MuiButtonBase-root": {
-            color: theme.palette.mode === "dark" ? colors.sameColors[100] : colors.sameColors[200],
-          },
-          "& .MuiDataGrid-row": {
-            borderBottom: `1px solid ${colors.elementBorders[100]}`,
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[100]
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.primary[100],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.textColor[100]} !important`,
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: `${colors.textColor[100]}`
-          },
-        }}
       >
         <DataGrid
           rows={mockDataContacts}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
+          sx={{
+            "& .MuiDataGrid-root": {
+              border: "none",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+            },
+            "& .name-column--cell": {
+              color: colors.textColor[100],
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: theme.palette.mode === "dark" ? colors.sameColors[200] : colors.sameColors[100],
+              borderBottom: `8px solid ${colors.elementBorders[100]}`,
+              color: theme.palette.mode === "dark" ? colors.sameColors[100] : colors.sameColors[200],
+            },
+            "& .MuiButtonBase-root": {
+              color: theme.palette.mode === "dark" ? colors.sameColors[100] : colors.sameColors[200],
+            },
+            "& .MuiDataGrid-row": {
+              borderBottom: `1px solid ${colors.elementBorders[100]}`,
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: colors.primary[100]
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+              backgroundColor: colors.primary[100],
+            },
+            "& .MuiCheckbox-root": {
+              color: `${colors.textColor[100]} !important`,
+            },
+            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+              color: `${colors.textColor[100]}`
+            },
+          }}
         />
       </Box>
     </Box>

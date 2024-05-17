@@ -52,7 +52,7 @@ const DescriptionAlerts = () => {
     <Box>
       <IconButton onClick={toggleNotificationCenter}>
         <Badge badgeContent={unreadCount} color="primary">
-          <NotificationsOutlinedIcon />
+          <NotificationsOutlinedIcon sx={{color: colors.textColor[100]}}/>
         </Badge>
       </IconButton>
 
