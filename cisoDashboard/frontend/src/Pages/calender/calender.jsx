@@ -83,7 +83,7 @@ const Calendar = () => {
                 <ListItemText
                   sx={{
                     color:
-                      theme.palette.mode == "dark"
+                      theme.palette.mode === "dark"
                         ? colors.textColor[100]
                         : colors.textColor[300],
                   }}

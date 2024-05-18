@@ -121,10 +121,10 @@ const ProfileForm = () => {
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
               <Button type="submit" sx={{
-              backgroundColor:  theme.palette.mode == "dark"
+              backgroundColor:  theme.palette.mode === "dark"
               ? colors.sameColors[200]
               : colors.sameColors[100],
-              color: theme.palette.mode == "dark"
+              color: theme.palette.mode === "dark"
               ? colors.sameColors[100]
               : colors.sameColors[200],
               fontSize: "14px",
@@ -132,7 +132,7 @@ const ProfileForm = () => {
               padding: "10px 20px",
               "&:hover": {
                 backgroundColor:
-                  theme.palette.mode == "dark"
+                  theme.palette.mode === "dark"
                     ? colors.sameColors[200]
                     : colors.sameColors[100],
               },

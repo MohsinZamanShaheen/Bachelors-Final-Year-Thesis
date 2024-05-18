@@ -10,7 +10,6 @@ import {
   AppBar,
   Hidden,
   Select,
-  Typography,
   Avatar,
 } from "@mui/material";
 import { useContext, useState } from "react";
@@ -18,7 +17,6 @@ import { ColorModeContext, tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { AuthContext } from "../../Context/AuthContext";
@@ -57,8 +55,8 @@ const TopNavbar = ({ handleDrawerToggle }) => {
   const colorMode = useContext(ColorModeContext);
 
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: theme.palette.mode == "dark" ? colors.primary[100] : "#f1f5f9", }}>
-      <Toolbar sx={{ backgroundColor: theme.palette.mode == "dark" ? colors.primary[100] : "#f1f5f9", }}>
+    <AppBar position="sticky" sx={{ backgroundColor: theme.palette.mode === "dark" ? colors.primary[100] : "#f1f5f9", }}>
+      <Toolbar sx={{ backgroundColor: theme.palette.mode === "dark" ? colors.primary[100] : "#f1f5f9", }}>
         <Hidden mdUp>
           <IconButton
             color="inherit"

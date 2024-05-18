@@ -1,34 +1,29 @@
 package com.tfg.cisoDashboard.controller;
+import com.tfg.cisoDashboard.Responses.AuthResponse;
+import com.tfg.cisoDashboard.dto.UserLoginDto;
+import com.tfg.cisoDashboard.dto.UserRegisterDto;
 import com.tfg.cisoDashboard.model.User;
-import com.tfg.cisoDashboard.service.UserService;
+import com.tfg.cisoDashboard.service.AuthService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
     @Autowired
-    private UserService userService;
-    
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private AuthService authService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody User user) {
-        if (userService.findByEmail(user.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest().body("Email is already taken.");
-        }
-        userService.registerUser(user);
-        return ResponseEntity.ok("User registered successfully.");
+    public ResponseEntity<AuthResponse> registerUser(@RequestBody UserRegisterDto userRegisterDto, HttpServletResponse response) {
+        System.out.println("Register call received");
+        return ResponseEntity.ok(authService.registerUser(userRegisterDto));
     }
-
     @PostMapping("/login")
-    public ResponseEntity<?> loginUser(@RequestBody User user) {
-        return userService.findByEmail(user.getEmail())
-                .filter(foundUser -> passwordEncoder.matches(user.getPassword(), foundUser.getPassword()))
-                .map(foundUser -> ResponseEntity.ok("Login successful"))
-                .orElse(ResponseEntity.status(401).body("Invalid email or password"));
+    public ResponseEntity<AuthResponse> loginUser(@RequestBody UserLoginDto userLoginDto, HttpServletResponse response) {
+        System.out.println("Login call received");
+        return ResponseEntity.ok(authService.loginUser(userLoginDto, response));
     }
 }

@@ -1,0 +1,70 @@
+package com.tfg.cisoDashboard.service;
+
+import com.tfg.cisoDashboard.Jwt.JwtTokenProvider;
+import com.tfg.cisoDashboard.Responses.AuthResponse;
+import com.tfg.cisoDashboard.model.Role;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.tfg.cisoDashboard.model.User;
+import com.tfg.cisoDashboard.repository.UserRepository;
+import com.tfg.cisoDashboard.dto.UserRegisterDto;
+import com.tfg.cisoDashboard.dto.UserLoginDto;
+
+@Service
+@RequiredArgsConstructor
+public class AuthService {
+
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    private final JwtTokenProvider jwtService;
+    private final AuthenticationManager authenticationManager;
+    @Autowired
+    private UserService userService;
+
+    public AuthResponse registerUser(UserRegisterDto userRegisterDto) {
+        if (userRepository.existsByEmail(userRegisterDto.getEmail()) || userRepository.existsByUsername(userRegisterDto.getUsername())) {
+            throw new IllegalArgumentException("User already exists");
+        }
+        User user = User.builder()
+                .username(userRegisterDto.getUsername())
+                .email(userRegisterDto.getEmail())
+                .password(passwordEncoder.encode(userRegisterDto.getPassword()))
+                .role(Role.USER)
+                .build();
+        userRepository.save(user);
+
+        String token = jwtService.createToken(user);
+
+        return AuthResponse.builder()
+                .token(token)
+                .build();
+
+    }
+    public AuthResponse loginUser(UserLoginDto userLoginDto, HttpServletResponse response) {
+
+        User user = userRepository.findByEmail(userLoginDto.getEmail());
+        if (user == null) {
+            throw new IllegalArgumentException("Invalid email or password");
+        }
+        if (!passwordEncoder.matches(userLoginDto.getPassword(), user.getPassword())) {
+            throw new IllegalArgumentException("Invalid email or password");
+        }
+        UserDetails userDetails = userService.loadUserByEmail(userLoginDto.getEmail());
+        System.out.printf("USERNAME ES: " + userDetails.getUsername());
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userLoginDto.getPassword()));
+        String token = jwtService.createToken(user);
+        response.addHeader("Set-Cookie", "token=" + token + "; HttpOnly; Path=/; Max-Age=" + (86400)); // Cookie valid for 1 day
+        return AuthResponse.builder()
+                .token(token)
+                .build();
+    }
+}

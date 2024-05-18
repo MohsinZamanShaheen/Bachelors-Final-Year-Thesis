@@ -17,19 +17,6 @@ const labelStyle = {
 
 
 export default memo(({ data }) => {
-  const Icon = iconMap[data.type] || RouterIcon;
-  const label = useStore((s) => {
-    const node = s.nodeInternals.get(data);
-
-    if (!node) {
-      return null;
-    }
-
-    return `position x:${parseInt(node.position.x)} y:${parseInt(
-      node.position.y,
-    )}`;
-  });
-
   return (
     <Box className="react-flow__node-circle-transparent">
       <div className="inner">

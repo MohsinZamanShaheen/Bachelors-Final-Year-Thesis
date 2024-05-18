@@ -4,6 +4,8 @@ import { Typography, Box, Button, useTheme, TextField } from "@mui/material";
 import Link from "@mui/material/Link";
 import styled from "styled-components";
 import { AuthContext } from "../../Context/AuthContext";
+import { register, login } from "../../apiClient";
+
 
 const OverlayPanel = styled(Box)`
   position: absolute;
@@ -69,32 +71,47 @@ const ButtonComp = ({ value, onClick, backgroundColor, borderColor }) => {
   );
 };
 
-function LoginComp() {
+function LoginRegisterComp() {
   const [signIn, toggle] = useState(true);
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [username, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { handleLogin } = useContext(AuthContext);
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+  const handleNameChange = (event) => {
+      setName(event.target.value);
+  };
+
+    const handleEmailChange = (event) => {
+        setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Email: ", email);
-    console.log("Password, ", password);
-    if (email === "" && password === "") {
-      handleLogin();
-    } else {
-      alert("Invalid email or password");
-    }
-  };
+    const handleLoginSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await login({ email, password });
+            handleLogin(response.data.token);
+        } catch (error) {
+            alert("Invalid email or password");
+        }
+    };
+
+    const handleRegisterSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            await register({ username, email, password });
+            alert("Registration successful. Please log in.");
+            toggle(true);
+        } catch (error) {
+            alert("Error during registration");
+        }
+    };
 
   return (
     <Box
@@ -144,10 +161,10 @@ function LoginComp() {
             <Typography variant="h1" fontWeight="bold" sx={{ m: "0" }}>
               Create Account
             </Typography>
-            <InputField type="text" placeholder="Name" />
-            <InputField type="email" placeholder="Email" />
-            <InputField type="password" placeholder="Password" />
-            <ButtonComp value="Sign Up" backgroundColor={colors.buttonColor[200]} />
+            <InputField type="text" placeholder="Name" onChange={handleNameChange} />
+            <InputField type="email" placeholder="Email" onChange={handleEmailChange} />
+            <InputField type="password" placeholder="Password" onChange={handlePasswordChange} />
+            <ButtonComp value="Sign Up" backgroundColor={colors.buttonColor[200]} onClick={handleRegisterSubmit} />
           </form>
         </Box>
       </Box>
@@ -176,7 +193,7 @@ function LoginComp() {
             textAlign: "center",
           }}
         >
-          <form onSubmit={handleSubmit}>
+          <form>
             <Typography variant="h1" fontWeight="bold" sx={{ m: "0" }}>
               Sign In
             </Typography>
@@ -204,7 +221,7 @@ function LoginComp() {
             <ButtonComp
               value="Sign In"
               backgroundColor={colors.buttonColor[200]}
-              onClick={handleSubmit}
+              onClick={handleLoginSubmit}
             />
           </form>
         </Box>
@@ -299,4 +316,4 @@ function LoginComp() {
     </Box>
   );
 }
-export default LoginComp;
+export default LoginRegisterComp;

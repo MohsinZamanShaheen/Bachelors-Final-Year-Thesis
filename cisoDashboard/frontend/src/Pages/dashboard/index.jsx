@@ -70,7 +70,7 @@ const Dashboard = () => {
             padding: "10px 20px",
             "&:hover": {
               backgroundColor:
-                theme.palette.mode == "dark"
+                theme.palette.mode === "dark"
                   ? colors.primary[100]
                   : colors.primary[100],
             },
@@ -270,7 +270,7 @@ const Dashboard = () => {
                   sx={{
                     fontSize: "26px",
                     color:
-                      theme.palette.mode == "dark"
+                      theme.palette.mode === "dark"
                         ? colors.textColor[200]
                         : colors.textColor[100],
                     "&:hover": {

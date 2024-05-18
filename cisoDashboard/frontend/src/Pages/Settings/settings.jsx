@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Tab, Tabs, Divider, Typography, Grid, Paper } from "@mui/material";
+import { Box, Tab, Tabs, Divider, Grid, Paper } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { tokens } from "../../theme";
 import Profile from "../Profile/profile";

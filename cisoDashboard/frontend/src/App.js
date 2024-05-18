@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import TopNavbar from "./Pages/navigation/TopNavbar";
 import Sidebar from "./Pages/navigation/Sidebar";
 import Dashboard from "./Pages/dashboard";
@@ -22,6 +22,7 @@ import Settings from "./Pages/Settings/settings";
 import OrganizationChartCustom from "./Pages/inventory/org_diagram";
 import OverviewFlow from "./Pages/inventory/networkdiagram/network_diagram";
 import AlertTable from "./Pages/Alerts";
+import LoginRegisterComp from "./Pages/login-signup";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -39,16 +40,19 @@ function App() {
         <LanguageProvider>
           <RowProvider>
             {!isLoggedIn ? (
-              <Routes>
-                <Route path="/" element={<HomePage />} />
-              </Routes>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/authenticate" element={<HomePage showLogin={true} />} />
+                  <Route path="*" element={<Navigate to="/" />} />
+                </Routes>
             ) : (
               <div className="app">
                 <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
                 <main className="content">
                   <TopNavbar handleDrawerToggle={handleDrawerToggle} />
                   <Routes>
-                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/calendar" element={<Calendar />} />
                     <Route path="/newprofile" element={<ProfileForm />} />
                     <Route path="/faq" element={<FAQ />} />
@@ -62,6 +66,7 @@ function App() {
                     <Route path="/org_diag" element={<OrganizationChartCustom />} />
                     <Route path="/net_diag" element={<OverviewFlow />} />
                     <Route path="/detailedAlerts" element={<AlertTable />} />
+                    <Route path="*" element={<Navigate to="/dashboard" />} />
                   </Routes>
                 </main>
               </div>

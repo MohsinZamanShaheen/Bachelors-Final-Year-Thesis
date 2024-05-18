@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState}  from "react";
 import {
   AppBar,
   Toolbar,
@@ -8,17 +8,19 @@ import {
   Box,
   Container,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { tokens } from "../../theme";
-import LoginComp from "../login-signup";
+import LoginRegisterComp from "../login-signup";
 
-const HomePage = () => {
+const HomePage = ({showLogin}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [showLogin, setShowLogin] = useState(false);
+  const navigate = useNavigate();
+  const [isLoginVisible, setIsLoginVisible] = useState(showLogin);
 
   const handleLoginClick = () => {
-    setShowLogin(true);
+      navigate("/authenticate");
+      setIsLoginVisible(true);
   };
 
   return (
@@ -55,15 +57,6 @@ const HomePage = () => {
               />
             </Link>
           </Box>
-          {/* <Link
-              to="/login"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                textDecoration: "none",
-                color: "inherit",
-              }}
-              > */}
             <Button  
             variant="contained"
             onClick={handleLoginClick}
@@ -73,31 +66,31 @@ const HomePage = () => {
         </Toolbar>
       </AppBar>
       <Container maxWidth="lg" sx={{ pt: 8, pb: 6, textAlign: "center" }}>
-        {!showLogin ? (
-          <>
-            <Typography variant="h2" sx={{ fontWeight: "bold" }}>
-                Central Command for Cybersecurity
-            </Typography>
-            <Typography variant="h5" sx={{ my: 3 }}>
-              Optimized for seamless integration across all platforms, our CISO dashboard ensures real-time monitoring, comprehensive control, and strategic security insights to protect your organization against evolving threats.
-            </Typography>
-            <Box>
-              <Button variant="contained" sx={{ m: 1, backgroundColor:colors.buttonColor[200] , color: 'white' }}>
-                Github
-              </Button>
-              <Button variant="outlined" sx={{ m: 1 }}>
-                Learn more
-              </Button>
-            </Box>
-          </>
-        ) : (
-          <>
-          <Typography variant="h2" sx={{ fontWeight: "bold", mb:6 }}>
-              ACCESS YOUR FAVORITE DASHBOARD ON THE GO!
-            </Typography>
-          <LoginComp />
-          </>
-        )}
+          {isLoginVisible ? (
+              <>
+                  <Typography variant="h2" sx={{ fontWeight: "bold", mb: 6 }}>
+                      ACCESS YOUR FAVORITE DASHBOARD ON THE GO!
+                  </Typography>
+                  <LoginRegisterComp />
+              </>
+          ) : (
+              <>
+                  <Typography variant="h2" sx={{ fontWeight: "bold" }}>
+                      Central Command for Cybersecurity
+                  </Typography>
+                  <Typography variant="h5" sx={{ my: 3 }}>
+                      Optimized for seamless integration across all platforms, our CISO dashboard ensures real-time monitoring, comprehensive control, and strategic security insights to protect your organization against evolving threats.
+                  </Typography>
+                  <Box>
+                      <Button variant="contained" sx={{ m: 1, backgroundColor: colors.buttonColor[200], color: 'white' }}>
+                          Github
+                      </Button>
+                      <Button variant="outlined" sx={{ m: 1 }}>
+                          Learn more
+                      </Button>
+                  </Box>
+              </>
+          )}
       </Container>
     </Box>
   );

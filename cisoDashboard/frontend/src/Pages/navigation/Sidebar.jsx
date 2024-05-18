@@ -9,7 +9,6 @@ import {
   ListItemText,
   Toolbar,
   useTheme,
-  Divider,
   Typography,
   Avatar,
   useMediaQuery,
@@ -111,7 +110,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
         </Box>
       )}
       <List>
-        <Item title="Dashboard" to="/" icon={<HomeOutlinedIcon />} /> 
+        <Item title="Dashboard" to="/dashboard" icon={<HomeOutlinedIcon />} />
         {!isCollapsed && (
           <Typography
             variant="h6"

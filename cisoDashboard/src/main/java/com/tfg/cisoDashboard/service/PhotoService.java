@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 public class PhotoService {
     @Autowired
     private PhotoRepository photoRepository;
-
     public Photo savePhoto(Photo photo) {
         return photoRepository.save(photo);
     }
