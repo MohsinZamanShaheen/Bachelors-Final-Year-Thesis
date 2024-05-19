@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, MenuItem, Select, FormControl, InputLabel, Button } from "@mui/material";
-import {getProviders} from "../../apiClient";
+import { getProviders } from "../../apiClient";
 
 const AddInvoiceModal = ({ open, onClose, onSave }) => {
     const [providers, setProviders] = useState([]);
