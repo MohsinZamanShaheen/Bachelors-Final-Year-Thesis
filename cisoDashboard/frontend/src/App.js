@@ -38,37 +38,38 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <LanguageProvider>
-            {isLoggedIn ? (
-                <div className="app">
-                  <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
-                  <main className="content">
-                    <TopNavbar handleDrawerToggle={handleDrawerToggle} />
+            {!isLoggedIn ?
+                (
                     <Routes>
-                      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                      <Route path="/dashboard" element={<Dashboard />} />
-                      <Route path="/calendar" element={<Calendar />} />
-                      <Route path="/newprofile" element={<ProfileForm />} />
-                      <Route path="/faq" element={<FAQ />} />
-                      <Route path="/providers" element={<Providers />} />
-                      <Route path="/invoices" element={<Invoices />} />
-                      <Route path="/team" element={<Team />} />
-                      <Route path="/iso27002" element={<Controls />} />
-                      <Route path="/iso2701" element={<Requirements />} />
-                      <Route path="/profile" element={<Profile />} />
-                      <Route path="/settings" element={<Settings />} />
-                      <Route path="/org_diag" element={<OrganizationChartCustom />} />
-                      <Route path="/net_diag" element={<OverviewFlow />} />
-                      <Route path="/detailedAlerts" element={<AlertTable />} />
+                      <Route path="/" element={<HomePage />} />
+                      <Route path="/authenticate" element={<HomePage showLogin={true} />} />
+                      <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
-                  </main>
-                </div>
-            ) : (
-                <Routes>
-                  <Route path="/" element={<HomePage />} />
-                  <Route path="/authenticate" element={<HomePage showLogin={true} />} />
-                  <Route path="*" element={<Navigate to="/" />} />
-                </Routes>
-            )}
+                ) : (
+                    <div className="app">
+                      <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+                      <main className="content">
+                        <TopNavbar handleDrawerToggle={handleDrawerToggle} />
+                        <Routes>
+                          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+                          <Route path="/dashboard" element={<Dashboard />} />
+                          <Route path="/calendar" element={<Calendar />} />
+                          <Route path="/newprofile" element={<ProfileForm />} />
+                          <Route path="/faq" element={<FAQ />} />
+                          <Route path="/providers" element={<Providers />} />
+                          <Route path="/invoices" element={<Invoices />} />
+                          <Route path="/team" element={<Team />} />
+                          <Route path="/iso27002" element={<Controls />} />
+                          <Route path="/iso2701" element={<Requirements />} />
+                          <Route path="/profile" element={<Profile />} />
+                          <Route path="/settings" element={<Settings />} />
+                          <Route path="/org_diag" element={<OrganizationChartCustom />} />
+                          <Route path="/net_diag" element={<OverviewFlow />} />
+                          <Route path="/detailedAlerts" element={<AlertTable />} />
+                        </Routes>
+                      </main>
+                    </div>
+                )}
         </LanguageProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>

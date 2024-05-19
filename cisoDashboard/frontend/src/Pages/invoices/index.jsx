@@ -1,47 +1,64 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme, Button } from "@mui/material";
+import { useState, useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../Components/global/Header";
 import HomeIcon from "@mui/icons-material/Home";
+import AddInvoiceModal from "./addInvoiceModal";
+import { getInvoices, addInvoice } from "../../apiClient";
 
 const Invoices = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const columns = [
-    { field: "id", headerName: "ID" },
-    {
-      field: "name",
-      headerName: "Name",
-      flex: 1,
-      cellClassName: "name-column--cell",
-    },
-    {
-      field: "phone",
-      headerName: "Phone Number",
-      flex: 1,
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      flex: 1,
-    },
-    {
-      field: "cost",
-      headerName: "Cost",
-      flex: 1,
-      renderCell: (params) => (
-        <Typography color={colors.textColor[100]}>
-          ${params.row.cost}
-        </Typography>
-      ),
-    },
-    {
-      field: "date",
-      headerName: "Date",
-      flex: 1,
-    },
-  ];
+    const [invoices, setInvoices] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    useEffect(() => {
+        const fetchInvoices = async () => {
+            try {
+                const response = await getInvoices();
+                console.log("Invoice:", response)
+                setInvoices(response.data);
+            } catch (error) {
+                console.error("Error fetching invoices", error);
+            }
+        };
+
+        fetchInvoices();
+    }, []);
+
+    const handleAddInvoice = async (newInvoice) => {
+        try {
+            const response = await addInvoice(newInvoice);
+            setInvoices([...invoices, response.data]);
+        } catch (error) {
+            console.error("Error adding invoice", error);
+        }
+    };
+
+    const columns = [
+        { field: "id", headerName: "ID", flex: 0.5 },
+        {
+            field: "providerName",
+            headerName: "Provider",
+            flex: 1,
+        },
+        {
+            field: "cost",
+            headerName: "Cost",
+            flex: 1,
+        },
+        {
+            field: "date",
+            headerName: "Date",
+            flex: 1,
+        },
+        {
+            field: "concept",
+            headerName: "Concept",
+            flex: 1,
+        },
+    ];
 
   return (
     <Box m="20px">
@@ -49,6 +66,15 @@ const Invoices = () => {
           { label: "Home", href: "/", icon: HomeIcon },
           { label: "invoices", href: "/invoices"},
         ]} />
+        <Box display="flex" justifyContent="flex-end" mb={2}>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={() => setModalOpen(true)}
+            >
+                Add Invoice
+            </Button>
+        </Box>
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -88,8 +114,13 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+        <DataGrid checkboxSelection rows={invoices} columns={columns} />
       </Box>
+        <AddInvoiceModal
+            open={modalOpen}
+            onClose={() => setModalOpen(false)}
+            onSave={handleAddInvoice}
+        />
     </Box>
   );
 };

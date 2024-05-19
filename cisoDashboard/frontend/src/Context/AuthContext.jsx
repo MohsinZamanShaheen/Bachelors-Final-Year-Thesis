@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
         const response = await apiClient.get('/auth/verify-token');
         setIsLoggedIn(true);
         setUser(response.data);
+
       } catch (error) {
         console.log("Token verification failed");
         setIsLoggedIn(false);

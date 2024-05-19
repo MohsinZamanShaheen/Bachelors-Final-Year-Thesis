@@ -1,14 +1,35 @@
 import { Box } from "@mui/material";
+import { useState, useEffect } from "react";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataProviders } from "../../data/mockData";
 import Header from "../../Components/global/Header";
-import { useTheme } from "@mui/material";
+import { useTheme, Button } from "@mui/material";
+import { getProviders } from "../../apiClient";
 import HomeIcon from "@mui/icons-material/Home";
+import AddProviderModal from "./addProviderModal";
 
 const Providers = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [providers, setProviders] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+        const fetchProviders = async () => {
+            try {
+                const response = await getProviders();
+                setProviders(response.data);
+            } catch (error) {
+                console.error("Failed to fetch providers data", error);
+            }
+        };
+
+        fetchProviders();
+    }, []);
+
+    const handleAddProvider = (newProvider) => {
+        setProviders([...providers, newProvider]);
+    };
 
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
@@ -56,12 +77,21 @@ const Providers = () => {
           { label: "providers", href: "/providers"},
         ]}
       />
+        <Box display="flex" justifyContent="flex-end" mb={2}>
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={() => setModalOpen(true)}
+            >
+                Add Provider
+            </Button>
+        </Box>
       <Box
         m="40px 0 0 0"
         height="75vh"
       >
         <DataGrid
-          rows={mockDataProviders}
+          rows={providers}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           sx={{
@@ -101,6 +131,11 @@ const Providers = () => {
           }}
         />
       </Box>
+        <AddProviderModal
+            open={modalOpen}
+            onClose={() => setModalOpen(false)}
+            onAdd={handleAddProvider}
+        />
     </Box>
   );
 };
