@@ -1,16 +1,34 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import React, {useState, useEffect}  from "react";
 import { tokens } from "../../theme";
-import { mockDataTeam } from "../../data/mockData";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../Components/global/Header";
 import HomeIcon from "@mui/icons-material/Home";
+import {getTeam}  from "../../apiClient";
+
 
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [team, setTeam] = useState([]);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+        try {
+            const response = await getTeam();
+            console.log("TEAM GOT: ", response)
+            setTeam(response.data);
+        } catch (error) {
+            console.error("Failed to fetch team data", error);
+        }
+    };
+    fetchTeam();
+    }, []);
+
+
   const columns = [
     { field: "id", headerName: "ID" },
     {
@@ -18,13 +36,6 @@ const Team = () => {
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
-    },
-    {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
     },
     {
       field: "phone",
@@ -37,10 +48,10 @@ const Team = () => {
       flex: 1,
     },
     {
-      field: "accessLevel",
+      field: "role",
       headerName: "Access Level",
       flex: 1,
-      renderCell: ({ row: { access } }) => {
+      renderCell: ({ row: { role } }) => {
         return (
           <Box
             width="60%"
@@ -49,19 +60,16 @@ const Team = () => {
             display="flex"
             justifyContent="center"
             backgroundColor={
-              access === "admin"
+              role === "ADMIN"
                 ? colors.primary[100]
-                : access === "manager"
-                ? colors.primary[100]
-                : colors.primary[100]
+                : role === "USER"
             }
             borderRadius="4px"
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
+              {role === "ADMIN" && <AdminPanelSettingsOutlinedIcon />}
+              {role === "USER" && <LockOpenOutlinedIcon />}
             <Typography color={colors.textColor[100][100]} sx={{ ml: "5px" }}>
-              {access}
+              {role}
             </Typography>
           </Box>
         );
@@ -114,7 +122,7 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        <DataGrid checkboxSelection rows={team} columns={columns} />
       </Box>
     </Box>
   );

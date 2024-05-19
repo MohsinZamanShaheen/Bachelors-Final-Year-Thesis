@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
     @Autowired
     private UserService userService;
-    
     @Autowired
     private PhotoService photoService;
+
+    @GetMapping("getTeam")
+    public List<User> getAllUsers() {
+        return userService.getAllUsers();
+    }
 }

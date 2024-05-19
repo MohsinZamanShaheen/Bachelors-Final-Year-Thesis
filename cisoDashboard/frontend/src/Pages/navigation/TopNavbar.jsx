@@ -25,9 +25,9 @@ import DescriptionAlerts from "../notifications";
 
 const TopNavbar = ({ handleDrawerToggle }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { handleLogout } = useContext(AuthContext);
   const [unit, setUnit] = useState("");
   const navigate = useNavigate();
+  const { handleLogout } = useContext(AuthContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);

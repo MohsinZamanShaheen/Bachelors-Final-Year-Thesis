@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 import Header from "../../../Components/global/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../../theme";
@@ -6,7 +6,6 @@ import { Box, Typography, useTheme, Tabs, Tab, Button, Tooltip, IconButton } fro
 import { controls as ISOControls } from "../../../data/isoData";
 import { controles as ISOControlsSpanish } from "../../../data/isoData";
 import { LanguageContext } from "../../../Context/LanguageContext";
-import { CheckedRowsContext } from "../../../Context/CheckedRowContext";
 import InfoIcon from '@mui/icons-material/Info';
 import HomeIcon from "@mui/icons-material/Home";
 
@@ -15,7 +14,6 @@ const Controls = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const { language, setLanguage } = useContext(LanguageContext);
-  const { checkedRows, setCheckedRows } = useContext(CheckedRowsContext);
   const [selectedRows, setSelectedRows] = useState([]);
   const controls = language === "en" ? ISOControls : ISOControlsSpanish;
   const [rows, setRows] = useState([]);
@@ -34,20 +32,6 @@ const Controls = () => {
   const getEnglishCategory = (category, language) => {
     return language === 'en' ? category : categoryMapping[category];
   };
-
-  useEffect(() => {
-    const savedCheckedRows = JSON.parse(localStorage.getItem('checkedRows')) || [];
-    const newRows = Object.entries(controls[selectedControlType].data).map(([key, value]) => {
-      const uniqueKey = `${getEnglishCategory(selectedControlType, language)}_${key}`;
-      return {
-        id: uniqueKey,
-        [selectedControlType]: value.title,
-        description: value.description,
-        checked: value.status === 'checked' || savedCheckedRows.includes(uniqueKey),  
-      };
-    });
-    setRows(newRows);
-  }, [selectedControlType, controls, language]);
 
   const columns = [
     { field: selectedControlType, headerName: selectedControlType, flex: 2,
@@ -89,27 +73,9 @@ const Controls = () => {
   ];
 
   const handleControlCheck = () => {
-    setRows((prevRows) => {
-      const updatedRows = prevRows.map((row) =>
-        selectedRows.includes(row.id) ? { ...row, checked: true } : row
-      );
-      const allCheckedRows = [...new Set([...checkedRows, ...updatedRows.filter((row) => row.checked).map((row) => row.id)])];
-      localStorage.setItem('checkedRows', JSON.stringify(allCheckedRows));
-      setCheckedRows(allCheckedRows);
-      return updatedRows;
-    });
   };
 
   const handleControlUncheck = () => {
-    setRows((prevRows) => {
-      const updatedRows = prevRows.map((row) =>
-        selectedRows.includes(row.id) ? { ...row, checked: false } : row
-      );
-      const allCheckedRows = checkedRows.filter((rowId) => !selectedRows.includes(rowId));
-      localStorage.setItem('checkedRows', JSON.stringify(allCheckedRows));
-      setCheckedRows(allCheckedRows);
-      return updatedRows;
-    });
   };
   
 
@@ -194,9 +160,6 @@ const Controls = () => {
           rows={rows}
           columns={columns}
           disableRowSelectionOnClick
-          onRowSelectionModelChange={(newSelection) => {
-            setSelectedRows(newSelection);
-          }}
         />
 
         <Box display="flex" justifyContent="end" m="20px 10px" pb="20px">

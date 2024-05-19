@@ -122,8 +122,8 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
         )}
         <Item title="Manage Team" to="/team" icon={<PeopleOutlinedIcon />} />
         <Item
-          title="Contacts Information"
-          to="/contacts"
+          title="Providers Information"
+          to="/providers"
           icon={<ContactsOutlinedIcon />}
         />
         <Item

@@ -16,4 +16,6 @@ export const login = async (data) => {
   return await apiClient.post('/auth/login', data);
 };
 
+export const getTeam = () => apiClient.get('/users/getTeam');
+
 export default apiClient;

@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode'
+import axios from 'axios';
+import apiClient  from "../apiClient";
 
 // Create a context
 export const AuthContext = createContext();
@@ -11,27 +11,31 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = Cookies.get('token');
-    if (token) {
-      setIsLoggedIn(true);
-      setUser(jwtDecode(token));
-    }
+    const verifyToken = async () => {
+      try {
+        const response = await apiClient.get('/auth/verify-token');
+        setIsLoggedIn(true);
+        setUser(response.data);
+      } catch (error) {
+        console.log("Token verification failed");
+        setIsLoggedIn(false);
+      }
+    };
+
+    verifyToken();
   }, []);
 
   const handleLogin = (token) => {
-    Cookies.set('token', token, { expires: 1 });
     setIsLoggedIn(true);
-    setUser(jwtDecode(token));
   };
 
   const handleLogout = () => {
-    Cookies.remove('token');
     setIsLoggedIn(false);
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, handleLogin, handleLogout, user }}>
+    <AuthContext.Provider value={{ isLoggedIn, user, handleLogin, handleLogout}}>
       {children}
     </AuthContext.Provider>
   );

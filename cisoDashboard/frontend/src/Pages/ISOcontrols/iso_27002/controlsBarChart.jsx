@@ -6,7 +6,6 @@ import { controls } from "../../../data/isoData";
 const transformData = (controls) => {
   const savedCheckedRows = JSON.parse(localStorage.getItem('checkedRows')) || [];
   let totalChecked = 0; // Variable to store the total number of checked controls
-
   // Loop through each category
   const data = Object.entries(controls).map(([category, { color, data }]) => {
     let checkedCount = 0;
@@ -41,7 +40,6 @@ const ControlsBarChart = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const data = transformData(controls);
-  console.log(data);
 
   return (
     <ResponsiveBar

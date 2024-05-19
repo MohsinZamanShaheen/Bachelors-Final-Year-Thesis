@@ -1,12 +1,12 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
+import { mockDataProviders } from "../../data/mockData";
 import Header from "../../Components/global/Header";
 import { useTheme } from "@mui/material";
 import HomeIcon from "@mui/icons-material/Home";
 
-const Contacts = () => {
+const Providers = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -18,13 +18,6 @@ const Contacts = () => {
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
-    },
-    {
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
     },
     {
       field: "phone",
@@ -56,11 +49,11 @@ const Contacts = () => {
   return (
     <Box m="20px">
       <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
+        title="PROVIDERS"
+        subtitle="List of Providers and partners contacts"
         items={[
           { label: "Home", href: "/", icon: HomeIcon },
-          { label: "contacts", href: "/contacts"},
+          { label: "providers", href: "/providers"},
         ]}
       />
       <Box
@@ -68,7 +61,7 @@ const Contacts = () => {
         height="75vh"
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={mockDataProviders}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
           sx={{
@@ -112,4 +105,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Providers;
