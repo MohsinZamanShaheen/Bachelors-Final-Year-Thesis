@@ -23,4 +23,12 @@ export const getInvoices = () => apiClient.get('/invoices/getAll');
 
 export const addInvoice = (invoiceData) => apiClient.post('/invoices/add', invoiceData);
 
+export const getControls = (language) => apiClient.get(`/controls/all?language=${language}`);
+
+export const updateControlStatusByCode = (controlCode, status) => {
+  return apiClient.put(`/controls/updateStatusByCode`, { controlCode, status });
+};
+
+export const getControlSummary = () => apiClient.get('/controls/summary');
+
 export default apiClient;
