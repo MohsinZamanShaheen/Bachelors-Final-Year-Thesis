@@ -33,4 +33,10 @@ export const getControlSummary = () => apiClient.get('/controls/summary');
 
 export const getSections = () => apiClient.get('/sections');
 
+export const getAlerts = () => apiClient.get('/alerts');
+export const updateAssignee = (id, assignee) => apiClient.patch(`/alerts/${id}/assignee`, { assignee });
+export const updateStatus = (id, status) => apiClient.patch(`/alerts/${id}/status`, { status });
+export const updateAction = (id, action) => apiClient.patch(`/alerts/${id}/action`, { action });
+export const updateComments = (id, comments) => apiClient.patch(`/alerts/${id}/comments`, { comments });
+
 export default apiClient;
