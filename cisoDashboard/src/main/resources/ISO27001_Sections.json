@@ -1,0 +1,657 @@
+{
+    "sections": [
+        {
+            "id": "1",
+            "title": "Scope",
+            "content": "This document specifies the requirements for establishing implementing maintaining and continuallyimproving an information security management system within the context of the organization. Thisdocument also includes requirements for the assessment and treatment of information security riskstailored to the needs of the organization. The requirements set out in this document are generic and areintended to be applicable to all organizations regardless of type size or nature. Excluding any of therequirements specified in Clauses 4 to 10 is not acceptable when an organization claims conformity tothis document.",
+            "subsections": []
+        },
+        {
+            "id": "2",
+            "title": "Normative references",
+            "content": "The following documents are referred to in the text in such a way that some or all of their contentconstitutes requirements of this document. For dated references only the edition cited applies. Forundated references the latest edition of the referenced document including any amendments applies",
+            "subsections": []
+        },
+        {
+            "id": "3",
+            "title": "Terms and definitions",
+            "content": "ISO and IEC maintain terminology databases for use in standardization at the following addresses:\n— ISO Online browsing platform: available at https://www.iso.org/obp\n— IEC Electropedia: available at https://www.electropedia.org/",
+            "subsections": []
+        },
+        {
+            "id": "4",
+            "title": "Context of the organization",
+            "content": "This section provides the context of the organization.",
+            "subsections": [
+                {
+                    "id": "4.1",
+                    "title": "Understanding the organization and its context",
+                    "content": "The organization shall determine external and internal issues that are relevant to its purpose and thataffect its ability to achieve the intended outcomes of its information security management system.",
+                    "subsections": []
+                },
+                {
+                    "id": "4.2",
+                    "title": "Understanding the needs and expectations of interested parties",
+                    "content": "The organization shall determine:",
+                    "subsections": [
+                        {
+                            "id": "4.2.1",
+                            "title": "Identifying interested parties",
+                            "content": "Interested parties that are relevant to the information security management system."
+                        },
+                        {
+                            "id": "4.2.2",
+                            "title": "Identifying requirements",
+                            "content": "The relevant requirements of these interested parties."
+                        },
+                        {
+                            "id": "4.2.3",
+                            "title": "Addressing requirements",
+                            "content": "Which of these requirements will be addressed through the information security management system."
+                        }
+                    ]
+                },
+                {
+                    "id": "4.3",
+                    "title": "Determining the scope of the information security management system",
+                    "content": "The organization shall determine the boundaries and applicability of the information securitymanagement system to establish its scope.When determining this scope the organization shall consider:",
+                    "subsections": [
+                        {
+                            "id": "4.3.1",
+                            "title": "External and internal issues",
+                            "content": "the external and internal issues referred to in 4.1."
+                        },
+                        {
+                            "id": "4.3.2",
+                            "title": "Requirements",
+                            "content": "the requirements referred to in 4.2."
+                        },
+                        {
+                            "id": "4.3.3",
+                            "title": "Interfaces and dependencies",
+                            "content": "interfaces and dependencies between activities performed by the organization and those that areperformed by other organizations.The scope shall be available as documented information."
+                        }
+                    ]
+                },
+                {
+                    "id": "4.4",
+                    "title": "Information security management system",
+                    "content": "The organization shall establish implement maintain and continually improve an information securitymanagement system including the processes needed and their interactions in accordance with therequirements of this document.",
+                    "subsections": []
+                }
+            ]
+        },
+        {
+            "id": "5",
+            "title": "Leadership",
+            "content": "This section covers the leadership requirements.",
+            "subsections": [
+                {
+                    "id": "5.1",
+                    "title": "Leadership and commitment",
+                    "content": "Top management shall demonstrate leadership and commitment with respect to the informationsecurity management system by:",
+                    "subsections": [
+                        {
+                            "id": "5.1.1",
+                            "title": "Establishing policies and objectives",
+                            "content": "ensuring the information security policy and the information security objectives are established and are compatible with the strategic direction of the organization",
+                            "subsections": []
+                        },
+                        {
+                            "id": "5.1.2",
+                            "title": "Integrating requirements",
+                            "content": "ensuring the integration of the information security management system requirements into the organizations processes",
+                            "subsections": []
+                        },
+                        {
+                            "id": "5.1.3",
+                            "title": "Providing resources",
+                            "content": "ensuring that the resources needed for the information security management system are available",
+                            "subsections": []
+                        },
+                        {
+                            "id": "5.1.4",
+                            "title": "Communicating importance",
+                            "content": "communicating the importance of effective information security management and of conforming to the information security management system requirements",
+                            "subsections": []
+                        },
+                        {
+                            "id": "5.1.5",
+                            "title": "Achieving outcomes",
+                            "content": "ensuring that the information security management system achieves its intended outcomes",
+                            "subsections": []
+                        },
+                        {
+                            "id": "5.1.6",
+                            "title": "Supporting personnel",
+                            "content": "directing and supporting persons to contribute to the effectiveness of the information security management system",
+                            "subsections": []
+                        },
+                        {
+                            "id": "5.1.7",
+                            "title": "Promoting improvement",
+                            "content": "promoting continual improvement",
+                            "subsections": []
+                        },
+                        {
+                            "id": "5.1.8",
+                            "title": "Supporting management roles",
+                            "content": "supporting other relevant management roles to demonstrate their leadership as it applies to their areas of responsibility",
+                            "subsections": []
+                        }
+                    ]
+                },
+                {
+                    "id": "5.2",
+                    "title": "Policy",
+                    "content": "Top management shall establish an information security policy that:",
+                    "subsections": [
+                        {
+                            "id": "5.2.1",
+                            "title": "Appropriate policy",
+                            "content": "is appropriate to the purpose of the organization",
+                            "subsections": []
+                        },
+                        {
+                            "id": "5.2.2",
+                            "title": "Setting objectives",
+                            "content": "includes information security objectives see 6.2 or provides the framework for setting information security objectives",
+                            "subsections": []
+                        },
+                        {
+                            "id": "5.2.3",
+                            "title": "Commitment to requirements",
+                            "content": "includes a commitment to satisfy applicable requirements related to information security",
+                            "subsections": []
+                        },
+                        {
+                            "id": "5.2.4",
+                            "title": "Commitment to improvement",
+                            "content": "includes a commitment to continual improvement of the information security management system",
+                            "subsections": []
+                        },
+                        {
+                            "id": "5.2.5",
+                            "title": "Policy availability",
+                            "content": "The information security policy shall",
+                            "subsections": [
+                                {
+                                    "id": "5.2.5.1",
+                                    "title": "Documented information",
+                                    "content": "be available as documented information",
+                                    "subsections": []
+                                },
+                                {
+                                    "id": "5.2.5.2",
+                                    "title": "Communication within the organization",
+                                    "content": "be communicated within the organization",
+                                    "subsections": []
+                                },
+                                {
+                                    "id": "5.2.5.3",
+                                    "title": "Availability to interested parties",
+                                    "content": "be available to interested parties as appropriate",
+                                    "subsections": []
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "5.3",
+                    "title": "Organizational roles responsibilities and authorities",
+                    "content": "Top management shall ensure that the responsibilities and authorities for roles relevant to information security are assigned and communicated within the organization.Top management shall assign the responsibility and authority for ensuring that the information security management system conforms to the requirements of this document and reporting on the performance of the information security management system to top management. Also, top management can also assign responsibilities and authorities for reporting performance of the information security management system within the organization.",
+                    "subsections": []
+                }
+            ]
+        },
+        {
+            "id": "6",
+            "title": "Planning",
+            "content": "This section covers the planning requirements.",
+            "subsections": [
+                {
+                    "id": "6.1",
+                    "title": "Actions to address risks and opportunities",
+                    "content": "This section covers actions to address risks and opportunities.",
+                    "subsections": [
+                        {
+                            "id": "6.1.1",
+                            "title": "General",
+                            "content": "The organization shall establish implement and maintain a process for risk assessment and risktreatment that is proportionate to the potential impacts on the confidentiality integrity and availability ofinformation.",
+                            "subsections": []
+                        },
+                        {
+                            "id": "6.1.2",
+                            "title": "Information security risk assessment",
+                            "content": "The organization shall establish implement and maintain a process for information security riskassessment that is proportionate to the potential impacts on the confidentiality integrity and availability ofinformation.",
+                            "subsections": [
+                                {
+                                    "id": "6.1.2.1",
+                                    "title": "Risk assessment process",
+                                    "content": "The organization shall ensure that the information security risk assessment process:",
+                                    "subsections": [
+                                        {
+                                            "id": "6.1.2.1.a",
+                                            "title": "Criteria establishment",
+                                            "content": "establishes the criteria against which the risks will be evaluated",
+                                            "subsections": []
+                                        },
+                                        {
+                                            "id": "6.1.2.1.b",
+                                            "title": "Methodology definition",
+                                            "content": "defines the methodology",
+                                            "subsections": []
+                                        },
+                                        {
+                                            "id": "6.1.2.1.c",
+                                            "title": "Consistent results",
+                                            "content": "ensures that repeated risk assessments produce consistent valid and comparable results",
+                                            "subsections": []
+                                        },
+                                        {
+                                            "id": "6.1.2.1.d",
+                                            "title": "Risk identification",
+                                            "content": "identifies the information security risks",
+                                            "subsections": []
+                                        },
+                                        {
+                                            "id": "6.1.2.1.e",
+                                            "title": "Risk analysis and evaluation",
+                                            "content": "analyzes and evaluates the information security risks",
+                                            "subsections": []
+                                        },
+                                        {
+                                            "id": "6.1.2.1.f",
+                                            "title": "Risk ownership",
+                                            "content": "identifies the risk owners",
+                                            "subsections": []
+                                        },
+                                        {
+                                            "id": "6.1.2.1.g",
+                                            "title": "Risk level determination",
+                                            "content": "determines the risk levels",
+                                            "subsections": []
+                                        },
+                                        {
+                                            "id": "6.1.2.1.h",
+                                            "title": "Risk treatment options",
+                                            "content": "determines the risk treatment options",
+                                            "subsections": []
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "6.2",
+                    "title": "Information security objectives and planning to achieve them",
+                    "content": "The organization shall establish information security objectives at relevant functions and levels.The information security objectives shall:",
+                    "subsections": [
+                        {
+                            "id": "6.2.1",
+                            "title": "Establishing information security objectives",
+                            "content": "The organization shall establish information security objectives at relevant functions and levels. The information security objectives shall:",
+                            "subsections": [
+                                {
+                                    "id": "6.2.1.1",
+                                    "title": "Consistency with policy",
+                                    "content": "Be consistent with the information security policy"
+                                },
+                                {
+                                    "id": "6.2.1.2",
+                                    "title": "Measurable objectives",
+                                    "content": "Be measurable if practicable"
+                                },
+                                {
+                                    "id": "6.2.1.3",
+                                    "title": "Consider requirements and risks",
+                                    "content": "Take into account applicable information security requirements and results from risk assessment and risk treatment"
+                                },
+                                {
+                                    "id": "6.2.1.4",
+                                    "title": "Monitoring",
+                                    "content": "Be monitored"
+                                },
+                                {
+                                    "id": "6.2.1.5",
+                                    "title": "Communication",
+                                    "content": "Be communicated"
+                                },
+                                {
+                                    "id": "6.2.1.6",
+                                    "title": "Updates",
+                                    "content": "Be updated as appropriate"
+                                },
+                                {
+                                    "id": "6.2.1.7",
+                                    "title": "Documentation",
+                                    "content": "Be available as documented information"
+                                },
+                                {
+                                    "id": "6.2.1.8",
+                                    "title": "Action plans",
+                                    "content": "what will be done"
+                                },
+                                {
+                                    "id": "6.2.1.9",
+                                    "title": "Resources",
+                                    "content": "what resources will be required"
+                                },
+                                {
+                                    "id": "6.2.1.10",
+                                    "title": "Responsibility",
+                                    "content": "who will be responsible;"
+                                },
+                                {
+                                    "id": "6.2.1.11",
+                                    "title": "Timelines",
+                                    "content": "when it will be completed; and"
+                                },
+                                {
+                                    "id": "6.2.1.12",
+                                    "title": "Evaluation",
+                                    "content": "how the results will be evaluated"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "6.3",
+                    "title": "Planning of changes",
+                    "content": "When the organization determines the need for changes to the information security managementsystem the changes shall be carried out in a planned manner",
+                    "subsections": []
+                }
+            ]
+        },
+        {
+            "id": "7",
+            "title": "Support",
+            "content": "This section covers support requirements.",
+            "subsections": [
+                {
+                    "id": "7.1",
+                    "title": "Resources",
+                    "content": "The organization shall determine and provide the resources needed for the establishmentimplementation maintenance and continual improvement of the information security management system.",
+                    "subsections": []
+                },
+                {
+                    "id": "7.2",
+                    "title": "Competence",
+                    "content": "The organization shall:",
+                    "subsections": [
+                        {
+                            "id": "7.2.1",
+                            "title": "Determining competence",
+                            "content": "determine the necessary competence of persons doing work under its control that affects its information security performance.",
+                            "subsections": []
+                        },
+                        {
+                            "id": "7.2.2",
+                            "title": "Ensuring competence",
+                            "content": "ensure that these persons are competent on the basis of appropriate education, training, or experience.",
+                            "subsections": []
+                        },
+                        {
+                            "id": "7.2.3",
+                            "title": "Actions to acquire competence",
+                            "content": "Where applicable, take actions to acquire the necessary competence and evaluate the effectiveness of the actions taken.",
+                            "subsections": []
+                        },
+                        {
+                            "id": "7.2.4",
+                            "title": "Documented information",
+                            "content": "retain appropriate documented information as evidence of competence.",
+                            "subsections": []
+                        }
+                    ]
+                },
+                {
+                    "id": "7.3",
+                    "title": "Awareness",
+                    "content": "Persons doing work under the organizations control shall be aware of:",
+                    "subsections": [
+                        {
+                            "id": "7.3.1",
+                            "title": "Awareness requirements",
+                            "content": "a) the information security policy\nb) their contribution to the effectiveness of the information security management system including the benefits of improved information security performance\nand\nc) the implications of not conforming with the information security management system requirements.",
+                            "subsections": []
+                        }
+                    ]
+                },
+                {
+                    "id": "7.4",
+                    "title": "Communication",
+                    "content": "The organization shall determine the need for internal and external communications relevant to theinformation security management system including: \n (a) on what to communicate. \n (b) when to communicate. \n(c) with whom to communicate \n(d) how to communicate.",
+                    "subsections": []
+                },
+                {
+                    "id": "7.5",
+                    "title": "Documented information",
+                    "content": "This section covers documented information.",
+                    "subsections": []
+                }
+            ]
+        },
+        {
+            "id": "8",
+            "title": "Operation",
+            "content": "This section covers operational requirements.",
+            "subsections": [
+                {
+                    "id": "8.1",
+                    "title": "Operational planning and control",
+                    "content": "The organization shall plan implement and control the processes needed to meet requirements and toimplement the actions determined in Clause 6 by: \n - establishing criteria for the processes. \n -implementing control of the processes in accordance with the criteria.\nDocumented information shall be available to the extent necessary to have confidence that theprocesses have been carried out as planned.ISOIEC 2022 All rights reserved7ISOIEC 270012022EThe organization shall control planned changes and review the consequences of unintended changestaking action to mitigate any adverse effects as necessary.The organization shall ensure that externally provided processes products or services that are relevantto the information security management system are controlled.",
+                    "subsections": []
+                },
+                {
+                    "id": "8.2",
+                    "title": "Information security risk assessment",
+                    "content": "The organization shall perform information security risk assessments at planned intervals or whensignificant changes are proposed or occur taking account of the criteria established in 6.1.2 a.The organization shall retain documented information of the results of the information security riskassessments.",
+                    "subsections": []
+                },
+                {
+                    "id": "8.3",
+                    "title": "Information security risk treatment",
+                    "content": "The organization shall implement the information security risk treatment plan.The organization shall retain documented information of the results of the information security risktreatment.",
+                    "subsections": []
+                }
+            ]
+        },
+        {
+            "id": "9",
+            "title": "Performance evaluation",
+            "content": "This section covers performance evaluation.",
+            "subsections": [
+                {
+                    "id": "9.1",
+                    "title": "Monitoring measurement analysis and evaluation",
+                    "content": "The organization shall determine:",
+                    "subsections": [
+                        {
+                            "id": "9.1.1",
+                            "title": "Monitoring and measurement requirements",
+                            "content": "The organization shall determine:",
+                            "subsections": [
+                                {
+                                    "id": "9.1.1.1",
+                                    "title": "Monitoring and measurement",
+                                    "content": "What needs to be monitored and measured"
+                                },
+                                {
+                                    "id": "9.1.1.2",
+                                    "title": "Methods",
+                                    "content": "Methods for monitoring, measurement, analysis, and evaluation"
+                                },
+                                {
+                                    "id": "9.1.1.3",
+                                    "title": "Timing",
+                                    "content": "When the monitoring and measuring shall be performed"
+                                },
+                                {
+                                    "id": "9.1.1.4",
+                                    "title": "Responsibility",
+                                    "content": "Who shall monitor and measure"
+                                },
+                                {
+                                    "id": "9.1.1.5",
+                                    "title": "Analysis",
+                                    "content": "When the results from monitoring and measurement shall be analysed and evaluated"
+                                },
+                                {
+                                    "id": "9.1.1.6",
+                                    "title": "Evaluation responsibility",
+                                    "content": "Who shall analyse and evaluate these results"
+                                },
+                                {
+                                    "id": "9.1.1.7",
+                                    "title": "Documentation",
+                                    "content": "Documented information shall be available as evidence of the results"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "9.2",
+                    "title": "Internal audit",
+                    "content": "The organization shall conduct internal audits at planned intervals to provide information on whether the information security management system:",
+                    "subsections": [
+                        {
+                            "id": "9.2.1",
+                            "title": "Internal audit requirements",
+                            "content": "The internal audit shall determine whether the information security management system:",
+                            "subsections": [
+                                {
+                                    "id": "9.2.1.1",
+                                    "title": "Conformity",
+                                    "content": "Conforms to the organization's own requirements for its information security management system"
+                                },
+                                {
+                                    "id": "9.2.1.2",
+                                    "title": "Compliance",
+                                    "content": "Conforms to the requirements of this document"
+                                },
+                                {
+                                    "id": "9.2.1.3",
+                                    "title": "Implementation and maintenance",
+                                    "content": "Is effectively implemented and maintained"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "id": "9.3",
+                    "title": "Management review",
+                    "content": "This section covers management review requirements.",
+                    "subsections": []
+                }
+            ]
+        },
+        {
+            "id": "10",
+            "title": "Improvement",
+            "content": "This section covers improvement requirements.",
+            "subsections": [
+                {
+                    "id": "10.1",
+                    "title": "Continual improvement",
+                    "content": "The organization shall continually improve the suitability adequacy and effectiveness of the informationsecurity management system.",
+                    "subsections": []
+                },
+                {
+                    "id": "10.2",
+                    "title": "Nonconformity and corrective action",
+                    "content": "When a nonconformity occurs, the organization shall:",
+                    "subsections": [
+                        {
+                            "id": "10.2.1",
+                            "title": "React to nonconformity",
+                            "content": "React to the nonconformity",
+                            "subsections": [
+                                {
+                                    "id": "10.2.1.1",
+                                    "title": "Control and correction",
+                                    "content": "Take action to control and correct it",
+                                    "subsections": []
+                                },
+                                {
+                                    "id": "10.2.1.2",
+                                    "title": "Dealing with consequences",
+                                    "content": "Deal with the consequences",
+                                    "subsections": []
+                                }
+                            ]
+                        },
+                        {
+                            "id": "10.2.2",
+                            "title": "Evaluate need for action",
+                            "content": "Evaluate the need for action to eliminate the causes of nonconformity",
+                            "subsections": [
+                                {
+                                    "id": "10.2.2.1",
+                                    "title": "Review nonconformity",
+                                    "content": "Review the nonconformity",
+                                    "subsections": []
+                                },
+                                {
+                                    "id": "10.2.2.2",
+                                    "title": "Determine causes",
+                                    "content": "Determine the causes of the nonconformity",
+                                    "subsections": []
+                                },
+                                {
+                                    "id": "10.2.2.3",
+                                    "title": "Identify similar issues",
+                                    "content": "Determine if similar nonconformities exist or could potentially occur",
+                                    "subsections": []
+                                }
+                            ]
+                        },
+                        {
+                            "id": "10.2.3",
+                            "title": "Implement actions",
+                            "content": "Implement any action needed",
+                            "subsections": []
+                        },
+                        {
+                            "id": "10.2.4",
+                            "title": "Review effectiveness",
+                            "content": "Review the effectiveness of any corrective action taken",
+                            "subsections": []
+                        },
+                        {
+                            "id": "10.2.5",
+                            "title": "Make necessary changes",
+                            "content": "Make changes to the information security management system, if necessary",
+                            "subsections": []
+                        },
+                        {
+                            "id": "10.2.6",
+                            "title": "Documented information",
+                            "content": "Corrective actions shall be appropriate to the effects of the nonconformities encountered. Documented information shall be available as evidence of:",
+                            "subsections": [
+                                {
+                                    "id": "10.2.6.1",
+                                    "title": "Nonconformities and actions",
+                                    "content": "The nature of the nonconformities and any subsequent actions taken",
+                                    "subsections": []
+                                },
+                                {
+                                    "id": "10.2.6.2",
+                                    "title": "Results of actions",
+                                    "content": "The results of any corrective action",
+                                    "subsections": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

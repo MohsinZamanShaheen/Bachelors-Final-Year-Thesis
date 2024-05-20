@@ -15,7 +15,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 @Component
-public class DataLoader {
+public class DataLoaderIso27002 {
 
     @Autowired
     private ControlRepository controlRepository;

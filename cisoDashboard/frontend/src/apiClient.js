@@ -31,4 +31,6 @@ export const updateControlStatusByCode = (controlCode, status) => {
 
 export const getControlSummary = () => apiClient.get('/controls/summary');
 
+export const getSections = () => apiClient.get('/sections');
+
 export default apiClient;
