@@ -43,30 +43,36 @@ public class ControlController {
 
     @GetMapping("/summary")
     public ResponseEntity<List<ControlSummary>> getControlSummary() {
-        List<Control> controls = controlService.getAllControls();
+        List<Control> controls = controlService.getAllControlsByLanguage("en");
         Map<String, ControlSummary> summaryMap = new HashMap<>();
 
         for (Control control : controls) {
             String category = control.getCategory();
-            String controlCode = control.getControlCode();
 
             summaryMap.putIfAbsent(category, new ControlSummary(category, 0, 0));
             ControlSummary summary = summaryMap.get(category);
-            summary.setTotal(summary.getTotal()+1);
+            summary.setTotal(summary.getTotal() + 1);
 
             if (control.getChecked()) {
-                summary.setChecked(summary.getChecked()+1);
+                summary.setChecked(summary.getChecked() + 1);
             }
         }
 
         List<ControlSummary> summaries = new ArrayList<>(summaryMap.values());
+        for (ControlSummary summary : summaries) {
+            summary.setCheckedPercentage(summary.getTotal() == 0 ? 0 : ((double) summary.getChecked() / summary.getTotal()) * 100);
+        }
         int totalControls = summaries.stream().mapToInt(ControlSummary::getTotal).sum();
         int totalChecked = summaries.stream().mapToInt(ControlSummary::getChecked).sum();
+        double totalCheckedPercentage = totalControls == 0 ? 0 : ((double) totalChecked / totalControls) * 100;
 
-        summaries.add(new ControlSummary("Total Checked", totalControls, totalChecked));
+        ControlSummary totalSummary = new ControlSummary("Total Checked", totalControls, totalChecked, totalCheckedPercentage);
+        summaries.add(totalSummary);
 
         return ResponseEntity.ok(summaries);
     }
+
+
 
 
     @PostMapping

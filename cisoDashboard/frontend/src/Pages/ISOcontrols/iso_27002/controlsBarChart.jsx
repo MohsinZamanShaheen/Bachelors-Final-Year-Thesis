@@ -4,11 +4,18 @@ import { ResponsiveBar } from "@nivo/bar";
 import { tokens } from "../../../theme";
 import {getControlSummary} from "../../../apiClient";
 
-const transformData = (summaries) => {
-  return summaries.map(summary => ({
-    category: summary.category,
-    checked: summary.checkedPercentage,
-    color: summary.category === 'Total Checked' ? 'red' : 'blue' // Adjust color as needed
+const transformData = (summary) => {
+  const categoryColors = {
+    "Organizational Controls": "#1f77b4",
+    "People Controls": "#ff7f0e",
+    "Physical Controls": "#2ca02c",
+    "Technological Controls": "#d62728",
+    "Total Checked": "red"
+  };
+  return summary.map(item => ({
+    category: item.category,
+    checked: item.checkedPercentage,
+    color: categoryColors[item.category] || "blue"
   }));
 };
 
