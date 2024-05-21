@@ -1,136 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import { OrganizationChart } from 'primereact/organizationchart';
 import {Box} from '@mui/material';
 import Header from '../../Components/global/Header';
+import CircularProgress from '@mui/material/CircularProgress';
+import {getOrganizationChart} from "../../apiClient";
+
+const sanitizeData = (data) => {
+    if (!data) return [];
+
+    const sanitizeNode = (node) => {
+        if (!node) return null;
+        return {
+            id: node.id || Math.random().toString(36).substr(2, 9), // Generate a random id if null
+            type: node.type || 'unknown',
+            label: node.label || 'Unknown',
+            data: {
+                image: node.data?.image || '',
+                name: node.data?.name || 'Unknown',
+                title: node.data?.title || ''
+            },
+            children: (node.children || []).map(sanitizeNode),
+            expanded: node.expanded || false,
+        };
+    };
+
+    return data.map(sanitizeNode);
+};
 
 export default function OrganizationChartCustom() {
     const [selection, setSelection] = useState([]);
-    const [data] = useState([
-        {
-            expanded: true,
-            type: 'person',
-            data: {
-                image: 'https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png',
-                name: 'Amy Elsner',
-                title: 'CEO'
-            },
-            children: [
-                {
-                    label: 'Development',
-                    children:[
-                        {
-                            expanded: true,
-                            type: 'person',
-                            data: {
-                                image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
-                                name: 'Anna Fali',
-                                title: 'CMO'
-                            },
-                        },
-                        {
-                            expanded: true,
-                            type: 'person',
-                            data: {
-                                image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
-                                name: 'Stephen Shaw',
-                                title: 'CTO'
-                            },
-                        }
-                    ]
-                },
-                {
-                    label: 'UI/UX Design',
-                    children:[
-                        {
-                            expanded: true,
-                            type: 'person',
-                            data: {
-                                image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
-                                name: 'Anna Fali',
-                                title: 'CMO'
-                            },
-                        },
-                        {
-                            expanded: true,
-                            type: 'person',
-                            data: {
-                                image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
-                                name: 'Stephen Shaw',
-                                title: 'CTO'
-                            },
-                            children: [
-                                {
-                                    expanded: true,
-                                    type: 'person',
-                                    data: {
-                                        image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
-                                        name: 'Anna Fali',
-                                        title: 'CMO'
-                                    },
-                                },
-                                {
-                                    expanded: true,
-                                    type: 'person',
-                                    data: {
-                                        image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
-                                        name: 'Stephen Shaw',
-                                        title: 'CTO'
-                                    },
-                                }
-                            ]
-                        }
-                    ]
-                },                      
-                {
-                    label: 'Sales',
-                    children:[
-                        {
-                            expanded: true,
-                            type: 'person',
-                            data: {
-                                image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
-                                name: 'Anna Fali',
-                                title: 'CMO'
-                            },
-                        },
-                        {
-                            expanded: true,
-                            type: 'person',
-                            data: {
-                                image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
-                                name: 'Stephen Shaw',
-                                title: 'CTO'
-                            },
-                        }
-                    ]
-                },
-                {
-                    label: 'Marketing',
-                    children:[
-                        {
-                            expanded: true,
-                            type: 'person',
-                            data: {
-                                image: 'https://primefaces.org/cdn/primereact/images/avatar/annafali.png',
-                                name: 'Anna Fali',
-                                title: 'CMO'
-                            },
-                        },
-                        {
-                            expanded: true,
-                            type: 'person',
-                            data: {
-                                image: 'https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png',
-                                name: 'Stephen Shaw',
-                                title: 'CTO'
-                            },
-                        }
-                    ]
-                }
-            ]
-        }
-    ]);
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await getOrganizationChart();
+                const sanitizedData = sanitizeData(result.data);
+                setData(sanitizedData);
+
+            } catch (error) {
+                console.error('Error fetching organization data:', error);
+            }
+        };
+        fetchData();
+    }, []);
 
     const nodeTemplate = (node) => {
         if (node.type === 'person') {
@@ -164,7 +78,20 @@ export default function OrganizationChartCustom() {
                 />
             </Box>
             <Box className="card overflow-x-auto">
-                <OrganizationChart value={data} selectionMode="multiple" selection={selection} onSelectionChange={(e) => setSelection(e.data)} nodeTemplate={nodeTemplate} />
+                {data ? (
+                    <OrganizationChart
+                        value={data}
+                        selectionMode="multiple"
+                        selection={selection}
+                        onSelectionChange={(e) => setSelection(e.data)}
+                        nodeTemplate={nodeTemplate}
+                    />
+                ) : (
+                    <Box sx={{ display: 'flex' }}>
+                        <h1>Hello</h1>
+                        <CircularProgress />
+                    </Box>
+                )}
             </Box>
         </Box>
     )

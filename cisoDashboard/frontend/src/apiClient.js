@@ -39,4 +39,8 @@ export const updateStatus = (id, status) => apiClient.patch(`/alerts/${id}/statu
 export const updateAction = (id, action) => apiClient.patch(`/alerts/${id}/action`, { action });
 export const updateComments = (id, comments) => apiClient.patch(`/alerts/${id}/comments`, { comments });
 
+export const getOrganizationChart = () => {
+  return apiClient.get('/organization/chart');
+};
+
 export default apiClient;

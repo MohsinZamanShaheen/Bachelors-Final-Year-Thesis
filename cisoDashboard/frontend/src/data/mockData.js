@@ -514,11 +514,10 @@ export const mockLineData = [
 ];
 
 export const bubbleData = [
-  { id: 'NY',name: 'USA', value: 15, x: 270, y: 150 },
-  { id: 'LON',name: 'UK', value: 15, x: 430, y: 140 },
-  { id: 'BJS',name: 'China', value: 30, x: 600, y: 140 },
-  { id: 'MUM',name: 'India', value: 5, x: 570, y: 210 },
-  { id: 'RIO',name: 'Saudia', value: 25, x: 500, y: 200 }
+  { id: 'NY',name: 'USA', value: 15, x: 270, y: 100 },
+  { id: 'LON',name: 'UK', value: 15, x: 400, y: 90 },
+  { id: 'BJS',name: 'China', value: 20, x: 500, y: 140 },
+  { id: 'SYD',name: 'Australia', value: 5, x: 570, y: 210 },
 ];
 
 

@@ -19,7 +19,7 @@ public class AlertService {
     private final Random random = new Random();
     private final String[] rules = {"Malware Prevention", "Phishing Detection", "Intrusion Detection"};
 
-    @Scheduled(fixedRate = 300000)
+    @Scheduled(fixedRate = 1500000)
     public void generateAlert() {
         Alert alert = Alert.builder()
                 .timestamp(LocalDateTime.now())

@@ -1,0 +1,125 @@
+[
+    {
+      "expanded": true,
+      "type": "person",
+      "data": {
+        "image": "https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png",
+        "name": "Amy Elsner",
+        "title": "CEO"
+      },
+      "children": [
+        {
+          "label": "Development",
+          "children": [
+            {
+              "expanded": true,
+              "type": "person",
+              "data": {
+                "image": "https://primefaces.org/cdn/primereact/images/avatar/annafali.png",
+                "name": "Anna Fali",
+                "title": "CMO"
+              }
+            },
+            {
+              "expanded": true,
+              "type": "person",
+              "data": {
+                "image": "https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png",
+                "name": "Stephen Shaw",
+                "title": "CTO"
+              }
+            }
+          ]
+        },
+        {
+          "label": "UI/UX Design",
+          "children": [
+            {
+              "expanded": true,
+              "type": "person",
+              "data": {
+                "image": "https://primefaces.org/cdn/primereact/images/avatar/annafali.png",
+                "name": "Anna Fali",
+                "title": "CMO"
+              }
+            },
+            {
+              "expanded": true,
+              "type": "person",
+              "data": {
+                "image": "https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png",
+                "name": "Stephen Shaw",
+                "title": "CTO"
+              },
+              "children": [
+                {
+                  "expanded": true,
+                  "type": "person",
+                  "data": {
+                    "image": "https://primefaces.org/cdn/primereact/images/avatar/annafali.png",
+                    "name": "Anna Fali",
+                    "title": "CMO"
+                  }
+                },
+                {
+                  "expanded": true,
+                  "type": "person",
+                  "data": {
+                    "image": "https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png",
+                    "name": "Stephen Shaw",
+                    "title": "CTO"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Sales",
+          "children": [
+            {
+              "expanded": true,
+              "type": "person",
+              "data": {
+                "image": "https://primefaces.org/cdn/primereact/images/avatar/annafali.png",
+                "name": "Anna Fali",
+                "title": "CMO"
+              }
+            },
+            {
+              "expanded": true,
+              "type": "person",
+              "data": {
+                "image": "https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png",
+                "name": "Stephen Shaw",
+                "title": "CTO"
+              }
+            }
+          ]
+        },
+        {
+          "label": "Marketing",
+          "children": [
+            {
+              "expanded": true,
+              "type": "person",
+              "data": {
+                "image": "https://primefaces.org/cdn/primereact/images/avatar/annafali.png",
+                "name": "Anna Fali",
+                "title": "CMO"
+              }
+            },
+            {
+              "expanded": true,
+              "type": "person",
+              "data": {
+                "image": "https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png",
+                "name": "Stephen Shaw",
+                "title": "CTO"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]

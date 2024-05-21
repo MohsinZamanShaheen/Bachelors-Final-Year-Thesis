@@ -75,10 +75,10 @@ const HomePage = ({showLogin}) => {
               </>
           ) : (
               <>
-                  <Typography variant="h2" sx={{ fontWeight: "bold" }}>
+                  <Typography variant="h1" sx={{ fontWeight: "bold" }}>
                       Central Command for Cybersecurity
                   </Typography>
-                  <Typography variant="h5" sx={{ my: 3 }}>
+                  <Typography variant="h4" sx={{ my: 3 }}>
                       Optimized for seamless integration across all platforms, our CISO dashboard ensures real-time monitoring, comprehensive control, and strategic security insights to protect your organization against evolving threats.
                   </Typography>
                   <Box>

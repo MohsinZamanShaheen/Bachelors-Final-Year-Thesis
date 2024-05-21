@@ -49,9 +49,7 @@ const Settings = () => {
                 <Divider />
                 <Tab sx={{ minWidth: "100%", fontWeight: "bold" }} label="Users and Permissions" />
                 <Divider />
-                <Tab sx={{ minWidth: "100%", fontWeight: "bold" }} label="Social Links" />
-                <Divider />
-                <Tab sx={{ minWidth: "100%", fontWeight: "bold" }} label="Connections" />
+                <Tab sx={{ minWidth: "100%", fontWeight: "bold" }} label="Reports" />
                 <Divider />
                 <Tab sx={{ minWidth: "100%", fontWeight: "bold" }} label="Logs" />
               </Tabs>
@@ -60,8 +58,8 @@ const Settings = () => {
           <Grid item xs={12} md={9}>
             <Paper sx={{ height: '100%', p: 2 }}>
               {value === 0 && <Profile />}
-              {value === 1 && <ChangePasswordCard />}
-              {value === 2 && (
+              {value === 2 && <ChangePasswordCard />}
+              {value === 1 && (
                 <>
                   <Tabs value={subValue} onChange={handleSubChange}>
                     <Tab label="Users" />
@@ -73,9 +71,8 @@ const Settings = () => {
                 {subValue === 2 && <div>Other Content</div>}
                 </>
               )}
-              {value === 3 && <div>Social Links Content</div>}
-              {value === 4 && <div>Connections Content</div>}
-              {value === 5 && <div>Logs Content</div>}
+              {value === 3 && <div>Reports</div>}
+              {value === 4 && <div>Logs Content</div>}
             </Paper>
           </Grid>
         </Grid>

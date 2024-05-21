@@ -1,7 +1,7 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState } from "react";
 import { ColorModeContext, useMode } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Route, Routes, Navigate, useLocation } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import TopNavbar from "./Pages/navigation/TopNavbar";
 import Sidebar from "./Pages/navigation/Sidebar";
 import Dashboard from "./Pages/dashboard";
@@ -26,7 +26,6 @@ function App() {
   const [theme, colorMode] = useMode();
   const { isLoggedIn } = useContext(AuthContext);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

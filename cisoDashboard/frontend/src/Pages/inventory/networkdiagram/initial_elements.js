@@ -24,6 +24,7 @@ export const nodes = [
     style: {
       width: 200,
       height: 180,
+      color: 'black',
       backgroundColor: 'rgba(0, 0, 0, 0)',
       border: '2px dashed #ccc',
     },
