@@ -43,4 +43,13 @@ export const getOrganizationChart = () => {
   return apiClient.get('/organization/chart');
 };
 
+export const getNodes = () => {
+  return apiClient.get('/netdiagelem/nodes');
+};
+
+export const getEdges = () => {
+  return apiClient.get('/netdiagelem/edges');
+};
+
+
 export default apiClient;

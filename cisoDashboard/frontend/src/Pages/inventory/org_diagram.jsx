@@ -87,8 +87,7 @@ export default function OrganizationChartCustom() {
                         nodeTemplate={nodeTemplate}
                     />
                 ) : (
-                    <Box sx={{ display: 'flex' }}>
-                        <h1>Hello</h1>
+                    <Box sx={{ display: 'flex', justifyContent:'center', alignItems:'center' }}>
                         <CircularProgress />
                     </Box>
                 )}

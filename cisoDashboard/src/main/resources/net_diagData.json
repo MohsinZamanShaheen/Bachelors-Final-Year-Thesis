@@ -1,0 +1,173 @@
+{
+  "nodes": [
+    {
+      "id": "1",
+      "type": "transparent",
+      "position": { "x": 0, "y": 250 },
+      "data": { "label": "Firewall", "type": "firewall", "imageUrl": "../../assets/firewall2.png" },
+      "parentId": null,
+      "extent": null,
+      "style": {}
+    },
+    {
+      "id": "2",
+      "type": "transparent",
+      "position": { "x": 180, "y": 250 },
+      "data": { "label": "Router", "type": "router", "imageUrl": "../../assets/router.png" },
+      "parentId": null,
+      "extent": null,
+      "style": {}
+    },
+    {
+      "id": "4",
+      "type": "transparent",
+      "position": { "x": 0, "y": 400 },
+      "data": { "label": "Switch", "type": "switch", "imageUrl": "../../assets/switch.png" },
+      "parentId": null,
+      "extent": null,
+      "style": {}
+    },
+    {
+      "id": "5",
+      "type": "transparent",
+      "position": { "x": 0, "y": 100 },
+      "data": { "label": "Switch", "type": "switch", "imageUrl": "../../assets/switch.png" },
+      "parentId": null,
+      "extent": null,
+      "style": {}
+    },
+    {
+      "id": "6",
+      "type": "transparent",
+      "position": { "x": -120, "y": 500 },
+      "data": { "label": "Server", "type": "server", "imageUrl": "../../assets/applicationServer.png" },
+      "parentId": null,
+      "extent": null,
+      "style": {}
+    },
+    {
+      "id": "7",
+      "type": "transparent",
+      "position": { "x": -300, "y": 250 },
+      "data": { "label": "Cloud", "type": "cloud", "imageUrl": "../../assets/cloud.png" },
+      "parentId": null,
+      "extent": null,
+      "style": {}
+    },
+    {
+      "id": "8",
+      "type": "transparent",
+      "position": { "x": 80, "y": 75 },
+      "data": { "label": "Backup", "type": "backup", "imageUrl": "../../assets/dbserver.png" },
+      "parentId": "2-1",
+      "extent": "parent",
+      "style": {}
+    },
+    {
+      "id": "9",
+      "type": "transparent",
+      "position": { "x": 40, "y": 100 },
+      "data": { "label": "Server", "type": "server", "imageUrl": "../../assets/applicationServer.png" },
+      "parentId": "2-2",
+      "extent": "parent",
+      "style": {}
+    },
+    {
+      "id": "10",
+      "type": "transparent",
+      "position": { "x": 150, "y": 100 },
+      "data": { "label": "Server", "type": "server", "imageUrl": "../../assets/applicationServer.png" },
+      "parentId": "2-2",
+      "extent": "parent",
+      "style": {}
+    },
+    {
+      "id": "11",
+      "type": "transparent",
+      "position": { "x": 250, "y": 100 },
+      "data": { "label": "Server", "type": "server", "imageUrl": "../../assets/applicationServer.png" },
+      "parentId": "2-2",
+      "extent": "parent",
+      "style": {}
+    },
+    {
+      "id": "12",
+      "type": "transparent",
+      "position": { "x": -150, "y": 250 },
+      "data": { "label": "Modem", "type": "modem", "imageUrl": "../../assets/modem.png" },
+      "parentId": null,
+      "extent": null,
+      "style": {}
+    },
+    {
+      "id": "13",
+      "type": "transparent",
+      "position": { "x": 120, "y": 500 },
+      "data": { "label": "Desktop PC", "type": "pc", "imageUrl": "../../assets/pcsetup.png" },
+      "parentId": null,
+      "extent": null,
+      "style": {}
+    },
+    {
+      "id": "14",
+      "type": "transparent",
+      "position": { "x": 300, "y": 300 },
+      "data": { "label": "Laptop", "type": "laptop", "imageUrl": "../../assets/laptop.png" },
+      "parentId": null,
+      "extent": null,
+      "style": {}
+    },
+    {
+      "id": "15",
+      "type": "transparent",
+      "position": { "x": 300, "y": 450 },
+      "data": { "label": "FAX", "type": "fax", "imageUrl": "../../assets/fax.png" },
+      "parentId": null,
+      "extent": null,
+      "style": {}
+    },
+    {
+      "id": "2-1",
+      "type": "group",
+      "position": { "x": 400, "y": 50 },
+      "data": { "label": "Backup Servers" },
+      "parentId": null,
+      "extent": null,
+      "style": {
+        "width": 200,
+        "height": 180,
+        "color": "black",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "border": "2px dashed #ccc"
+      }
+    },
+    {
+      "id": "2-2",
+      "type": "group",
+      "position": { "x": -120, "y": -80 },
+      "data": { "label": "Isolation Region" },
+      "parentId": null,
+      "extent": null,
+      "style": {
+        "width": 350,
+        "height": 250,
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "border": "2px dashed #ccc"
+      }
+    }
+  ],
+  "edges": [
+    { "id": "e1-2", "source": "1", "target": "2", "sourceHandle": "fa" },
+    { "id": "e1-12", "source": "1", "target": "12", "sourceHandle": "fb" },
+    { "id": "e1-5", "source": "1", "target": "5", "sourceHandle": "fc" },
+    { "id": "e1-4", "source": "1", "target": "4", "sourceHandle": "fd" },
+    { "id": "e4-6", "source": "4", "target": "6", "sourceHandle": "sb" },
+    { "id": "e7-12", "source": "7", "target": "12" },
+    { "id": "e5-9", "source": "5", "target": "9", "sourceHandle": "sb" },
+    { "id": "e5-10", "source": "5", "target": "10", "sourceHandle": "sc" },
+    { "id": "e5-11", "source": "5", "target": "11", "sourceHandle": "sa" },
+    { "id": "e4-13", "source": "4", "target": "13", "sourceHandle": "sd" },
+    { "id": "e2-14", "source": "2", "target": "14" },
+    { "id": "e14-15", "source": "14", "target": "15" }
+  ]
+}
