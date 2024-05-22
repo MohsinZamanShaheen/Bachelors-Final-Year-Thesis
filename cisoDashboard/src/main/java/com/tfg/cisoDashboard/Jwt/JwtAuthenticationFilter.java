@@ -42,7 +42,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
             try {
                 // Si el token es válido, establece la autenticación en el contexto de seguridad
                 String userid = tokenProvider.getUserIdFromToken(token);
-                UserDetails details = service.findById(Long.parseLong(userid));
+                UserDetails details = service.findUserById(Long.parseLong(userid));
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(details, null, details.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);

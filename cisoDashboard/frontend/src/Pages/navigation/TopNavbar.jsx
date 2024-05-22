@@ -145,7 +145,6 @@ const TopNavbar = ({ handleDrawerToggle }) => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem onClick={handleClose}>My profile</MenuItem>
             <MenuItem onClick={handleSettingsClick}>Settings</MenuItem>
             <MenuItem onClick={logoutUser}>Logout</MenuItem>
           </Menu>

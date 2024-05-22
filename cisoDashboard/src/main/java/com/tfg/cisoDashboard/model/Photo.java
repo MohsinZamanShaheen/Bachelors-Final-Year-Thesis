@@ -18,5 +18,6 @@ public class Photo {
     private String fileType;
 
     @Lob
+    @Column(name = "data", length = 1000)
     private byte[] data;
 }

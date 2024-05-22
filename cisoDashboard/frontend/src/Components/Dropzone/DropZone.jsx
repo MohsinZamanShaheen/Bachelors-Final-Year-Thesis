@@ -8,7 +8,7 @@ import {
   VisuallyHidden,
 } from '@aws-amplify/ui-react';
 
-const acceptedFileTypes = ['image/png', 'image/jpeg'];
+const acceptedFileTypes = ['image/png','image/jpg', 'image/jpeg'];
 
 const DropZoneComp = () => {
   const [files, setFiles] = React.useState([]);
@@ -20,6 +20,13 @@ const DropZoneComp = () => {
       return;
     }
     setFiles(Array.from(files));
+    handleFileUpload(files[0]);
+  };
+
+  const handleFileUpload = (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    setPhoto(formData);
   };
 
   return (
@@ -28,11 +35,14 @@ const DropZoneComp = () => {
         acceptedFileTypes={acceptedFileTypes}
         onDropComplete={({ acceptedFiles, rejectedFiles }) => {
           setFiles(acceptedFiles);
+          if (acceptedFiles.length > 0) {
+            handleFileUpload(acceptedFiles[0]);
+          }
         }}
       >
         <Flex direction="column" alignItems="center">
           <Text>Click to upload or drag and drop</Text>
-          <Text>SVG, PNG, JPG or GIF</Text>
+          <Text>PNG, JPG or JPEG</Text>
           <Text>max size (15MB)</Text>
           <Button size="small" onClick={() => hiddenInput.current.click()}>
             Browse

@@ -12,7 +12,7 @@ export const tokens = (mode) => ({
         100: "#1a3c66" // Nile Blue
       },
       textColor:{
-        100: "#ffffff", // white
+        100: "#fafafa", // white
         200: "#a9b2bb", // light grey
         300: "#000000", // green
         400: "#50C878" // green
@@ -27,13 +27,13 @@ export const tokens = (mode) => ({
       },
       sameColors:{
         100: "#24303F",
-        200: "#ffffff"
+        200: "#fafafa"
       },
       others:{
         100: "#de3e3e", // red shade
         200: "#6d5ee0", // purple
         300: "#6ddbd7", // cian
-        400: "#ffffff", // white
+        400: "#fafafa", // white
         500: "#89CFF0", // light blue
         600: "#000000", // black
         700: "#50C878", // green
@@ -41,7 +41,7 @@ export const tokens = (mode) => ({
       }
     } : {
       primary:{
-        100: "#ffffff"
+        100: "#fafafa"
       },
       secondary:{
         100: "#24303F"
@@ -49,7 +49,7 @@ export const tokens = (mode) => ({
       textColor:{
         100: "#000000", // black
         200: "#a9b2bb", // light grey
-        300: "#ffffff", // white
+        300: "#fafafa", // white
         400: "#50C878" // green
       },
       buttonColor:{
@@ -62,13 +62,13 @@ export const tokens = (mode) => ({
       },
       sameColors:{
         100: "#24303F",
-        200: "#ffffff"
+        200: "#fafafa"
       },
       others:{
         100: "#de3e3e", // red shade
         200: "#6d5ee0", // purple
         300: "#6ddbd7", // cian
-        400: "#ffffff", // white
+        400: "#fafafa", // white
         500: "#89CFF0", // light blue
         600: "#000000", // black
         700: "#50C878", // green

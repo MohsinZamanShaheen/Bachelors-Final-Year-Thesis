@@ -2,7 +2,7 @@ package com.tfg.cisoDashboard.dto;
 import lombok.Data;
 
 @Data
-public class UserDto {
+public class UserUpdateDto {
     private Long id;
     private String name;
     private String email;

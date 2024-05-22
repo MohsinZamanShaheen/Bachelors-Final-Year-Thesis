@@ -13,6 +13,17 @@ export const register = async (data) => {
 export const login = async (data) => {
   return await apiClient.post('/auth/login', data);
 };
+export const updateUserInfo = (userInfo) => apiClient.put(`/users/update`, userInfo);
+export const updateUserPhoto = (formData) => apiClient.post(`/users/addphoto`, formData, {
+  headers: {
+    'Content-Type': 'multipart/form-data'
+  }
+});
+
+export const getCurrentUser = () => apiClient.get('/users/getActual');
+export const deleteUserPhoto = () => apiClient.delete(`/users/deletephoto`);
+
+
 export const getTeam = () => apiClient.get('/users/getTeam');
 
 export const getProviders = () => apiClient.get('/providers/getAll');

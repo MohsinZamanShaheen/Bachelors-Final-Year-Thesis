@@ -51,7 +51,7 @@ public class AuthController {
         }
         if (token != null && tokenProvider.validateToken(token)) {
             String userid = tokenProvider.getUserIdFromToken(token);
-            User user = service.findById(Long.parseLong(userid));
+            User user = service.findUserById(Long.parseLong(userid));
             return ResponseEntity.ok(user);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

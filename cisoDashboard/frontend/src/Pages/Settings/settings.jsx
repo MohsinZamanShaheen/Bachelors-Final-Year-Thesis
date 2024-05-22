@@ -35,13 +35,13 @@ const Settings = () => {
       <Box mt={5} sx={{ height: '90vh' }}>
         <Grid container spacing={2} height="100%">
           <Grid item xs={12} md={3}>
-            <Paper sx={{ height: '100%' }}>
+            <Paper sx={{ height: '100%',backgroundColor: colors.primary[100] }}>
               <Tabs
                 orientation="vertical"
                 variant="scrollable"
                 value={value}
                 onChange={handleChange}
-                sx={{ borderRight: 1, borderColor: 'divider' }}
+                sx={{ borderRight: 1, borderColor: 'divider', backgroundColor: colors.primary[100] }}
               >
                 <Tab sx={{ minWidth: "100%", fontWeight: "bold" }} label="General Profile" />
                 <Divider />
@@ -55,8 +55,8 @@ const Settings = () => {
               </Tabs>
             </Paper>
           </Grid>
-          <Grid item xs={12} md={9}>
-            <Paper sx={{ height: '100%', p: 2 }}>
+          <Grid item xs={12} md={9} >
+            <Paper sx={{ height: '100%', p: 2, backgroundColor: colors.primary[100] }}>
               {value === 0 && <Profile />}
               {value === 2 && <ChangePasswordCard />}
               {value === 1 && (
