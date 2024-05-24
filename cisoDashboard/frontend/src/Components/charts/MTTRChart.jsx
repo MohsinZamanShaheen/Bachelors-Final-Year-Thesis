@@ -1,6 +1,19 @@
 import React from 'react';
-import { Box, Typography, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import {
+    Box,
+    Typography,
+    Grid,
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    useTheme
+} from '@mui/material';
 import PieStat from '../stats/pieStat';
+import {tokens} from "../../theme";
 
 const pieData = [
     { id: 'CMS Issue',label: 'CMS Issue', value: 7, color: "hsl(120, 69%, 37%)"},
@@ -18,6 +31,8 @@ const tableData = [
 ];
 
 const MTTRChart = () => {
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
   return (
     <Box sx={{ p: 3}}>
       <Typography variant="h4" align="center" gutterBottom>
@@ -36,7 +51,7 @@ const MTTRChart = () => {
       </Grid>
       <Grid container spacing={2} mt={1}>
         <Grid item xs={12} md={12}>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} sx={{backgroundColor:colors.primary[100]}}>
             <Table>
               <TableHead>
                 <TableRow>

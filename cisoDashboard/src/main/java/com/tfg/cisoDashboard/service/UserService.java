@@ -1,10 +1,14 @@
 package com.tfg.cisoDashboard.service;
 
+import com.tfg.cisoDashboard.dto.PhotoDto;
+import com.tfg.cisoDashboard.dto.UserDto;
 import com.tfg.cisoDashboard.dto.UserUpdateDto;
 import com.tfg.cisoDashboard.model.Photo;
 import com.tfg.cisoDashboard.model.User;
 import com.tfg.cisoDashboard.repository.PhotoRepository;
 import com.tfg.cisoDashboard.repository.UserRepository;
+import com.tfg.cisoDashboard.security.SecurityUtils;
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,52 +38,86 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) {
         return userRepository.findByUsername(username).get();
     }
-    protected User getCurrentUserFromConext(){
-        Object obj = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User currentUser = null;
-        if(obj instanceof User){
-            currentUser = (User) obj;
+
+    private User getCurrentUser(){
+        Long currentUserId = SecurityUtils.getCurrentUserIdFromContext();
+        if (currentUserId == null) {
+            return null;
         }
+        User currentUser = userRepository.findById(currentUserId).orElse(null);
         return currentUser;
     }
 
-    public User getCurrent(){
-        return getCurrentUserFromConext();
+    public Photo getUserPhoto(){
+        User currentUser = getCurrentUser();
+        return currentUser.getPhoto();
+    }
+
+    public UserDto getCurrentUserDTO() {
+        User currentUser = getCurrentUser();
+        if (currentUser != null && currentUser.getPhoto() != null) {
+            Hibernate.initialize(currentUser.getPhoto());
+        }
+        return convertToDTO(currentUser);
+    }
+
+    private UserDto convertToDTO(User user) {
+        if (user == null) {
+            return null;
+        }
+        UserDto userDTO = new UserDto();
+        userDTO.setId(user.getId());
+        userDTO.setUsername(user.getUsername());
+        userDTO.setName(user.getName());
+        userDTO.setEmail(user.getEmail());
+        userDTO.setPhoneNumber(user.getPhoneNumber());
+        userDTO.setBio(user.getBio());
+
+        if (user.getPhoto() != null) {
+            PhotoDto photoDTO = new PhotoDto();
+            photoDTO.setId(user.getPhoto().getId());
+            photoDTO.setFileName(user.getPhoto().getFileName());
+            photoDTO.setFileType(user.getPhoto().getFileType());
+            photoDTO.setData(user.getPhoto().getData());
+            userDTO.setPhoto(photoDTO);
+        }
+
+        return userDTO;
     }
 
     public User updateUser(UserUpdateDto userUpdateDTO) {
-        User user = getCurrentUserFromConext();
-        user.setName(userUpdateDTO.getName());
-        user.setPhoneNumber(userUpdateDTO.getPhoneNumber());
+        User currentUser = getCurrentUser();
+        currentUser.setName(userUpdateDTO.getName());
+        currentUser.setPhoneNumber(userUpdateDTO.getPhoneNumber());
         //user.setCompany(userUpdateDTO.getCompany());
-        user.setDescription(userUpdateDTO.getBio());
-        return userRepository.save(user);
+        currentUser.setBio(userUpdateDTO.getBio());
+        return userRepository.save(currentUser);
     }
 
-    public User updateUserPhoto(MultipartFile file) {
-        User user = getCurrentUserFromConext();
+    public Photo updateUserPhoto(MultipartFile file) {
+        User currentUser = getCurrentUser();
         try {
             Photo photo = new Photo();
-            photo.setData(file.getBytes());
             photo.setFileType(file.getContentType());
             photo.setFileName(file.getOriginalFilename());
-            photo = photoRepository.save(photo);
-            user.setPhoto(photo);
-            return userRepository.save(user);
+            photo.setData(file.getBytes());
+            currentUser.setPhoto(photo);
+            userRepository.save(currentUser);
+            return photoRepository.save(photo);
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload photo", e);
         }
     }
 
     public User deleteUserPhoto() {
-        User user = getCurrentUserFromConext();
-        Photo photo = user.getPhoto();
+        User currentUser = getCurrentUser();
+        Photo photo = currentUser.getPhoto();
         if (photo != null) {
-            user.setPhoto(null);
-            userRepository.save(user);
+            currentUser.setPhoto(null);
+            userRepository.save(currentUser);
             photoRepository.delete(photo);
         }
-        return user;
+        return currentUser;
     }
 
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {

@@ -10,7 +10,7 @@ import {
 
 const acceptedFileTypes = ['image/png','image/jpg', 'image/jpeg'];
 
-const DropZoneComp = () => {
+const DropZoneComp = ({setPhoto}) => {
   const [files, setFiles] = React.useState([]);
   const hiddenInput = React.useRef(null);
 
@@ -19,14 +19,17 @@ const DropZoneComp = () => {
     if (!files || files.length === 0) {
       return;
     }
-    setFiles(Array.from(files));
-    handleFileUpload(files[0]);
+    const file = files[0];
+    setFiles([file]);
+    setPhoto(file);
   };
-
-  const handleFileUpload = (file) => {
-    const formData = new FormData();
-    formData.append('file', file);
-    setPhoto(formData);
+  const readFileAsDataURL = (file) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64data = reader.result;
+      setPhoto({ data: base64data.split(',')[1], type: file.type });
+    };
+    reader.readAsDataURL(file);
   };
 
   return (
@@ -34,10 +37,9 @@ const DropZoneComp = () => {
       <DropZone
         acceptedFileTypes={acceptedFileTypes}
         onDropComplete={({ acceptedFiles, rejectedFiles }) => {
-          setFiles(acceptedFiles);
-          if (acceptedFiles.length > 0) {
-            handleFileUpload(acceptedFiles[0]);
-          }
+          const file = acceptedFiles[0];
+          setFiles([file]);
+          setPhoto(file);
         }}
       >
         <Flex direction="column" alignItems="center">

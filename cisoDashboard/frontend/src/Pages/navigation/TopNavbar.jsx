@@ -12,7 +12,7 @@ import {
   Select,
   Avatar,
 } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import InputBase from "@mui/material/InputBase";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -22,12 +22,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import DescriptionAlerts from "../notifications";
+import {getUserProfilePhoto} from "../../apiClient";
 
 const TopNavbar = ({ handleDrawerToggle }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [unit, setUnit] = useState("");
   const navigate = useNavigate();
   const { handleLogout } = useContext(AuthContext);
+  const [userPhoto, setUserPhoto] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -53,6 +55,22 @@ const TopNavbar = ({ handleDrawerToggle }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await getUserProfilePhoto();
+        const photo = response.data;
+        if (photo && photo.data) {
+          const photoUrl = `data:${photo.type};base64,${photo.data}`;
+          setUserPhoto(photoUrl);
+        }
+      } catch (error) {
+        console.error("Error fetching user data", error);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   return (
     <AppBar position="sticky" sx={{ backgroundColor: theme.palette.mode === "dark" ? colors.primary[100] : "#f1f5f9", }}>
@@ -138,7 +156,7 @@ const TopNavbar = ({ handleDrawerToggle }) => {
           </IconButton>
           <DescriptionAlerts sx={{color: colors.textColor[100]}} />
           <IconButton onClick={handleClick} sx={{color: colors.textColor[100],}}>
-            <Avatar alt="User Image" src="../../assets/tst.jpg" />
+            <Avatar alt="User Image" src={userPhoto || "../../assets/tst.jpg"} />
           </IconButton>
           <Menu
             anchorEl={anchorEl}

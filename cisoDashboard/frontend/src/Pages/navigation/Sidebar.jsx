@@ -28,6 +28,7 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import CloudQueueIcon from "@mui/icons-material/CloudQueue";
 import { tokens } from "../../theme";
+import {getUserProfilePhoto} from "../../apiClient";
 
 const drawerWidth = 240;
 
@@ -37,6 +38,24 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
   const isMdUp = useMediaQuery(theme.breakpoints.up("md"));
   const [selected, setSelected] = useState("Dashboard");
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [userPhoto, setUserPhoto] = useState("");
+
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await getUserProfilePhoto();
+        const photo = response.data;
+        if (photo && photo.data) {
+          const photoUrl = `data:${photo.type};base64,${photo.data}`;
+          setUserPhoto(photoUrl);
+        }
+      } catch (error) {
+        console.error("Error fetching user data", error);
+      }
+    };
+    fetchUserData();
+  }, []);
 
   useEffect(() => {
     // Reset the collapsed state when screen size changes
@@ -93,7 +112,7 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
         <Box mb="25px" mt="15px" sx={{ textAlign: "center" }}>
           <Avatar
             alt="profile-user"
-            src={`../../assets/tst.jpg`}
+            src={userPhoto || "../../assets/tst.jpg"}
             sx={{ width: 100, height: 100, margin: "0 auto" }}
           />
           <Typography

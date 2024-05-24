@@ -2,6 +2,7 @@ package com.tfg.cisoDashboard.service;
 
 import com.tfg.cisoDashboard.Jwt.JwtTokenProvider;
 import com.tfg.cisoDashboard.Responses.AuthResponse;
+import com.tfg.cisoDashboard.dto.NewUserDto;
 import com.tfg.cisoDashboard.model.Role;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class AuthService {
                 .username(userRegisterDto.getUsername())
                 .email(userRegisterDto.getEmail())
                 .password(passwordEncoder.encode(userRegisterDto.getPassword()))
-                .role(Role.USER)
+                .role(Role.ADMIN)
                 .build();
         userRepository.save(user);
 
@@ -66,5 +67,27 @@ public class AuthService {
         return AuthResponse.builder()
                 .token(token)
                 .build();
+    }
+
+    public AuthResponse registerNewUser(NewUserDto newUserDto) {
+        if (userRepository.existsByEmail(newUserDto.getEmail()) || userRepository.existsByUsername(newUserDto.getUsername())) {
+            throw new IllegalArgumentException("User already exists");
+        }
+        User user = User.builder()
+                .username(newUserDto.getUsername())
+                .email(newUserDto.getEmail())
+                .phoneNumber(newUserDto.getContact())
+                .name(newUserDto.getFirstName() + newUserDto.getLastName())
+                .password(passwordEncoder.encode(newUserDto.getPassword()))
+                .role(newUserDto.getRole())
+                .build();
+        userRepository.save(user);
+
+        String token = jwtService.createToken(user);
+
+        return AuthResponse.builder()
+                .token(token)
+                .build();
+
     }
 }

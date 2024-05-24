@@ -13,11 +13,11 @@ import lombok.AllArgsConstructor;
 public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String fileName;
     private String fileType;
 
-    @Lob
-    @Column(name = "data", length = 1000)
+
+    @Column(name = "data", columnDefinition = "BYTEA")
     private byte[] data;
 }

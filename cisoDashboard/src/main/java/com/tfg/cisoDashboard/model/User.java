@@ -26,13 +26,13 @@ public class User implements UserDetails {
     private String name;
     private String email;
     private String password;
-    private String description;
+    private String bio;
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     Role role;
     
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "photo_id")
     private Photo photo;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Grid } from '@mui/material';
+import {Box, Typography, Grid, useTheme} from '@mui/material';
 import GaugeChart from 'react-gauge-chart';
 import {
   BarChart,
@@ -12,6 +12,7 @@ import {
   Line,
   ResponsiveContainer,
 } from 'recharts';
+import {tokens} from "../../theme";
 
 const gaugeData = {
   value: 22.1,
@@ -40,6 +41,9 @@ const lineData = [
 ];
 
 const MyGaugeChart = () => {
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h3" fontWeight="bold" mb={2} align="center" gutterBottom>
@@ -62,7 +66,7 @@ const MyGaugeChart = () => {
               percent={gaugeData.value / gaugeData.max}
               colors={['#1CA71C', '#2E91E5', '#EA4228']}
               arcWidth={0.3}
-              textColor="#000000"
+              textColor={colors.textColor[100]}
               formatTextValue={(value) => `${gaugeData.value.toFixed(1)} min`}
             />
           </Box>

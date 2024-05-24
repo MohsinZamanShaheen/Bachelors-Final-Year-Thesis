@@ -1,5 +1,6 @@
 package com.tfg.cisoDashboard.controller;
 
+import com.tfg.cisoDashboard.dto.UserDto;
 import com.tfg.cisoDashboard.dto.UserUpdateDto;
 import com.tfg.cisoDashboard.model.Photo;
 import com.tfg.cisoDashboard.model.User;
@@ -24,8 +25,13 @@ public class UserController {
     }
 
     @GetMapping("/getActual")
-    public User getCurrentUser() {
-        return userService.getCurrent();
+    public ResponseEntity<UserDto> getCurrentUser() {
+        return ResponseEntity.ok(userService.getCurrentUserDTO());
+    }
+
+    @GetMapping("/getProfilePhoto")
+    public ResponseEntity<Photo> getProfilePhoto() {
+        return ResponseEntity.ok(userService.getUserPhoto());
     }
 
     @PutMapping("/update")
@@ -33,8 +39,8 @@ public class UserController {
         return userService.updateUser(userUpdateDTO);
     }
     @PostMapping("/addphoto")
-    public User updateUserPhoto(@RequestParam("file") MultipartFile file) {
-        return userService.updateUserPhoto(file);
+    public ResponseEntity<Photo> updateUserPhoto(@RequestParam("file") MultipartFile file) throws IOException {
+        return ResponseEntity.ok(userService.updateUserPhoto(file));
     }
     @DeleteMapping("/deletephoto")
     public User deleteUserPhoto() {

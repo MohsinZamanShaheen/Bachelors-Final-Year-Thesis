@@ -3,8 +3,7 @@ import { Box, Button, Typography, Grid, TextField, useTheme, Divider } from "@mu
 import { tokens } from "../../theme";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import DropZoneComp from "../../Components/Dropzone/DropZone";
-import axios from "axios";
-import {updateUserInfo, updateUserPhoto, deleteUserPhoto, getCurrentUser} from "../../apiClient";
+import { updateUserInfo, updateUserPhoto, deleteUserPhoto, getCurrentUser } from "../../apiClient";
 
 const Profile = () => {
   const theme = useTheme();
@@ -27,7 +26,7 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const response = await getCurrentUser();
-        console.log("Fetching current user: ", response)
+        //console.log("Fetched user: ", response)
         setUser(response.data);
         setPhoto(response.data.photo);
       } catch (error) {
@@ -42,12 +41,9 @@ const Profile = () => {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSave = async () => {
+  const handleSaveUserInfo = async () => {
     try {
-      await updateUserInfo(user.id, user);
-      if (photo) {
-        await updateUserPhoto(user.id, photo);
-      }
+      await updateUserInfo(user);
       alert("Profile updated successfully");
     } catch (error) {
       console.error("Error updating profile", error);
@@ -55,9 +51,26 @@ const Profile = () => {
     }
   };
 
+  const handleSaveUserPhoto = async () => {
+    if (photo) {
+      try {
+        const formData = new FormData();
+        formData.append('file', photo);
+        const response = await updateUserPhoto(formData);
+        setPhoto(response.data);
+        alert("Photo updated successfully");
+      } catch (error) {
+        console.error("Error updating photo", error);
+        alert("Error updating photo");
+      }
+    } else {
+      alert("Please select a valid photo.");
+    }
+  };
+
   const handleDeletePhoto = async () => {
     try {
-      await deleteUserPhoto(user.id);
+      await deleteUserPhoto();
       setPhoto(null);
       alert("Photo deleted successfully");
     } catch (error) {
@@ -141,7 +154,7 @@ const Profile = () => {
               <TextField
                   label="Bio"
                   name="bio"
-                  value={user.bio}
+                  value={user.bio} // Change to 'bio' instead of 'description'
                   onChange={handleInputChange}
                   fullWidth
                   multiline
@@ -150,10 +163,7 @@ const Profile = () => {
               />
               <Box gridColumn="span 4">
                 <Box display="flex" justifyContent="flex-end">
-                  <Button variant="contained" color="error">
-                    Cancel
-                  </Button>
-                  <Button variant="contained" color="primary" sx={{ ml: 1 }} onClick={handleSave}>
+                  <Button variant="contained" color="primary" sx={{ ml: 1 }} onClick={handleSaveUserInfo}>
                     Save
                   </Button>
                 </Box>
@@ -178,7 +188,7 @@ const Profile = () => {
               <Box display="flex" flexDirection="row" m={2}>
                 <Box>
                   <img
-                      src={photo ? `data:${photo.type};base64,${photo.data}` : `../../assets/default-profile.png`}
+                      src={photo && photo.data ? `data:${photo.type};base64,${photo.data}` : `../../assets/tst.jpg`}
                       alt="Profile"
                       style={{
                         width: "70px",
@@ -196,7 +206,7 @@ const Profile = () => {
                     <Button color="primary" sx={{ p: 0 }} onClick={handleDeletePhoto}>
                       Delete
                     </Button>
-                    <Button color="primary" sx={{ p: 0 }}>
+                    <Button color="primary" sx={{ p: 0 }} onClick={handleSaveUserPhoto}>
                       Update
                     </Button>
                   </Box>
@@ -204,16 +214,6 @@ const Profile = () => {
               </Box>
               <Box mt={2}>
                 <DropZoneComp setPhoto={setPhoto} />
-              </Box>
-              <Box gridColumn="span 4" pb={4}>
-                <Box display="flex" justifyContent="flex-end" mr={2}>
-                  <Button variant="contained" color="error">
-                    Cancel
-                  </Button>
-                  <Button variant="contained" color="primary" sx={{ ml: 1 }} onClick={handleSave}>
-                    Save
-                  </Button>
-                </Box>
               </Box>
             </Box>
           </Grid>

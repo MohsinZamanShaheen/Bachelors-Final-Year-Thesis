@@ -1,6 +1,7 @@
 package com.tfg.cisoDashboard.controller;
 import com.tfg.cisoDashboard.Jwt.JwtTokenProvider;
 import com.tfg.cisoDashboard.Responses.AuthResponse;
+import com.tfg.cisoDashboard.dto.NewUserDto;
 import com.tfg.cisoDashboard.dto.UserLoginDto;
 import com.tfg.cisoDashboard.dto.UserRegisterDto;
 import com.tfg.cisoDashboard.model.User;
@@ -35,6 +36,12 @@ public class AuthController {
     public ResponseEntity<AuthResponse> loginUser(@RequestBody UserLoginDto userLoginDto, HttpServletResponse response) {
         System.out.println("Login call received");
         return ResponseEntity.ok(authService.loginUser(userLoginDto, response));
+    }
+
+    @PostMapping("/createUser")
+    public ResponseEntity<?> createUser(@RequestBody NewUserDto newUserDto) {
+        authService.registerNewUser(newUserDto);
+        return ResponseEntity.ok("User created successfully");
     }
 
     @GetMapping("/verify-token")

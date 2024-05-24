@@ -6,7 +6,7 @@ import TopNavbar from "./Pages/navigation/TopNavbar";
 import Sidebar from "./Pages/navigation/Sidebar";
 import Dashboard from "./Pages/dashboard";
 import Calendar from "./Pages/calender/calender";
-import ProfileForm from "./Pages/profileForm";
+import CreateUserForm from "./Pages/profileForm";
 import FAQ from "./Pages/faq";
 import Team from "./Pages/team";
 import Invoices from "./Pages/invoices";
@@ -53,7 +53,7 @@ function App() {
                           <Route path="/" element={<Navigate to="/dashboard" replace />} />
                           <Route path="/dashboard" element={<Dashboard />} />
                           <Route path="/calendar" element={<Calendar />} />
-                          <Route path="/newprofile" element={<ProfileForm />} />
+                          <Route path="/newprofile" element={<CreateUserForm />} />
                           <Route path="/faq" element={<FAQ />} />
                           <Route path="/providers" element={<Providers />} />
                           <Route path="/invoices" element={<Invoices />} />
