@@ -24,8 +24,8 @@ public class Alert {
     private String severity;
     private int riskScore;
     private String reason;
-    private String sourceIP;
-    private String destinationIP;
+    private String source;
+    private String destination;
     private String eventType;
     private String status;
     private String actionTaken;

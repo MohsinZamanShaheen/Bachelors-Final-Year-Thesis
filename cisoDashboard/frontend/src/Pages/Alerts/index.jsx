@@ -63,8 +63,8 @@ const AlertTable = () => {
     { field: 'severity', headerName: 'Severity', width: 120 },
     { field: 'riskScore', headerName: 'Risk Score', width: 120 },
     { field: 'reason', headerName: 'Reason', width: 300 },
-    { field: 'sourceIP', headerName: 'Source IP', width: 150 },
-    { field: 'destinationIP', headerName: 'Destination IP', width: 150 },
+    { field: 'source', headerName: 'Source', width: 150 },
+    { field: 'destination', headerName: 'Destination', width: 150 },
     { field: 'eventType', headerName: 'Event Type', width: 150 },
     { field: 'status', headerName: 'Status', width: 120, renderCell: (params) => (
           <Select

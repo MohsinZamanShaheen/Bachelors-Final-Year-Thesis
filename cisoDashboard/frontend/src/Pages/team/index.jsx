@@ -38,7 +38,7 @@ const Team = () => {
       cellClassName: "name-column--cell",
     },
     {
-      field: "phone",
+      field: "phoneNumber",
       headerName: "Phone Number",
       flex: 1,
     },
