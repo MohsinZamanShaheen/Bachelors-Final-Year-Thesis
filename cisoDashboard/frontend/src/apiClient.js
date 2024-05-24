@@ -72,4 +72,17 @@ export const getEdges = () => {
 };
 
 
+export const getUserEvents = async () => {
+  return await apiClient.get(`/events/getAll`);
+};
+
+export const createEvent = async (event) => {
+  return await apiClient.post(`/events/createEvent`, event);
+};
+
+export const deleteEvent = async (eventId) => {
+  return await apiClient.delete(`/events/deleteEvent/${eventId}`);
+};
+
+
 export default apiClient;

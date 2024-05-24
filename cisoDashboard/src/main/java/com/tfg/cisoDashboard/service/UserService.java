@@ -39,7 +39,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username).get();
     }
 
-    private User getCurrentUser(){
+    protected User getCurrentUser(){
         Long currentUserId = SecurityUtils.getCurrentUserIdFromContext();
         if (currentUserId == null) {
             return null;
