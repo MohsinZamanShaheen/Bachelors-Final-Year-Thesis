@@ -25,7 +25,6 @@ import ControlsBarChart from "../ISOcontrols/iso_27002/controlsBarChart";
 import HomeIcon from "@mui/icons-material/Home";
 import MyGaugeChart from "../../Components/charts/GaugeChart";
 import MTTRChart from "../../Components/charts/MTTRChart";
-import { mockCanvaPieData as dataPie } from "../../data/mockData";
 import { Link as RouterLink } from 'react-router-dom';
 
 const insightsData = [
@@ -147,7 +146,6 @@ const Dashboard = () => {
           xs={12}
           md={3.9}
           mt={2}
-          height="fit-content"
           backgroundColor={colors.primary[100]}
           border={`1px solid  ${colors.elementBorders[100]}`}
         >
@@ -363,7 +361,7 @@ const Dashboard = () => {
             By Severity
           </Typography>
           <Box height="250px" mt="-10px">
-            <PieStat dataInfo={dataPie}/>
+            <PieStat isAlert={true} passData={undefined}/>
           </Box>
         </Grid>
 

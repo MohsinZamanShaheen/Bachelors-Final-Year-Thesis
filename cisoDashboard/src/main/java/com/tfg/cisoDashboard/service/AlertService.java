@@ -16,7 +16,7 @@ public class AlertService {
     private AlertRepository alertRepository;
 
     private final Random random = new Random();
-    private final String[] rules = {"Malware Prevention", "Phishing Detection", "Intrusion Detection"};
+    private final String[] rules = {"Malware Prevention", "Phishing Detection", "Intrusion Detection","CMS Issue", "DNS Issues", "Hardware Failure", "Host Provider"};
     private final String[] reasons = {"Malware Detected", "Phishing Attempt", "Intrusion Detected", "Policy Violation", "Unauthorized Access", "Suspicious Activity", "Data Exfiltration Attempt", "Denial of Service", "Account Compromise", "Insider Threat", "System Misconfiguration"};
     private final String[] eventTypes = {"Malware", "Phishing", "Intrusion", "Unauthorized Access", "Policy Violation", "Suspicious Activity", "Data Exfiltration", "Denial of Service", "Account Compromise", "Insider Threat", "System Misconfiguration"};
 
@@ -30,7 +30,7 @@ public class AlertService {
     private final String[] appDestinations = {"App_", "Service_"};
     private final String[] deviceDestinations = {"Device_", "Endpoint_"};
 
-    @Scheduled(fixedRate = 1500000)
+    @Scheduled(fixedRate = 3000000)
     public void generateAlert() {
         String[] source = randomSource();
         String[] destination = randomDestination(source[1]);
@@ -53,7 +53,7 @@ public class AlertService {
     }
 
     private String randomSeverity() {
-        String[] severities = {"low", "medium", "high"};
+        String[] severities = {"medium", "high", "critical"};
         return severities[random.nextInt(severities.length)];
     }
 
