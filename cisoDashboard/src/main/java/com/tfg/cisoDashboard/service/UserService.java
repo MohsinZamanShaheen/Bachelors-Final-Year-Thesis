@@ -1,5 +1,6 @@
 package com.tfg.cisoDashboard.service;
 
+import com.tfg.cisoDashboard.dto.PasswordChangeDto;
 import com.tfg.cisoDashboard.dto.PhotoDto;
 import com.tfg.cisoDashboard.dto.UserDto;
 import com.tfg.cisoDashboard.dto.UserUpdateDto;
@@ -15,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +28,6 @@ import java.util.Optional;
 public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private PhotoRepository photoRepository;
     public User findUserById(Long id) throws Exception {
@@ -71,6 +72,7 @@ public class UserService implements UserDetailsService {
         userDTO.setUsername(user.getUsername());
         userDTO.setName(user.getName());
         userDTO.setEmail(user.getEmail());
+        userDTO.setRole(user.getRole());
         userDTO.setPhoneNumber(user.getPhoneNumber());
         userDTO.setBio(user.getBio());
 

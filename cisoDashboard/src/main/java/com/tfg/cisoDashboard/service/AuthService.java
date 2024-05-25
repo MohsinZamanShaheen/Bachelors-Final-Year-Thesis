@@ -3,6 +3,7 @@ package com.tfg.cisoDashboard.service;
 import com.tfg.cisoDashboard.Jwt.JwtTokenProvider;
 import com.tfg.cisoDashboard.Responses.AuthResponse;
 import com.tfg.cisoDashboard.dto.NewUserDto;
+import com.tfg.cisoDashboard.dto.PasswordChangeDto;
 import com.tfg.cisoDashboard.model.Role;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -89,5 +90,20 @@ public class AuthService {
                 .token(token)
                 .build();
 
+    }
+
+    public boolean changePassword(PasswordChangeDto passwordChangeRequest) {
+        User user = userService.getCurrentUser();
+
+        if (user != null) {
+            if (passwordEncoder.matches(passwordChangeRequest.getCurrentPassword(), user.getPassword())) {
+                if (passwordChangeRequest.getNewPassword().equals(passwordChangeRequest.getConfirmPassword())) {
+                    user.setPassword(passwordEncoder.encode(passwordChangeRequest.getNewPassword()));
+                    userRepository.save(user);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

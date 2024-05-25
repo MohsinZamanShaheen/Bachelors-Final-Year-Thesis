@@ -28,7 +28,7 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import CloudQueueIcon from "@mui/icons-material/CloudQueue";
 import { tokens } from "../../theme";
-import {getUserProfilePhoto} from "../../apiClient";
+import {getUserProfilePhoto, getCurrentUser} from "../../apiClient";
 
 const drawerWidth = 240;
 
@@ -39,13 +39,17 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
   const [selected, setSelected] = useState("Dashboard");
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [userPhoto, setUserPhoto] = useState("");
+  const [username, setUsername] = useState("");
+  const [userrole, setUserrole] = useState("");
 
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await getUserProfilePhoto();
-        const photo = response.data;
+        const response = await getCurrentUser();
+        const photo = response.data.photo;
+        setUsername(response.data.username)
+        setUserrole(response.data.role)
         if (photo && photo.data) {
           const photoUrl = `data:${photo.type};base64,${photo.data}`;
           setUserPhoto(photoUrl);
@@ -116,15 +120,15 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
             sx={{ width: 100, height: 100, margin: "0 auto" }}
           />
           <Typography
-            variant="h2"
+            variant="h4"
             color={colors.sameColors[200]}
             fontWeight="bold"
             sx={{ m: "10px 0 0 0" }}
           >
-            Mohsin
+            {username}
           </Typography>
           <Typography variant="h5" color={colors.sameColors[200]}>
-            Ciso
+            {userrole}
           </Typography>
         </Box>
       )}

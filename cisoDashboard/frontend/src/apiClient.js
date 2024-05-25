@@ -23,6 +23,10 @@ export const updateUserPhoto = (formData) => {
   return response;
 };
 
+export const changePassword = async (passwordChangeRequest) => {
+  const response = await apiClient.post('/auth/change-password', passwordChangeRequest);
+  return response;
+};
 
 export const deleteUser = async (userId) => {
   return apiClient.delete(`/users/${userId}`);

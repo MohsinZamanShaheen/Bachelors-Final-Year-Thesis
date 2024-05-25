@@ -2,6 +2,7 @@ package com.tfg.cisoDashboard.controller;
 import com.tfg.cisoDashboard.Jwt.JwtTokenProvider;
 import com.tfg.cisoDashboard.Responses.AuthResponse;
 import com.tfg.cisoDashboard.dto.NewUserDto;
+import com.tfg.cisoDashboard.dto.PasswordChangeDto;
 import com.tfg.cisoDashboard.dto.UserLoginDto;
 import com.tfg.cisoDashboard.dto.UserRegisterDto;
 import com.tfg.cisoDashboard.model.User;
@@ -62,5 +63,15 @@ public class AuthController {
             return ResponseEntity.ok(user);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePassword(@RequestBody PasswordChangeDto passwordChangeRequest) {
+        boolean isChanged = authService.changePassword(passwordChangeRequest);
+        if (isChanged) {
+            return ResponseEntity.ok("Password changed successfully.");
+        } else {
+            return ResponseEntity.badRequest().body("Failed to change password.");
+        }
     }
 }

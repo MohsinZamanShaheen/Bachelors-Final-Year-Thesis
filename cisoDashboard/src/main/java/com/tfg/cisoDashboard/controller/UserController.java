@@ -1,5 +1,6 @@
 package com.tfg.cisoDashboard.controller;
 
+import com.tfg.cisoDashboard.dto.PasswordChangeDto;
 import com.tfg.cisoDashboard.dto.UserDto;
 import com.tfg.cisoDashboard.dto.UserUpdateDto;
 import com.tfg.cisoDashboard.model.Photo;
