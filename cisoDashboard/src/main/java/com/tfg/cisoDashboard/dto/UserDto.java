@@ -1,5 +1,6 @@
 package com.tfg.cisoDashboard.dto;
 
+import com.tfg.cisoDashboard.model.Role;
 import lombok.Data;
 
 @Data
@@ -13,4 +14,5 @@ public class UserDto {
     private String company;
     private String bio;
     private PhotoDto photo;
+    private Role role;
 }

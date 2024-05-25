@@ -61,13 +61,13 @@ const Team = () => {
             justifyContent="center"
             backgroundColor={
               role === "ADMIN"
-                ? colors.primary[100]
-                : role === "USER"
+                ? colors.others[700]
+                : colors.others[100]
             }
             borderRadius="4px"
           >
               {role === "ADMIN" && <AdminPanelSettingsOutlinedIcon />}
-              {role === "USER" && <LockOpenOutlinedIcon />}
+              {role === "USER" && <SecurityOutlinedIcon />}
             <Typography color={colors.textColor[100][100]} sx={{ ml: "5px" }}>
               {role}
             </Typography>

@@ -4,6 +4,7 @@ import com.tfg.cisoDashboard.dto.PhotoDto;
 import com.tfg.cisoDashboard.dto.UserDto;
 import com.tfg.cisoDashboard.dto.UserUpdateDto;
 import com.tfg.cisoDashboard.model.Photo;
+import com.tfg.cisoDashboard.model.Role;
 import com.tfg.cisoDashboard.model.User;
 import com.tfg.cisoDashboard.repository.PhotoRepository;
 import com.tfg.cisoDashboard.repository.UserRepository;
@@ -39,7 +40,7 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUsername(username).get();
     }
 
-    protected User getCurrentUser(){
+    public User getCurrentUser(){
         Long currentUserId = SecurityUtils.getCurrentUserIdFromContext();
         if (currentUserId == null) {
             return null;
@@ -134,6 +135,16 @@ public class UserService implements UserDetailsService {
                 .credentialsExpired(false)
                 .disabled(false)
                 .build();
+    }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public void updateUserRole(Long id, Role role) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setRole(role);
+        userRepository.save(user);
     }
 
 }

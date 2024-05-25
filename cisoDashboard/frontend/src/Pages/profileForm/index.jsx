@@ -48,7 +48,7 @@ const CreateUserForm = () => {
                     }}
                 >
                   <TextField
-                      fullWidth
+                      fullWidth={true}
                       variant="filled"
                       type="text"
                       label="First Name"
@@ -61,7 +61,7 @@ const CreateUserForm = () => {
                       sx={{ gridColumn: "span 2" }}
                   />
                   <TextField
-                      fullWidth
+                      fullWidth={true}
                       variant="filled"
                       type="text"
                       label="Last Name"
@@ -74,7 +74,7 @@ const CreateUserForm = () => {
                       sx={{ gridColumn: "span 2" }}
                   />
                   <TextField
-                      fullWidth
+                      fullWidth={true}
                       variant="filled"
                       type="text"
                       label="Email"
@@ -87,7 +87,7 @@ const CreateUserForm = () => {
                       sx={{ gridColumn: "span 4" }}
                   />
                   <TextField
-                      fullWidth
+                      fullWidth={true}
                       variant="filled"
                       type="text"
                       label="Contact Number"
@@ -100,7 +100,7 @@ const CreateUserForm = () => {
                       sx={{ gridColumn: "span 4" }}
                   />
                   <TextField
-                      fullWidth
+                      fullWidth={true}
                       variant="filled"
                       type="text"
                       label="Username"
@@ -113,7 +113,7 @@ const CreateUserForm = () => {
                       sx={{ gridColumn: "span 4" }}
                   />
                   <TextField
-                      fullWidth
+                      fullWidth={true}
                       variant="filled"
                       type="password"
                       label="Password"
@@ -125,7 +125,7 @@ const CreateUserForm = () => {
                       helperText={touched.password && errors.password}
                       sx={{ gridColumn: "span 4" }}
                   />
-                  <FormControl fullWidth variant="filled" sx={{ gridColumn: "span 4" }}>
+                  <FormControl variant="filled" sx={{ gridColumn: "span 4" }}>
                     <InputLabel>Role</InputLabel>
                     <Select
                         label="Role"

@@ -23,6 +23,20 @@ export const updateUserPhoto = (formData) => {
   return response;
 };
 
+
+export const deleteUser = async (userId) => {
+  return apiClient.delete(`/users/${userId}`);
+};
+
+export const updateUserRole = async (userId, newRole) => {
+  return apiClient.put(`/users/${userId}/role`, { role: newRole });
+};
+
+export const getUsers = async () => {
+  return apiClient.get('/users/getAll');
+};
+
+
 export const registerNormalUser = async (data) => {
   return await apiClient.post('/auth/createUser', data);
 };

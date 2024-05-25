@@ -34,7 +34,7 @@ const ChangePasswordCard = () => {
             id="currentPassword"
             label="Current Password"
             type="password"
-            fullWidth
+            fullWidth={true}
             margin="normal"
             variant="outlined"
           />
@@ -42,7 +42,7 @@ const ChangePasswordCard = () => {
             id="newPassword"
             label="New Password"
             type="password"
-            fullWidth
+            fullWidth={true}
             margin="normal"
             variant="outlined"
           />
@@ -50,7 +50,7 @@ const ChangePasswordCard = () => {
             id="confirmPassword"
             label="Confirm Password"
             type="password"
-            fullWidth
+            fullWidth={true}
             margin="normal"
             variant="outlined"
           />

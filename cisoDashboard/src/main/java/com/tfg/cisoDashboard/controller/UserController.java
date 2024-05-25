@@ -19,8 +19,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/getAll")
+    public List<User> getAllUsers_profile() {
+        return userService.getAllUsers();
+    }
     @GetMapping("/getTeam")
-    public List<User> getAllUsers() {
+    public List<User> getAllUsersTeam() {
         return userService.getAllUsers();
     }
 
@@ -45,5 +49,29 @@ public class UserController {
     @DeleteMapping("/deletephoto")
     public User deleteUserPhoto() {
         return userService.deleteUserPhoto();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        try {
+            User current = userService.getCurrentUser();
+            if (current.getId() == id) {
+                return ResponseEntity.status(401).body("You cannot delete yourself.");
+            }
+            userService.deleteUser(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error deleting user");
+        }
+    }
+
+    @PutMapping("/{id}/role")
+    public ResponseEntity<?> updateUserRole(@PathVariable Long id, @RequestBody UserDto userDto) {
+        try {
+            userService.updateUserRole(id, userDto.getRole());
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error updating user role");
+        }
     }
 }

@@ -116,7 +116,7 @@ const Profile = () => {
                   name="name"
                   value={user.name}
                   onChange={handleInputChange}
-                  fullWidth
+                  fullWidth={true}
                   sx={{ gridColumn: "span 2", m: 0 }}
               />
               <TextField
@@ -124,14 +124,14 @@ const Profile = () => {
                   name="phoneNumber"
                   value={user.phoneNumber}
                   onChange={handleInputChange}
-                  fullWidth
+                  fullWidth={true}
                   sx={{ gridColumn: "span 2", m: 0 }}
               />
               <TextField
                   label="Email"
                   name="email"
                   value={user.email}
-                  fullWidth
+                  fullWidth={true}
                   disabled
                   sx={{ gridColumn: "span 4", m: 0 }}
               />
@@ -139,7 +139,7 @@ const Profile = () => {
                   label="Username"
                   name="username"
                   value={user.username}
-                  fullWidth
+                  fullWidth={true}
                   disabled
                   sx={{ gridColumn: "span 4", m: 0 }}
               />
@@ -148,7 +148,7 @@ const Profile = () => {
                   name="company"
                   value={user.company}
                   onChange={handleInputChange}
-                  fullWidth
+                  fullWidth={true}
                   sx={{ gridColumn: "span 2", m: 0 }}
               />
               <TextField
@@ -156,7 +156,7 @@ const Profile = () => {
                   name="bio"
                   value={user.bio} // Change to 'bio' instead of 'description'
                   onChange={handleInputChange}
-                  fullWidth
+                  fullWidth={true}
                   multiline
                   rows={6}
                   sx={{ gridColumn: "span 4", m: 0 }}
