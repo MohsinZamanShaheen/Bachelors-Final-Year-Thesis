@@ -14,6 +14,8 @@ import java.util.Random;
 public class AlertService {
     @Autowired
     private AlertRepository alertRepository;
+    @Autowired
+    private NotificationService notificationService;
 
     private final Random random = new Random();
     private final String[] rules = {"Malware Prevention", "Phishing Detection", "Intrusion Detection","CMS Issue", "DNS Issues", "Hardware Failure", "Host Provider"};
@@ -50,6 +52,7 @@ public class AlertService {
                 .comments("")
                 .build();
         alertRepository.save(alert);
+        notificationService.createNotification("New alert generated", "alert");
     }
 
     private String randomSeverity() {

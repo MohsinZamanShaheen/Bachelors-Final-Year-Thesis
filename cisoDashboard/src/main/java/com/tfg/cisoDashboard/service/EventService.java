@@ -15,6 +15,8 @@ public class EventService {
     private EventRepository eventRepository;
     @Autowired
     private UserService userService;
+    @Autowired
+    private NotificationService notificationService;
 
     private Long currentUserId(){
         Long currentUserId = SecurityUtils.getCurrentUserIdFromContext();
@@ -32,6 +34,7 @@ public class EventService {
     public Event createEvent(Event event) {
         User currentUser = userService.getCurrentUser();
         event.setUser(currentUser);
+        notificationService.createNotification("New event created: " + event.getTitle(), "event");
         return eventRepository.save(event);
     }
 

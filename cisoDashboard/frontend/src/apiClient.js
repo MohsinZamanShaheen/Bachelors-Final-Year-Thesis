@@ -85,4 +85,11 @@ export const deleteEvent = async (eventId) => {
 };
 
 
+//Notifications Center
+export const getNotifications = () => apiClient.get('/notifications');
+export const markNotificationAsRead = (id) => apiClient.post(`/notifications/read/${id}`);
+export const clearAllNotifications = () => apiClient.delete('/notifications/clear');
+
+
+
 export default apiClient;

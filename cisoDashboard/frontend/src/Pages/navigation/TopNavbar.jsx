@@ -21,7 +21,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { AuthContext } from "../../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import DescriptionAlerts from "../notifications";
+import NotificationsComp from "../notifications";
 import {getUserProfilePhoto} from "../../apiClient";
 
 const TopNavbar = ({ handleDrawerToggle }) => {
@@ -154,7 +154,7 @@ const TopNavbar = ({ handleDrawerToggle }) => {
               <LightModeOutlinedIcon />
             )}
           </IconButton>
-          <DescriptionAlerts sx={{color: colors.textColor[100]}} />
+          <NotificationsComp sx={{color: colors.textColor[100]}} />
           <IconButton onClick={handleClick} sx={{color: colors.textColor[100],}}>
             <Avatar alt="User Image" src={userPhoto || "../../assets/tst.jpg"} />
           </IconButton>
