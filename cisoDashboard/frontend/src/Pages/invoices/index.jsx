@@ -6,37 +6,43 @@ import Header from "../../Components/global/Header";
 import HomeIcon from "@mui/icons-material/Home";
 import AddInvoiceModal from "./addInvoiceModal";
 import { getInvoices, addInvoice } from "../../apiClient";
+import { useCompany } from "../../Context/CompanyContext";
 
 const Invoices = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const { selectedCompany } = useCompany();
     const [invoices, setInvoices] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
         const fetchInvoices = async () => {
-            try {
-                const response = await getInvoices();
-                console.log("Invoice:", response)
-                setInvoices(response.data);
-            } catch (error) {
-                console.error("Error fetching invoices", error);
+            if (selectedCompany) {
+                try {
+                    const response = await getInvoices(selectedCompany);
+                    console.log("Invoice:", response);
+                    setInvoices(response.data);
+                } catch (error) {
+                    console.error("Error fetching invoices", error);
+                }
             }
         };
 
         fetchInvoices();
-    }, []);
+    }, [selectedCompany]);
 
     const handleAddInvoice = async (newInvoice) => {
-        try {
-            const response = await addInvoice(newInvoice);
-            const addedInvoice = {
-                ...response.data,
-                providerName: newInvoice.providerName,
-            };
-            setInvoices([...invoices, addedInvoice]);
-        } catch (error) {
-            console.error("Error adding invoice", error);
+        if (selectedCompany) {
+            try {
+                const response = await addInvoice(newInvoice, selectedCompany);
+                const addedInvoice = {
+                    ...response.data,
+                    providerName: newInvoice.providerName,
+                };
+                setInvoices([...invoices, addedInvoice]);
+            } catch (error) {
+                console.error("Error adding invoice", error);
+            }
         }
     };
 

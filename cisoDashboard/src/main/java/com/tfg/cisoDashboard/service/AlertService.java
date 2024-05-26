@@ -1,6 +1,7 @@
 package com.tfg.cisoDashboard.service;
 
 import com.tfg.cisoDashboard.model.Alert;
+import com.tfg.cisoDashboard.model.Organization;
 import com.tfg.cisoDashboard.repository.AlertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -16,6 +17,10 @@ public class AlertService {
     private AlertRepository alertRepository;
     @Autowired
     private NotificationService notificationService;
+    @Autowired
+    private OrganizationService organizationService;
+    @Autowired
+    private OrganizationContextService organizationContextService;
 
     private final Random random = new Random();
     private final String[] rules = {"Malware Prevention", "Phishing Detection", "Intrusion Detection","CMS Issue", "DNS Issues", "Hardware Failure", "Host Provider"};
@@ -32,11 +37,12 @@ public class AlertService {
     private final String[] appDestinations = {"App_", "Service_"};
     private final String[] deviceDestinations = {"Device_", "Endpoint_"};
 
-    @Scheduled(fixedRate = 3000000)
+    @Scheduled(fixedRate = 120000, initialDelay = 30000)
     public void generateAlert() {
         String[] source = randomSource();
         String[] destination = randomDestination(source[1]);
-
+        Long organizationId = organizationContextService.getCurrentOrganizationId();
+        Organization organization = organizationService.findById(organizationId);
         Alert alert = Alert.builder()
                 .timestamp(LocalDateTime.now())
                 .rule(rules[random.nextInt(rules.length)])
@@ -50,9 +56,10 @@ public class AlertService {
                 .status("Open")
                 .actionTaken("None")
                 .comments("")
+                .organization(organization)
                 .build();
         alertRepository.save(alert);
-        notificationService.createNotification("New alert generated", "alert");
+        notificationService.createNotification("New alert generated", "alert", organizationId);
     }
 
     private String randomSeverity() {
@@ -129,30 +136,30 @@ public class AlertService {
         return devices[random.nextInt(devices.length)];
     }
 
-    public List<Alert> getAllAlerts() {
-        return alertRepository.findAll();
+    public List<Alert> getAllAlertsByOrganization(Long organizationId) {
+        return alertRepository.findByOrganizationId(organizationId);
     }
 
-    public Alert updateAssignee(Long id, String assignee) throws Exception {
-        Alert alert = alertRepository.findById(id).orElseThrow(() -> new Exception("Alert not found"));
+    public Alert updateAssignee(Long id, String assignee,Long organizationId) throws Exception {
+        Alert alert = alertRepository.findByIdAndOrganizationId(id, organizationId).orElseThrow(() -> new Exception("Alert not found"));
         alert.setAssignees(assignee);
         return alertRepository.save(alert);
     }
 
-    public Alert updateStatus(Long id, String status) throws Exception {
-        Alert alert = alertRepository.findById(id).orElseThrow(() -> new Exception("Alert not found"));
+    public Alert updateStatus(Long id, String status,Long organizationId) throws Exception {
+        Alert alert = alertRepository.findByIdAndOrganizationId(id, organizationId).orElseThrow(() -> new Exception("Alert not found"));
         alert.setStatus(status);
         return alertRepository.save(alert);
     }
 
-    public Alert updateAction(Long id, String action) throws Exception {
-        Alert alert = alertRepository.findById(id).orElseThrow(() -> new Exception("Alert not found"));
+    public Alert updateAction(Long id, String action,Long organizationId) throws Exception {
+        Alert alert = alertRepository.findByIdAndOrganizationId(id, organizationId).orElseThrow(() -> new Exception("Alert not found"));;
         alert.setActionTaken(action);
         return alertRepository.save(alert);
     }
 
-    public Alert updateComments(Long id, String comments) throws Exception {
-        Alert alert = alertRepository.findById(id).orElseThrow(() -> new Exception("Alert not found"));
+    public Alert updateComments(Long id, String comments,Long organizationId) throws Exception {
+        Alert alert = alertRepository.findByIdAndOrganizationId(id, organizationId).orElseThrow(() -> new Exception("Alert not found"));
         alert.setComments(comments);
         return alertRepository.save(alert);
     }

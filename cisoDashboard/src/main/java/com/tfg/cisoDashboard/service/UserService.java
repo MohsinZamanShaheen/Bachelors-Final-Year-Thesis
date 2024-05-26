@@ -4,9 +4,11 @@ import com.tfg.cisoDashboard.dto.PasswordChangeDto;
 import com.tfg.cisoDashboard.dto.PhotoDto;
 import com.tfg.cisoDashboard.dto.UserDto;
 import com.tfg.cisoDashboard.dto.UserUpdateDto;
+import com.tfg.cisoDashboard.model.Organization;
 import com.tfg.cisoDashboard.model.Photo;
 import com.tfg.cisoDashboard.model.Role;
 import com.tfg.cisoDashboard.model.User;
+import com.tfg.cisoDashboard.repository.OrganizationRepository;
 import com.tfg.cisoDashboard.repository.PhotoRepository;
 import com.tfg.cisoDashboard.repository.UserRepository;
 import com.tfg.cisoDashboard.security.SecurityUtils;
@@ -21,8 +23,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -30,11 +34,22 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private PhotoRepository photoRepository;
+    @Autowired
+    private OrganizationRepository organizationRepository;
+
+    public List<User> getAllUsersByOrganization(Long organizationId) {
+        return userRepository.findAll().stream()
+                .filter(user -> user.getOrganizations().stream()
+                        .anyMatch(org -> org.getId().equals(organizationId)))
+                .collect(Collectors.toList());
+    }
+
+    public List<Organization> getUserOrganizations(Long userId) throws Exception {
+        User user = userRepository.findById(userId).orElseThrow(() -> new Exception("User not found"));
+        return new ArrayList<>(user.getOrganizations());
+    }
     public User findUserById(Long id) throws Exception {
         return userRepository.findById(id).orElseThrow(() -> new Exception("User not found"));
-    }
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
     }
     @Override
     public UserDetails loadUserByUsername(String username) {
@@ -92,7 +107,6 @@ public class UserService implements UserDetailsService {
         User currentUser = getCurrentUser();
         currentUser.setName(userUpdateDTO.getName());
         currentUser.setPhoneNumber(userUpdateDTO.getPhoneNumber());
-        //user.setCompany(userUpdateDTO.getCompany());
         currentUser.setBio(userUpdateDTO.getBio());
         return userRepository.save(currentUser);
     }
@@ -104,9 +118,10 @@ public class UserService implements UserDetailsService {
             photo.setFileType(file.getContentType());
             photo.setFileName(file.getOriginalFilename());
             photo.setData(file.getBytes());
+            //photoRepository.save(photo);
             currentUser.setPhoto(photo);
             userRepository.save(currentUser);
-            return photoRepository.save(photo);
+            return photo;
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload photo", e);
         }
@@ -139,14 +154,42 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public void deleteUser(Long userId, Long organizationId) {
+        User user = userRepository.findById(userId).orElse(null);
+        Organization organization = organizationRepository.findById(organizationId).orElse(null);
+
+        if (user == null || organization == null) {
+            throw new RuntimeException("User or Organization not found");
+        }
+
+        if (user.getOrganizations().contains(organization)) {
+            user.getOrganizations().remove(organization);
+            if (user.getOrganizations().isEmpty()) {
+                userRepository.deleteById(userId);
+            } else {
+                userRepository.save(user);
+            }
+        } else {
+            throw new RuntimeException("User is not part of the specified organization");
+        }
     }
 
-    public void updateUserRole(Long id, Role role) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        user.setRole(role);
-        userRepository.save(user);
+
+    public void updateUserRole(Long userId, Role role, Long organizationId) {
+        User user = userRepository.findById(userId).orElse(null);
+        Organization organization = organizationRepository.findById(organizationId).orElse(null);
+
+        if (user == null || organization == null) {
+            throw new RuntimeException("User or Organization not found");
+        }
+
+        if (user.getOrganizations().contains(organization)) {
+            user.setRole(role);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("User is not part of the specified organization");
+        }
     }
+
 
 }

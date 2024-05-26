@@ -16,18 +16,18 @@ public class InvoiceController {
     @Autowired
     private InvoiceService invoiceService;
 
-    @PostMapping("add")
-    public Invoice createInvoice(@RequestBody InvoiceDto invoiceDto) {
-        return invoiceService.saveInvoice(invoiceDto);
+    @PostMapping("/add")
+    public Invoice createInvoice(@RequestBody InvoiceDto invoiceDto, @RequestHeader("X-Organization-ID") Long organizationId) {
+        return invoiceService.saveInvoice(invoiceDto,organizationId);
     }
 
-    @GetMapping("getAll")
-    public List<InvoiceDto> getAllInvoices() {
-        return invoiceService.getAllInvoices();
+    @GetMapping("/getAll")
+    public List<InvoiceDto> getAllInvoices(@RequestHeader("X-Organization-ID") Long organizationId) {
+        return invoiceService.getAllInvoices(organizationId);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteInvoice(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteInvoice(@PathVariable Long id, @RequestHeader("X-Organization-ID") Long organizationId) {
         invoiceService.deleteInvoice(id);
         return ResponseEntity.noContent().build();
     }

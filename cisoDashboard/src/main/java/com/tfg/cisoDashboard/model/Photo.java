@@ -16,8 +16,6 @@ public class Photo {
     private int id;
     private String fileName;
     private String fileType;
-
-
     @Column(name = "data", columnDefinition = "BYTEA")
     private byte[] data;
 }

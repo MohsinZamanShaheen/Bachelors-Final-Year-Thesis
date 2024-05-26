@@ -27,7 +27,6 @@ public class AuthController {
     private AuthService authService;
     private final JwtTokenProvider tokenProvider;
     private final UserService service;
-
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerUser(@RequestBody UserRegisterDto userRegisterDto, HttpServletResponse response) {
         System.out.println("Register call received");
@@ -38,16 +37,13 @@ public class AuthController {
         System.out.println("Login call received");
         return ResponseEntity.ok(authService.loginUser(userLoginDto, response));
     }
-
     @PostMapping("/createUser")
-    public ResponseEntity<?> createUser(@RequestBody NewUserDto newUserDto) {
-        authService.registerNewUser(newUserDto);
+    public ResponseEntity<?> createUser(@RequestBody NewUserDto newUserDto, @RequestHeader("X-Organization-ID") Long organizationId) {
+        authService.registerNewUser(newUserDto,organizationId);
         return ResponseEntity.ok("User created successfully");
     }
-
     @GetMapping("/verify-token")
     public ResponseEntity<User> verifyToken(HttpServletRequest request) throws Exception {
-
         String token = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -64,7 +60,6 @@ public class AuthController {
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
-
     @PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestBody PasswordChangeDto passwordChangeRequest) {
         boolean isChanged = authService.changePassword(passwordChangeRequest);

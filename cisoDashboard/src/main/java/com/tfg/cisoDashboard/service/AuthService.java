@@ -4,7 +4,9 @@ import com.tfg.cisoDashboard.Jwt.JwtTokenProvider;
 import com.tfg.cisoDashboard.Responses.AuthResponse;
 import com.tfg.cisoDashboard.dto.NewUserDto;
 import com.tfg.cisoDashboard.dto.PasswordChangeDto;
+import com.tfg.cisoDashboard.model.Organization;
 import com.tfg.cisoDashboard.model.Role;
+import com.tfg.cisoDashboard.repository.OrganizationRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +21,17 @@ import com.tfg.cisoDashboard.repository.UserRepository;
 import com.tfg.cisoDashboard.dto.UserRegisterDto;
 import com.tfg.cisoDashboard.dto.UserLoginDto;
 
+import java.util.Set;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private OrganizationRepository organizationRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtService;
@@ -36,11 +43,17 @@ public class AuthService {
         if (userRepository.existsByEmail(userRegisterDto.getEmail()) || userRepository.existsByUsername(userRegisterDto.getUsername())) {
             throw new IllegalArgumentException("User already exists");
         }
+
+        Organization organization = new Organization();
+        organization.setName(userRegisterDto.getOrganizationName());
+        organizationRepository.save(organization);
+
         User user = User.builder()
                 .username(userRegisterDto.getUsername())
                 .email(userRegisterDto.getEmail())
                 .password(passwordEncoder.encode(userRegisterDto.getPassword()))
                 .role(Role.ADMIN)
+                .organizations(Set.of(organization))
                 .build();
         userRepository.save(user);
 
@@ -70,16 +83,18 @@ public class AuthService {
                 .build();
     }
 
-    public AuthResponse registerNewUser(NewUserDto newUserDto) {
+    public AuthResponse registerNewUser(NewUserDto newUserDto, Long organizationId) {
         if (userRepository.existsByEmail(newUserDto.getEmail()) || userRepository.existsByUsername(newUserDto.getUsername())) {
             throw new IllegalArgumentException("User already exists");
         }
+        Organization organization = organizationRepository.findById(organizationId).orElse(null);
         User user = User.builder()
                 .username(newUserDto.getUsername())
                 .email(newUserDto.getEmail())
                 .phoneNumber(newUserDto.getContact())
                 .name(newUserDto.getFirstName() + newUserDto.getLastName())
                 .password(passwordEncoder.encode(newUserDto.getPassword()))
+                .organizations(Set.of(organization))
                 .role(newUserDto.getRole())
                 .build();
         userRepository.save(user);

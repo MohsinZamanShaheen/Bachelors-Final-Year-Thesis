@@ -1,14 +1,37 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, Typography, Grid, TextField, useTheme, Divider } from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  Grid,
+  TextField,
+  useTheme,
+  Divider,
+  MenuItem,
+  Select,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  useMediaQuery
+} from "@mui/material";
 import { tokens } from "../../theme";
-import useMediaQuery from "@mui/material/useMediaQuery";
 import DropZoneComp from "../../Components/Dropzone/DropZone";
-import { updateUserInfo, updateUserPhoto, deleteUserPhoto, getCurrentUser } from "../../apiClient";
+import {
+  updateUserInfo,
+  updateUserPhoto,
+  deleteUserPhoto,
+  getCurrentUser,
+  createOrganization,
+  getUserOrganizations
+} from "../../apiClient";
+import { useCompany } from "../../Context/CompanyContext";
 
 const Profile = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
+  const { selectedCompany, setSelectedCompany } = useCompany();
 
   const [user, setUser] = useState({
     id: "",
@@ -21,14 +44,19 @@ const Profile = () => {
   });
 
   const [photo, setPhoto] = useState(null);
+  const [companies, setCompanies] = useState([]);
+  const [newCompanyName, setNewCompanyName] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await getCurrentUser();
-        //console.log("Fetched user: ", response)
         setUser(response.data);
         setPhoto(response.data.photo);
+
+        const orgResponse = await getUserOrganizations(response.data.id);
+        setCompanies(orgResponse.data);
       } catch (error) {
         console.error("Error fetching user data", error);
       }
@@ -55,7 +83,7 @@ const Profile = () => {
     if (photo) {
       try {
         const formData = new FormData();
-        formData.append('file', photo);
+        formData.append("file", photo);
         const response = await updateUserPhoto(formData);
         setPhoto(response.data);
         alert("Photo updated successfully");
@@ -77,6 +105,23 @@ const Profile = () => {
       console.error("Error deleting photo", error);
       alert("Error deleting photo");
     }
+  };
+
+  const handleCreateCompany = async () => {
+    try {
+      const response = await createOrganization({ name: newCompanyName });
+      setCompanies([...companies, response.data]);
+      setOpenDialog(false);
+      setNewCompanyName("");
+      alert("Company created successfully");
+    } catch (error) {
+      console.error("Error creating company", error);
+      alert("Error creating company");
+    }
+  };
+
+  const handleCompanyChange = (event) => {
+    setSelectedCompany(event.target.value);
   };
 
   return (
@@ -143,18 +188,28 @@ const Profile = () => {
                   disabled
                   sx={{ gridColumn: "span 4", m: 0 }}
               />
-              <TextField
-                  label="Company"
-                  name="company"
-                  value={user.company}
-                  onChange={handleInputChange}
-                  fullWidth={true}
-                  sx={{ gridColumn: "span 2", m: 0 }}
-              />
+              <Box sx={{ gridColumn: "span 4", display: "flex", alignItems: "center" }}>
+                <Typography variant="subtitle1" sx={{ mr: 2 }}>Company:</Typography>
+                <Select
+                    value={selectedCompany || ""}
+                    onChange={handleCompanyChange}
+                    displayEmpty
+                    sx={{ flexGrow: 1 }}
+                >
+                  {companies.map((company) => (
+                      <MenuItem key={company.id} value={company.id}>
+                        {company.name}
+                      </MenuItem>
+                  ))}
+                  <MenuItem value="">
+                    <Button onClick={() => setOpenDialog(true)}>Create New Company</Button>
+                  </MenuItem>
+                </Select>
+              </Box>
               <TextField
                   label="Bio"
                   name="bio"
-                  value={user.bio} // Change to 'bio' instead of 'description'
+                  value={user.bio}
                   onChange={handleInputChange}
                   fullWidth={true}
                   multiline
@@ -218,6 +273,26 @@ const Profile = () => {
             </Box>
           </Grid>
         </Grid>
+
+        {/* Dialog for creating new company */}
+        <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+          <DialogTitle>Create New Company</DialogTitle>
+          <DialogContent>
+            <TextField
+                autoFocus
+                margin="dense"
+                label="Company Name"
+                type="text"
+                fullWidth
+                value={newCompanyName}
+                onChange={(e) => setNewCompanyName(e.target.value)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+            <Button onClick={handleCreateCompany}>Create</Button>
+          </DialogActions>
+        </Dialog>
       </Box>
   );
 };

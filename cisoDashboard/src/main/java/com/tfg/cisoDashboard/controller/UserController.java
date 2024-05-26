@@ -3,10 +3,13 @@ package com.tfg.cisoDashboard.controller;
 import com.tfg.cisoDashboard.dto.PasswordChangeDto;
 import com.tfg.cisoDashboard.dto.UserDto;
 import com.tfg.cisoDashboard.dto.UserUpdateDto;
+import com.tfg.cisoDashboard.model.Organization;
 import com.tfg.cisoDashboard.model.Photo;
 import com.tfg.cisoDashboard.model.User;
 import com.tfg.cisoDashboard.service.UserService;
+import com.tfg.cisoDashboard.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,12 +24,13 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/getAll")
-    public List<User> getAllUsers_profile() {
-        return userService.getAllUsers();
+    public List<User> getAllUsers_profile(@RequestHeader("X-Organization-ID") Long organizationId) {
+        return userService.getAllUsersByOrganization(organizationId);
     }
+
     @GetMapping("/getTeam")
-    public List<User> getAllUsersTeam() {
-        return userService.getAllUsers();
+    public List<User> getAllUsersTeam(@RequestHeader("X-Organization-ID") Long organizationId) {
+        return userService.getAllUsersByOrganization(organizationId);
     }
 
     @GetMapping("/getActual")
@@ -43,36 +47,48 @@ public class UserController {
     public User updateUserInfo(@RequestBody UserUpdateDto userUpdateDTO) {
         return userService.updateUser(userUpdateDTO);
     }
+
     @PostMapping("/addphoto")
     public ResponseEntity<Photo> updateUserPhoto(@RequestParam("file") MultipartFile file) throws IOException {
         return ResponseEntity.ok(userService.updateUserPhoto(file));
     }
+
     @DeleteMapping("/deletephoto")
     public User deleteUserPhoto() {
         return userService.deleteUserPhoto();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    @DeleteMapping("/deleteuser/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id,@RequestHeader("X-Organization-ID") Long organizationId) {
         try {
             User current = userService.getCurrentUser();
-            if (current.getId() == id) {
+            if (current.getId().equals(id)) {
                 return ResponseEntity.status(401).body("You cannot delete yourself.");
             }
-            userService.deleteUser(id);
+            userService.deleteUser(id,organizationId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error deleting user");
         }
     }
 
-    @PutMapping("/{id}/role")
-    public ResponseEntity<?> updateUserRole(@PathVariable Long id, @RequestBody UserDto userDto) {
+    @PutMapping("/update/{id}/role")
+    public ResponseEntity<?> updateUserRole(@PathVariable Long id, @RequestBody UserDto userDto,@RequestHeader("X-Organization-ID") Long organizationId) {
         try {
-            userService.updateUserRole(id, userDto.getRole());
+            userService.updateUserRole(id, userDto.getRole(), organizationId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error updating user role");
+        }
+    }
+
+    @GetMapping("/{userId}/organizations")
+    public ResponseEntity<List<Organization>> getUserOrganizations(@PathVariable Long userId) {
+        try {
+            List<Organization> organizations = userService.getUserOrganizations(userId);
+            return ResponseEntity.ok(organizations);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 }

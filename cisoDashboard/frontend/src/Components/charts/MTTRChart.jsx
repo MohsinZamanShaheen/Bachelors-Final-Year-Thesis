@@ -16,6 +16,7 @@ import {
 import PieStat from '../stats/pieStat';
 import { tokens } from "../../theme";
 import { getAlerts } from "../../apiClient";
+import {useCompany} from "../../Context/CompanyContext";
 
 const avgDowntimeData = {
     'CMS Issue': '00:09:20',
@@ -38,47 +39,50 @@ const MTTRChart = () => {
     const colors = tokens(theme.palette.mode);
     const [pieData, setPieData] = useState([]);
     const [tableData, setTableData] = useState([]);
+    const { selectedCompany } = useCompany();
     const [totalIssues, setTotalIssues] = useState(0);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchAlertData = async () => {
             setLoading(true);
-            try {
-                const response = await getAlerts();
-                const alerts = response.data;
+            if(selectedCompany) {
+                try {
+                    const response = await getAlerts(selectedCompany);
+                    const alerts = response.data;
 
-                const issueCounts = alerts.reduce((acc, alert) => {
-                    const issue = alert.rule;
-                    acc[issue] = (acc[issue] || 0) + 1;
-                    return acc;
-                }, {});
+                    const issueCounts = alerts.reduce((acc, alert) => {
+                        const issue = alert.rule;
+                        acc[issue] = (acc[issue] || 0) + 1;
+                        return acc;
+                    }, {});
 
-                const data = Object.keys(issueCounts).map(issue => ({
-                    id: issue,
-                    label: issue,
-                    value: issueCounts[issue],
-                    color: getRandomColor()
-                }));
+                    const data = Object.keys(issueCounts).map(issue => ({
+                        id: issue,
+                        label: issue,
+                        value: issueCounts[issue],
+                        color: getRandomColor()
+                    }));
 
-                const tableData = Object.keys(issueCounts).map(issue => ({
-                    issue,
-                    avgDowntime: avgDowntimeData[issue] || avgDowntimeData['default'],
-                    avgRepairTime: avgRepairTimeData[issue] || avgRepairTimeData['default']
-                }));
+                    const tableData = Object.keys(issueCounts).map(issue => ({
+                        issue,
+                        avgDowntime: avgDowntimeData[issue] || avgDowntimeData['default'],
+                        avgRepairTime: avgRepairTimeData[issue] || avgRepairTimeData['default']
+                    }));
 
-                setPieData(data);
-                setTableData(tableData);
-                setTotalIssues(data.reduce((acc, item) => acc + item.value, 0));
-            } catch (error) {
-                console.error("Error fetching alerts", error);
-            } finally {
-                setLoading(false);
+                    setPieData(data);
+                    setTableData(tableData);
+                    setTotalIssues(data.reduce((acc, item) => acc + item.value, 0));
+                } catch (error) {
+                    console.error("Error fetching alerts", error);
+                } finally {
+                    setLoading(false);
+                }
             }
         };
 
         fetchAlertData();
-    }, []);
+    }, [selectedCompany]);
 
     const getRandomColor = () => {
         const letters = '0123456789ABCDEF';

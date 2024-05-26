@@ -3,10 +3,12 @@ import { Modal, Box, Typography, TextField, Button } from '@mui/material';
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
 import { addProvider } from '../../apiClient';
+import {useCompany} from "../../Context/CompanyContext";
 
 const AddProviderModal = ({ open, onClose, onAdd }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const { selectedCompany } = useCompany();
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -27,12 +29,14 @@ const AddProviderModal = ({ open, onClose, onAdd }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            const response = await addProvider(formData);
-            onAdd(response.data);
-            onClose();
-        } catch (error) {
-            console.error("Failed to add provider", error);
+        if(selectedCompany) {
+            try {
+                const response = await addProvider(formData,selectedCompany);
+                onAdd(response.data);
+                onClose();
+            } catch (error) {
+                console.error("Failed to add provider", error);
+            }
         }
     };
 

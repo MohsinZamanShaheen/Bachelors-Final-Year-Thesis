@@ -16,13 +16,14 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
     private OffsetDateTime startTime;
     private OffsetDateTime endTime;
     private boolean allDay;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 }

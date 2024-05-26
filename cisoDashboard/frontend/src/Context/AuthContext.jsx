@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
-import axios from 'axios';
 import apiClient  from "../apiClient";
+import {useNavigate} from "react-router-dom";
 
 // Create a context
 export const AuthContext = createContext();
@@ -9,6 +9,7 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const verifyToken = async () => {
@@ -28,6 +29,8 @@ export const AuthProvider = ({ children }) => {
 
   const handleLogin = (token) => {
     setIsLoggedIn(true);
+    navigate("/dashboard");
+    window.location.reload();
   };
 
   const handleLogout = () => {

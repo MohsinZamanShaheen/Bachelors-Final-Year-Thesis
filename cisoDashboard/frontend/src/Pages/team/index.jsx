@@ -8,25 +8,29 @@ import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../Components/global/Header";
 import HomeIcon from "@mui/icons-material/Home";
 import {getTeam}  from "../../apiClient";
+import {useCompany} from "../../Context/CompanyContext";
 
 
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { selectedCompany } = useCompany();
   const [team, setTeam] = useState([]);
 
   useEffect(() => {
     const fetchTeam = async () => {
-        try {
-            const response = await getTeam();
-            console.log("TEAM GOT: ", response)
-            setTeam(response.data);
-        } catch (error) {
-            console.error("Failed to fetch team data", error);
+        if (selectedCompany) {
+            try {
+                const response = await getTeam(selectedCompany);
+                console.log("TEAM GOT: ", response)
+                setTeam(response.data);
+            } catch (error) {
+                console.error("Failed to fetch team data", error);
+            }
         }
     };
     fetchTeam();
-    }, []);
+    }, [selectedCompany]);
 
 
   const columns = [

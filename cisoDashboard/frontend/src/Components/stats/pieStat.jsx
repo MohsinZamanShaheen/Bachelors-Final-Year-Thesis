@@ -3,47 +3,50 @@ import { ResponsivePieCanvas } from "@nivo/pie";
 import { tokens } from "../../theme";
 import { useTheme } from "@mui/material";
 import {getAlerts} from "../../apiClient";
+import {useCompany} from "../../Context/CompanyContext";
 
 const PieStat = ({isAlert, passData}) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [dataInfo, setDataInfo] = useState([]);
+  const { selectedCompany } = useCompany();
 
   const fetchAlertData = async () => {
-    try {
-      const response = await getAlerts();
-      const alerts = response.data;
+    if (selectedCompany){
+      try {
+        const response = await getAlerts(selectedCompany);
+        const alerts = response.data;
 
-      const severityCounts = alerts.reduce((acc, alert) => {
-        const severity = alert.severity.toLowerCase();
-        acc[severity] = (acc[severity] || 0) + 1;
-        return acc;
-      }, {});
+        const severityCounts = alerts.reduce((acc, alert) => {
+          const severity = alert.severity.toLowerCase();
+          acc[severity] = (acc[severity] || 0) + 1;
+          return acc;
+        }, {});
 
-      const data = [
-        {
-          id: "critical",
-          label: "Critical",
-          value: severityCounts.critical || 0,
-          color: "hsl(359, 99%, 45%)"
-        },
-        {
-          id: "high",
-          label: "High",
-          value: severityCounts.high || 0,
-          color: "hsl(273, 70%, 50%)"
-        },
-        {
-          id: "medium",
-          label: "Medium",
-          value: severityCounts.medium || 0,
-          color: "hsl(27, 99%, 45%)"
-        }
-      ];
-
-      setDataInfo(data);
-    } catch (error) {
-      console.error("Error fetching alerts", error);
+        const data = [
+          {
+            id: "critical",
+            label: "Critical",
+            value: severityCounts.critical || 0,
+            color: "hsl(359, 99%, 45%)"
+          },
+          {
+            id: "high",
+            label: "High",
+            value: severityCounts.high || 0,
+            color: "hsl(273, 70%, 50%)"
+          },
+          {
+            id: "medium",
+            label: "Medium",
+            value: severityCounts.medium || 0,
+            color: "hsl(27, 99%, 45%)"
+          }
+        ];
+        setDataInfo(data);
+      } catch (error) {
+        console.error("Error fetching alerts", error);
+      }
     }
   };
 
@@ -53,7 +56,7 @@ const PieStat = ({isAlert, passData}) => {
     }else{
       setDataInfo(passData);
     }
-  }, [isAlert,passData]);
+  }, [isAlert,passData,selectedCompany]);
 
   return (
     <ResponsivePieCanvas

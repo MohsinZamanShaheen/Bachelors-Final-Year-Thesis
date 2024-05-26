@@ -5,20 +5,23 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../Components/global/Header";
 import { tokens } from "../../theme";
 import {registerNormalUser} from "../../apiClient";
+import {useCompany} from "../../Context/CompanyContext";
 
 const CreateUserForm = () => {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const theme = useTheme();
+  const { selectedCompany } = useCompany();
   const colors = tokens(theme.palette.mode);
 
   const handleFormSubmit = async (values) => {
-    try
-    {
-      await registerNormalUser(values);
-      alert("Profile successfully registered");
-    }catch(error){
-      console.error("Error creating profile", error);
-      alert("Error registering profile");
+    if(selectedCompany) {
+      try {
+        await registerNormalUser(values,selectedCompany);
+        alert("Profile successfully registered");
+      } catch (error) {
+        console.error("Error creating profile", error);
+        alert("Error registering profile");
+      }
     }
   };
 

@@ -25,4 +25,7 @@ public class Invoice {
     private Double cost;
     private LocalDate date;
     private String concept;
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 }

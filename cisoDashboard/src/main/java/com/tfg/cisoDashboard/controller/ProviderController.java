@@ -16,13 +16,13 @@ public class ProviderController {
     private ProviderService providerService;
 
     @GetMapping("getAll")
-    public List<Provider> getAllProviders() {
-        return providerService.getAllProviders();
+    public List<Provider> getAllProviders(@RequestHeader("X-Organization-ID") Long organizationId) {
+        return providerService.getAllProviders(organizationId);
     }
 
     @PostMapping("add")
-    public Provider createProvider(@RequestBody ProviderDto providerDto) {
-        return providerService.saveProvider(providerDto);
+    public Provider createProvider(@RequestBody ProviderDto providerDto, @RequestHeader("X-Organization-ID") Long organizationId) {
+        return providerService.saveProvider(providerDto, organizationId);
     }
 
     @DeleteMapping("/{id}")

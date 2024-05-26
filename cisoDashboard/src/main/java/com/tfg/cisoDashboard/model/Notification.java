@@ -14,4 +14,7 @@ public class Notification {
     private String content;
     private boolean read = false;
     private String type;
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 }

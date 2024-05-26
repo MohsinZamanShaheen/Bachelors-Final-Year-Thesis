@@ -21,6 +21,7 @@ import Settings from "./Pages/Settings/settings";
 import OrganizationChartCustom from "./Pages/inventory/org_diagram";
 import OverviewFlow from "./Pages/inventory/networkdiagram/network_diagram";
 import AlertTable from "./Pages/Alerts";
+import {CompanyProvider} from "./Context/CompanyContext";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -37,6 +38,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <LanguageProvider>
+          <CompanyProvider>
             {!isLoggedIn ?
                 (
                     <Routes>
@@ -69,6 +71,7 @@ function App() {
                       </main>
                     </div>
                 )}
+          </CompanyProvider>
         </LanguageProvider>
       </ThemeProvider>
     </ColorModeContext.Provider>

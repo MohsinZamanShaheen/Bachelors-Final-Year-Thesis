@@ -10,37 +10,41 @@ import Header from "../../Components/global/Header";
 import { tokens } from "../../theme";
 import HomeIcon from "@mui/icons-material/Home";
 import { getUserEvents, createEvent, deleteEvent } from "../../apiClient";
+import { useCompany } from "../../Context/CompanyContext";
 
 const Calendar = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const { selectedCompany } = useCompany();
     const [currentEvents, setCurrentEvents] = useState([]);
 
     useEffect(() => {
         const fetchEvents = async () => {
-            try {
-                const response = await getUserEvents();
-                const events = response.data.map(event => ({
-                    id: event.id,
-                    title: event.title,
-                    start: event.startTime,
-                    end: event.endTime,
-                    allDay: event.allDay
-                }));
-                setCurrentEvents(events);
-            } catch (error) {
-                console.error("Error fetching events", error);
+            if (selectedCompany) {
+                try {
+                    const response = await getUserEvents(selectedCompany);
+                    const events = response.data.map(event => ({
+                        id: event.id,
+                        title: event.title,
+                        start: event.startTime,
+                        end: event.endTime,
+                        allDay: event.allDay
+                    }));
+                    setCurrentEvents(events);
+                } catch (error) {
+                    console.error("Error fetching events", error);
+                }
             }
         };
         fetchEvents();
-    }, []);
+    }, [selectedCompany]);
 
     const handleDateClick = async (selected) => {
         const title = prompt("Please enter a new title for your event");
         const calendarApi = selected.view.calendar;
         calendarApi.unselect();
 
-        if (title) {
+        if (title && selectedCompany) {
             const newEvent = {
                 title,
                 startTime: selected.startStr,
@@ -48,7 +52,7 @@ const Calendar = () => {
                 allDay: selected.allDay
             };
             try {
-                const response = await createEvent(newEvent);
+                const response = await createEvent(newEvent,selectedCompany);
                 const createdEvent = {
                     id: response.data.id,
                     title,
@@ -130,7 +134,6 @@ const Calendar = () => {
                         ))}
                     </List>
                 </Box>
-
                 {/* CALENDAR */}
                 <Box
                     flex="1 1 100%"

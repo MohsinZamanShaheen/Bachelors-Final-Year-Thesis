@@ -5,41 +5,45 @@ import { tokens } from "../../theme";
 import Header from "../../Components/global/Header";
 import HomeIcon from "@mui/icons-material/Home";
 import { getAlerts, getTeam, updateAssignee, updateStatus, updateAction, updateComments } from "../../apiClient";
+import { useCompany } from "../../Context/CompanyContext";
 
 const AlertTable = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { selectedCompany } = useCompany();
   const [rows, setRows] = useState([]);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const alertsResponse = await getAlerts();
-      const usersResponse = await getTeam();
-      setRows(alertsResponse.data);
-      setUsers(usersResponse.data);
+      if (selectedCompany) {
+        const alertsResponse = await getAlerts(selectedCompany);
+        const usersResponse = await getTeam(selectedCompany);
+        setRows(alertsResponse.data);
+        setUsers(usersResponse.data);
+      }
     };
 
     fetchData();
-  }, []);
+  }, [selectedCompany]);
 
   const handleAssigneeChange = async (id, assignee) => {
-    await updateAssignee(id, assignee);
+    await updateAssignee(id, assignee, selectedCompany);
     setRows(rows.map(row => row.id === id ? { ...row, assignees: assignee } : row));
   };
 
   const handleStatusChange = async (id, status) => {
-    await updateStatus(id, status);
+    await updateStatus(id, status, selectedCompany);
     setRows(rows.map(row => row.id === id ? { ...row, status: status } : row));
   };
 
   const handleActionChange = async (id, action) => {
-    await updateAction(id, action);
+    await updateAction(id, action, selectedCompany);
     setRows(rows.map(row => row.id === id ? { ...row, actionTaken: action } : row));
   };
 
   const handleCommentsChange = async (id, comments) => {
-    await updateComments(id, comments);
+    await updateComments(id, comments, selectedCompany);
     setRows(rows.map(row => row.id === id ? { ...row, comments: comments } : row));
   };
 

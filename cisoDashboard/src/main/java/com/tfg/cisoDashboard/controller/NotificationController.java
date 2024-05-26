@@ -14,17 +14,17 @@ public class NotificationController {
     private NotificationService notificationService;
 
     @GetMapping
-    public List<Notification> getAllNotifications() {
-        return notificationService.getAllNotifications();
+    public List<Notification> getAllNotifications(@RequestHeader("X-Organization-ID") Long organizationId) {
+        return notificationService.getAllNotifications(organizationId);
     }
 
     @PostMapping("/read/{id}")
-    public Notification markAsRead(@PathVariable Long id) throws Exception {
-        return notificationService.markAsRead(id);
+    public Notification markAsRead(@PathVariable Long id, @RequestHeader("X-Organization-ID") Long organizationId) throws Exception {
+        return notificationService.markAsRead(id, organizationId);
     }
 
     @DeleteMapping("/clear")
-    public void clearAll() {
-        notificationService.clearAll();
+    public void clearAll(@RequestHeader("X-Organization-ID") Long organizationId) {
+        notificationService.clearAll(organizationId);
     }
 }

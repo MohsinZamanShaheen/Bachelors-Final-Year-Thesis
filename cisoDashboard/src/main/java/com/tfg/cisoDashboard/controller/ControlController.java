@@ -23,7 +23,6 @@ public class ControlController {
     public List<Control> getAllControls(@RequestParam String language) {
         return controlService.getAllControlsByLanguage(language);
     }
-
     @PutMapping("/updateStatusByCode")
     public ResponseEntity<Control> updateControlStatusByCode(@RequestBody Map<String, Object> payload) {
         String controlCode = (String) payload.get("controlCode");
@@ -35,7 +34,7 @@ public class ControlController {
                 control.setChecked(status);
                 controlRepository.save(control);
             }
-            return ResponseEntity.ok(controls.get(0)); // Return the first updated control as an example
+            return ResponseEntity.ok(controls.get(0));
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -71,9 +70,6 @@ public class ControlController {
 
         return ResponseEntity.ok(summaries);
     }
-
-
-
 
     @PostMapping
     public Control createControl(@RequestBody Control control) {

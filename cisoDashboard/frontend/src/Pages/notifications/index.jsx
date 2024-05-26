@@ -21,10 +21,12 @@ import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined
 import MarkChatReadIcon from "@mui/icons-material/MarkChatRead";
 import CheckIcon from "@mui/icons-material/Check";
 import { getNotifications, markNotificationAsRead, clearAllNotifications } from "../../apiClient";
+import { useCompany } from "../../Context/CompanyContext";
 
 const NotificationsComp = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { selectedCompany } = useCompany();
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [showUnreadOnly, setShowUnreadOnly] = useState(false);
@@ -32,12 +34,14 @@ const NotificationsComp = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
-    fetchNotifications();
-  }, []);
+    if (selectedCompany) {
+      fetchNotifications(selectedCompany);
+    }
+  }, [selectedCompany]);
 
-  const fetchNotifications = async () => {
+  const fetchNotifications = async (organizationId) => {
     try {
-      const response = await getNotifications();
+      const response = await getNotifications(organizationId);
       setNotifications(response.data);
       setUnreadCount(response.data.filter(n => !n.read).length);
     } catch (error) {
@@ -56,8 +60,10 @@ const NotificationsComp = () => {
 
   const handleMarkAsRead = async (id) => {
     try {
-      await markNotificationAsRead(id);
-      fetchNotifications();
+      if (selectedCompany) {
+        await markNotificationAsRead(id, selectedCompany);
+        fetchNotifications(selectedCompany);
+      }
     } catch (error) {
       console.error("Error marking notification as read", error);
     }
@@ -65,8 +71,10 @@ const NotificationsComp = () => {
 
   const handleClearAll = async () => {
     try {
-      await clearAllNotifications();
-      fetchNotifications();
+      if (selectedCompany) {
+        await clearAllNotifications(selectedCompany);
+        fetchNotifications(selectedCompany);
+      }
     } catch (error) {
       console.error("Error clearing notifications", error);
     }
@@ -80,10 +88,12 @@ const NotificationsComp = () => {
 
   const handleMarkAllAsRead = async () => {
     try {
-      for (const notification of notifications.filter(n => !n.read)) {
-        await markNotificationAsRead(notification.id);
+      if (selectedCompany) {
+        for (const notification of notifications.filter(n => !n.read)) {
+          await markNotificationAsRead(notification.id, selectedCompany);
+        }
+        fetchNotifications(selectedCompany);
       }
-      fetchNotifications();
     } catch (error) {
       console.error("Error marking all notifications as read", error);
     }

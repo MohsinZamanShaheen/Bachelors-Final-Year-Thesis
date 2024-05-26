@@ -26,7 +26,7 @@ const HomePage = ({showLogin}) => {
   return (
     <Box
       sx={{
-        backgroundImage: `url("../../assets/main_background.jpg")`, // Consider using a high-quality image or a gradient similar to image 1
+        backgroundImage: `url("../../assets/main_background.jpg")`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: "100vh",

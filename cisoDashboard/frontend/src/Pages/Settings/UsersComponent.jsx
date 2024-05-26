@@ -5,38 +5,45 @@ import {
     MenuItem,
     Select,
     Typography,
-    Paper, useTheme,
+    Paper,
+    useTheme,
     Alert,
     AlertTitle,
 } from "@mui/material";
-import {DataGrid, GridToolbar} from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import PersonRemoveTwoToneIcon from '@mui/icons-material/PersonRemoveTwoTone';
 import { getUsers, deleteUser, updateUserRole } from "../../apiClient";
-import {tokens} from "../../theme";
+import { tokens } from "../../theme";
+import { useCompany } from "../../Context/CompanyContext";
 
 const UsersComponent = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [users, setUsers] = useState([]);
+    const { selectedCompany } = useCompany();
     const [roles, setRoles] = useState(["ADMIN", "USER"]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetchUsers();
-    }, []);
+        if (selectedCompany) {
+            fetchUsers();
+        }
+    }, [selectedCompany]);
 
     const fetchUsers = async () => {
-        try {
-            const response = await getUsers();
-            setUsers(response.data);
-        } catch (error) {
-            console.error("Error fetching users", error);
+        if (selectedCompany) {
+            try {
+                const response = await getUsers(selectedCompany);
+                setUsers(response.data);
+            } catch (error) {
+                console.error("Error fetching users", error);
+            }
         }
     };
 
     const handleDeleteUser = async (id) => {
         try {
-            await deleteUser(id);
+            await deleteUser(id, selectedCompany);
             fetchUsers();
         } catch (error) {
             if (error.response && error.response.status === 401) {
@@ -50,7 +57,7 @@ const UsersComponent = () => {
 
     const handleRoleChange = async (id, newRole) => {
         try {
-            await updateUserRole(id, newRole);
+            await updateUserRole(id, newRole, selectedCompany);
             fetchUsers();
         } catch (error) {
             console.error("Error updating user role", error);
@@ -95,9 +102,9 @@ const UsersComponent = () => {
                     borderRadius="4px"
                     onClick={() => handleDeleteUser(params.row.id)}
                 >
-                <IconButton >
-                    <PersonRemoveTwoToneIcon />
-                </IconButton>
+                    <IconButton>
+                        <PersonRemoveTwoToneIcon />
+                    </IconButton>
                 </Box>
             ),
         },
@@ -115,7 +122,7 @@ const UsersComponent = () => {
                 </Alert>
             )}
             <Paper style={{ height: 400, width: "100%" }}>
-                <DataGrid rows={users} columns={columns} pageSize={5} components={{ Toolbar: GridToolbar }}  sx={{
+                <DataGrid rows={users} columns={columns} pageSize={5} components={{ Toolbar: GridToolbar }} sx={{
                     "& .MuiDataGrid-root": {
                         border: "none",
                     },

@@ -1,26 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, MenuItem, Select, FormControl, InputLabel, Button } from "@mui/material";
 import { getProviders } from "../../apiClient";
+import {useCompany} from "../../Context/CompanyContext";
 
 const AddInvoiceModal = ({ open, onClose, onSave }) => {
     const [providers, setProviders] = useState([]);
     const [providerId, setProviderId] = useState("");
     const [cost, setCost] = useState("");
+    const { selectedCompany } = useCompany();
     const [date, setDate] = useState("");
     const [concept, setConcept] = useState("");
 
     useEffect(() => {
         const fetchProviders = async () => {
-            try {
-                const response = await getProviders();
-                setProviders(response.data);
-            } catch (error) {
-                console.error("Failed to fetch providers data", error);
+            if (selectedCompany) {
+                try {
+                    const response = await getProviders(selectedCompany);
+                    setProviders(response.data);
+                } catch (error) {
+                    console.error("Failed to fetch providers data", error);
+                }
             }
         };
 
         fetchProviders();
-    }, []);
+    }, [selectedCompany]);
 
     const handleSave = () => {
         const selectedProvider = providers.find(provider => provider.id === providerId);

@@ -30,4 +30,7 @@ public class Alert {
     private String status;
     private String actionTaken;
     private String comments;
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 }
