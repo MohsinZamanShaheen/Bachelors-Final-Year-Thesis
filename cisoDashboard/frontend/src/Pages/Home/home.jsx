@@ -1,4 +1,4 @@
-import React, {useState}  from "react";
+import React, {useState, useEffect}  from "react";
 import {
   AppBar,
   Toolbar,
@@ -18,10 +18,19 @@ const HomePage = ({showLogin}) => {
   const navigate = useNavigate();
   const [isLoginVisible, setIsLoginVisible] = useState(showLogin);
 
+    useEffect(() => {
+        setIsLoginVisible(showLogin);
+    }, [showLogin]);
+
   const handleLoginClick = () => {
       navigate("/authenticate");
       setIsLoginVisible(true);
   };
+
+    const handleLogoClick = () => {
+        navigate("/");
+        setIsLoginVisible(false);
+    };
 
   return (
     <Box
@@ -43,6 +52,7 @@ const HomePage = ({showLogin}) => {
           >
             <Link
               to="/"
+              onClick={handleLogoClick}
               style={{
                 display: "flex",
                 alignItems: "center",

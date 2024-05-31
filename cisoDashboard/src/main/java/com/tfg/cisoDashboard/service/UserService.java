@@ -78,7 +78,7 @@ public class UserService implements UserDetailsService {
         return convertToDTO(currentUser);
     }
 
-    private UserDto convertToDTO(User user) {
+    public UserDto convertToDTO(User user) {
         if (user == null) {
             return null;
         }

@@ -11,7 +11,6 @@ public class UserDto {
     private String name;
     private String email;
     private String phoneNumber;
-    private String company;
     private String bio;
     private PhotoDto photo;
     private Role role;

@@ -12,8 +12,9 @@ const apiClient = axios.create({
 export const register = async (data) => {return await apiClient.post('/auth/register', data);};
 export const login = async (data) => {return await apiClient.post('/auth/login', data);};
 export const updateUserInfo = (userInfo) => apiClient.put(`/users/update`, userInfo);
+export const logout = () => {return apiClient.post('/auth/logout');};
 export const deleteUser = async (userId,organizationId) => {return apiClient.delete(`/users/deleteuser/${userId}`,{ headers: { 'X-Organization-ID': organizationId } });};
-export const updateUserRole = async (userId, newRole,organizationId) => {return apiClient.put(`/users/update/${userId}/role`, { role: newRole },{ headers: { 'X-Organization-ID': organizationId } });};
+export const updateUserRole = async (userId, newRole,organizationId) => {return apiClient.put(`/users/update/role/${userId}`, { role: newRole },{ headers: { 'X-Organization-ID': organizationId } });};
 export const getUsers = async (organizationId) => {return apiClient.get('/users/getAll',{ headers: { 'X-Organization-ID': organizationId } })};
 export const getUserProfilePhoto = () => apiClient.get('/users/getProfilePhoto');
 export const getCurrentUser = () => apiClient.get('/users/getActual');

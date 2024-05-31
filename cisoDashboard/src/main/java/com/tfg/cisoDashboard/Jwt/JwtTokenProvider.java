@@ -13,6 +13,8 @@ import com.tfg.cisoDashboard.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtTokenProvider {
@@ -25,13 +27,16 @@ public class JwtTokenProvider {
             String key = SecretKeyGenerator.getSecretKey();
             JWSSigner signer = new MACSigner(key);
 
+            List<String> roles = user.getAuthorities().stream()
+                    .map(authority -> authority.getAuthority())
+                    .collect(Collectors.toList());
             Date now = new Date();
             Date validity = new Date(now.getTime() + validityInMilliseconds);
             JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                     .subject(user.getId().toString())
                     .issueTime(now)
                     .expirationTime(validity)
-                    .claim("customKey", "customValue")
+                    .claim("roles", roles)
                     .build();
             SignedJWT signedJWT = new SignedJWT(new JWSHeader(JWSAlgorithm.HS256), claimsSet);
             signedJWT.sign(signer);
@@ -47,15 +52,7 @@ public class JwtTokenProvider {
         try {
             JWSVerifier verifier = new MACVerifier(SecretKeyGenerator.getSecretKey());
             SignedJWT signedJWT = SignedJWT.parse(token);
-            boolean isValid = signedJWT.verify(verifier);
-            if (isValid) {
-                // Log successful token validation
-                System.out.println("Token is valid.");
-            } else {
-                // Log failed token validation
-                System.out.println("Token is NOT valid.");
-            }
-            return isValid;
+            return signedJWT.verify(verifier);
         } catch (Exception e) {
             return false;
         }
@@ -66,6 +63,17 @@ public class JwtTokenProvider {
             SignedJWT signedJWT = SignedJWT.parse(token);
             JWTClaimsSet claims = signedJWT.getJWTClaimsSet();
             return claims.getSubject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<String> getRolesFromToken(String token) {
+        try {
+            SignedJWT signedJWT = SignedJWT.parse(token);
+            JWTClaimsSet claims = signedJWT.getJWTClaimsSet();
+            return claims.getStringListClaim("roles");
         } catch (Exception e) {
             e.printStackTrace();
         }

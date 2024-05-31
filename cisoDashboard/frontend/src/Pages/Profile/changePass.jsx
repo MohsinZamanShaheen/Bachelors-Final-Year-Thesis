@@ -20,9 +20,18 @@ const ChangePasswordCard = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
+    const validatePassword = (password) => {
+        const re = /^(?=.*[A-Z]).{8,}$/;
+        return re.test(password);
+    };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+        if (!validatePassword(newPassword) || !!validatePassword(confirmPassword)) {
+            setMessage("Password must be at least 8 characters long and contain at least one uppercase letter.");
+            return;
+        }
       const response = await changePassword({
         currentPassword,
         newPassword,

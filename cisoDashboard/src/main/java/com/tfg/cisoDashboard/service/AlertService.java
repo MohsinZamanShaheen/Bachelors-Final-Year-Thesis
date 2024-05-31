@@ -37,7 +37,7 @@ public class AlertService {
     private final String[] appDestinations = {"App_", "Service_"};
     private final String[] deviceDestinations = {"Device_", "Endpoint_"};
 
-    @Scheduled(fixedRate = 120000, initialDelay = 30000)
+    @Scheduled(fixedRate = 3000000, initialDelay = 3000000)
     public void generateAlert() {
         String[] source = randomSource();
         String[] destination = randomDestination(source[1]);

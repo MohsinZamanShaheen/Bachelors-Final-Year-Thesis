@@ -48,9 +48,10 @@ const UsersComponent = () => {
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 setError(error.response.data);
-            } else {
-                console.error("Error deleting user", error);
-                setError("An unexpected error occurred");
+            }else if(error.response && error.response.status === 403){
+                setError("Error deleting user. Not authorized");
+            }else {
+                setError("An error occured deleting user.");
             }
         }
     };
@@ -60,7 +61,11 @@ const UsersComponent = () => {
             await updateUserRole(id, newRole, selectedCompany);
             fetchUsers();
         } catch (error) {
-            console.error("Error updating user role", error);
+            if(error.response && error.response.status === 403){
+                setError("Error updating user role. Not authorized");
+            }else {
+                setError(error.response.data);
+            }
         }
     };
 

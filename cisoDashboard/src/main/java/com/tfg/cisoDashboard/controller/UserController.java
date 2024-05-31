@@ -11,6 +11,7 @@ import com.tfg.cisoDashboard.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -58,6 +59,7 @@ public class UserController {
         return userService.deleteUserPhoto();
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/deleteuser/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable Long id,@RequestHeader("X-Organization-ID") Long organizationId) {
         try {
@@ -68,17 +70,18 @@ public class UserController {
             userService.deleteUser(id,organizationId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error deleting user");
+            return ResponseEntity.status(500).body("Error deleting user or not enough permissions");
         }
     }
 
-    @PutMapping("/update/{id}/role")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PutMapping("/update/role/{id}")
     public ResponseEntity<?> updateUserRole(@PathVariable Long id, @RequestBody UserDto userDto,@RequestHeader("X-Organization-ID") Long organizationId) {
         try {
             userService.updateUserRole(id, userDto.getRole(), organizationId);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error updating user role");
+            return ResponseEntity.status(500).body("Error updating user role or not authorized");
         }
     }
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect} from "react";
 import {
   Box,
   Drawer,
@@ -28,7 +28,7 @@ import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import CorporateFareIcon from "@mui/icons-material/CorporateFare";
 import CloudQueueIcon from "@mui/icons-material/CloudQueue";
 import { tokens } from "../../theme";
-import {getUserProfilePhoto, getCurrentUser} from "../../apiClient";
+import {getCurrentUser} from "../../apiClient";
 
 const drawerWidth = 240;
 
@@ -164,8 +164,8 @@ const Sidebar = ({ mobileOpen, handleDrawerToggle }) => {
           </Typography>
         )}
         <Item
-          title="ISO 2701"
-          to="/iso2701"
+          title="ISO 27001"
+          to="/iso27001"
           icon={<FormatListNumberedIcon />}
         />
         <Item

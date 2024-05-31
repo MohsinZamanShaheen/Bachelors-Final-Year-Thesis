@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import apiClient  from "../apiClient";
+import apiClient, { logout } from "../apiClient";
 import {useNavigate} from "react-router-dom";
 
 // Create a context
@@ -17,25 +17,28 @@ export const AuthProvider = ({ children }) => {
         const response = await apiClient.get('/auth/verify-token');
         setIsLoggedIn(true);
         setUser(response.data);
-
       } catch (error) {
-        console.log("Token verification failed");
         setIsLoggedIn(false);
       }
     };
-
     verifyToken();
   }, []);
 
-  const handleLogin = (token) => {
+  const handleLogin = () => {
     setIsLoggedIn(true);
     navigate("/dashboard");
     window.location.reload();
   };
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUser(null);
+  const handleLogout =  async () => {
+    try {
+      await logout();
+      setIsLoggedIn(false);
+      setUser(null);
+      navigate("/");
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
   };
 
   return (

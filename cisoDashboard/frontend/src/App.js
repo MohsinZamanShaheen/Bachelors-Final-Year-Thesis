@@ -22,6 +22,7 @@ import OrganizationChartCustom from "./Pages/inventory/org_diagram";
 import OverviewFlow from "./Pages/inventory/networkdiagram/network_diagram";
 import AlertTable from "./Pages/Alerts";
 import {CompanyProvider} from "./Context/CompanyContext";
+import PrivateRoute from "./security/PrivateRoute";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -42,7 +43,7 @@ function App() {
             {!isLoggedIn ?
                 (
                     <Routes>
-                      <Route path="/" element={<HomePage />} />
+                      <Route path="/" element={<HomePage  />} />
                       <Route path="/authenticate" element={<HomePage showLogin={true} />} />
                       <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
@@ -55,13 +56,15 @@ function App() {
                           <Route path="/" element={<Navigate to="/dashboard" replace />} />
                           <Route path="/dashboard" element={<Dashboard />} />
                           <Route path="/calendar" element={<Calendar />} />
-                          <Route path="/newprofile" element={<CreateUserForm />} />
+                          <Route element={<PrivateRoute role="ADMIN" />}>
+                            <Route path="/newprofile" element={<CreateUserForm />} />
+                          </Route>
                           <Route path="/faq" element={<FAQ />} />
                           <Route path="/providers" element={<Providers />} />
                           <Route path="/invoices" element={<Invoices />} />
                           <Route path="/team" element={<Team />} />
                           <Route path="/iso27002" element={<Controls />} />
-                          <Route path="/iso2701" element={<Requirements />} />
+                          <Route path="/iso27001" element={<Requirements />} />
                           <Route path="/profile" element={<Profile />} />
                           <Route path="/settings" element={<Settings />} />
                           <Route path="/org_diag" element={<OrganizationChartCustom />} />
