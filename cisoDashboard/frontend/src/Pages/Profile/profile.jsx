@@ -195,15 +195,30 @@ const Profile = () => {
                     value={selectedCompany || ""}
                     onChange={handleCompanyChange}
                     displayEmpty
-                    sx={{ flexGrow: 1 }}
+                    sx={{
+                      flexGrow: 1,
+                      '& .MuiSelect-select': {
+                        backgroundColor: colors.primary[100], // Change the color of the selected item
+                      },
+                      '& .MuiPaper-root': {
+                        backgroundColor: colors.primary[100], // Change the color of the dropdown area
+                      }
+                    }}
+                    MenuProps={{
+                      PaperProps: {
+                        sx: {
+                          backgroundColor: colors.primary[100], // Change the color of the dropdown area
+                        }
+                      }
+                    }}
                 >
                   {companies.map((company) => (
-                      <MenuItem key={company.id} value={company.id}>
+                      <MenuItem key={company.id} value={company.id} sx={{backgroundColor: colors.primary[100]}}>
                         {company.name}
                       </MenuItem>
                   ))}
                   {authUser.role === 'ADMIN' && (
-                  <MenuItem value="">
+                  <MenuItem value="" sx={{backgroundColor: colors.primary[100]}}>
                     <Button onClick={() => setOpenDialog(true)}>Create New Company</Button>
                   </MenuItem>
                   )}

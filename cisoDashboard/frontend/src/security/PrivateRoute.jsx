@@ -11,7 +11,7 @@ const PrivateRoute = ({ role }) => {
     useEffect(() => {
         if (!user || user.role !== role) {
             setOpen(true);
-            setTimeout(() => setShouldRedirect(true), 3000); // Wait for 3 seconds before redirecting
+            setTimeout(() => setShouldRedirect(true), 3000);
         }
     }, [user, role]);
 
