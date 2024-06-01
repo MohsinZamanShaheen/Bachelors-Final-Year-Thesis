@@ -22,7 +22,7 @@ const Settings = () => {
       <Box m="20px">
         <Header
             title="Account Settings"
-            subtitle="Make any necessary modification to your info."
+            subtitle="Make any necessary modifications to your info."
             items={[
               { label: "Home", href: "/", icon: HomeIcon },
               { label: "Settings", href: "/settings" },

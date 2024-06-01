@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import {
   Box,
   Button,
@@ -26,13 +26,14 @@ import {
   getUserOrganizations
 } from "../../apiClient";
 import { useCompany } from "../../Context/CompanyContext";
+import {AuthContext} from "../../Context/AuthContext";
 
 const Profile = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const { selectedCompany, setSelectedCompany } = useCompany();
-
+  const { user:authUser } = useContext(AuthContext);
   const [user, setUser] = useState({
     id: "",
     name: "",
@@ -201,9 +202,11 @@ const Profile = () => {
                         {company.name}
                       </MenuItem>
                   ))}
+                  {authUser.role === 'ADMIN' && (
                   <MenuItem value="">
                     <Button onClick={() => setOpenDialog(true)}>Create New Company</Button>
                   </MenuItem>
+                  )}
                 </Select>
               </Box>
               <TextField

@@ -46,7 +46,7 @@ const MyGaugeChart = () => {
   const colors = tokens(theme.palette.mode);
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h3" fontWeight="bold" mb={2} align="center" gutterBottom>
+      <Typography variant="h4" fontWeight="600" mb={2} align="center" gutterBottom>
         Mean Time To Detect (MTTD)
       </Typography>
       <Grid container spacing={2}>
@@ -77,8 +77,8 @@ const MyGaugeChart = () => {
           </Typography>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={barData} layout="vertical" margin={{ left: 30 }}>
-              <XAxis type="number" />
-              <YAxis type="category" dataKey="name" />
+              <XAxis type="number" tick={{ fill: colors.textColor[100] }}/>
+              <YAxis type="category" dataKey="name" tick={{ fill: colors.textColor[100] }} />
               <Tooltip />
               <CartesianGrid stroke="#f5f5f5" />
               <Bar dataKey="value" />
@@ -91,8 +91,8 @@ const MyGaugeChart = () => {
           </Typography>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={lineData} margin={{ top: 20, right: 30 }}>
-              <XAxis dataKey="week" />
-              <YAxis />
+              <XAxis dataKey="week" tick={{ fill: colors.textColor[100] }}/>
+              <YAxis tick={{ fill: colors.textColor[100] }}/>
               <Tooltip />
               <CartesianGrid stroke="#f5f5f5" />
               <Line type="monotone" dataKey="value" stroke="#ff7300" dot={{ stroke: lineData.fill, strokeWidth: 2 }} />

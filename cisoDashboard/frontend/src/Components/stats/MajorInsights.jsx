@@ -1,4 +1,3 @@
-// MajorInsights.js
 import React from "react";
 import { Box,Typography, Paper, Grid, useTheme, Link } from "@mui/material";
 import { tokens } from "../../theme";
@@ -11,7 +10,7 @@ const MajorInsights = ({ insights, isInsights=false }) => {
     <Paper sx={{ backgroundColor: colors.primary[100] }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ backgroundColor:colors.primary[100] }}>
         <Typography
-          variant="h4"
+            variant="h4" fontWeight="600"
           sx={{ pb: 2, backgroundColor: colors.primary[100] }}
         >
            {!isInsights ? "Attack Paths" : "Major Insights"}

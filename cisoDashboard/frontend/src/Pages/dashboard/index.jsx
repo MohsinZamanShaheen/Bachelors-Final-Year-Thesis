@@ -28,10 +28,16 @@ import MTTRChart from "../../Components/charts/MTTRChart";
 import { Link as RouterLink } from 'react-router-dom';
 import { insightsData, attackPathsData } from "../../data/mockData";
 import { generatePDF } from './generateReport';
+import { useCompany } from "../../Context/CompanyContext";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const { selectedCompany } = useCompany();
+
+  const handleGeneratePDF = () => {
+    generatePDF(selectedCompany);
+  };
 
   return (
       <Box m="20px">
@@ -43,7 +49,7 @@ const Dashboard = () => {
               items={[{ label: "Home", href: "/", icon: HomeIcon }]}
           />
           <Button
-              onClick={generatePDF}
+              onClick={handleGeneratePDF}
               sx={{
                 backgroundColor: colors.buttonColor[100],
                 color: "white",
@@ -170,8 +176,7 @@ const Dashboard = () => {
             >
               <Typography
                   color={colors.textColor[100]}
-                  variant="h5"
-                  fontWeight="600"
+                  variant="h4" fontWeight="600"
               >
                 Recent Transactions
               </Typography>
@@ -393,8 +398,7 @@ const Dashboard = () => {
               border={`1px solid  ${colors.elementBorders[100]}`}
           >
             <Typography
-                variant="h5"
-                fontWeight="600"
+                variant="h4" fontWeight="600"
                 sx={{ padding: "30px 30px 0 30px" }}
             >
               Security Controls ISO 27002 Completion
@@ -414,8 +418,7 @@ const Dashboard = () => {
               border={`1px solid  ${colors.elementBorders[100]}`}
           >
             <Typography
-                variant="h5"
-                fontWeight="600"
+                variant="h4" fontWeight="600"
                 sx={{ padding: "30px 30px 0 30px" }}
             >
               Top 5 Threat Impact Cost Breakdown
@@ -438,8 +441,7 @@ const Dashboard = () => {
               border={`1px solid  ${colors.elementBorders[100]}`}
           >
             <Typography
-                variant="h5"
-                fontWeight="600"
+                variant="h4" fontWeight="600"
                 sx={{ marginBottom: "15px" }}
             >
               Vulnerability Map

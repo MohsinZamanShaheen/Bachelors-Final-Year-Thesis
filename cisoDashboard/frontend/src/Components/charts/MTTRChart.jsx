@@ -23,7 +23,9 @@ const avgDowntimeData = {
     'DNS Issues': '00:29:10',
     'Hardware Failure': '00:05:19',
     'Host Provider': '00:09:30',
-    'default': '00:10:00'
+    'Malware Prevention': '00:8:50',
+    'Phishing Detection': '00:15:10',
+    'Intrusion Detection': '00:5:48'
 };
 
 const avgRepairTimeData = {
@@ -31,7 +33,9 @@ const avgRepairTimeData = {
     'DNS Issues': '00:24:55',
     'Hardware Failure': '00:03:19',
     'Host Provider': '00:08:11',
-    'default': '00:10:00'
+    'Malware Prevention': '00:12:30',
+    'Phishing Detection': '00:11:50',
+    'Intrusion Detection': '00:7:22'
 };
 
 const MTTRChart = () => {
@@ -95,7 +99,7 @@ const MTTRChart = () => {
 
     return (
         <Box sx={{ p: 3 }}>
-            <Typography variant="h4" align="center" gutterBottom>
+            <Typography variant="h4" fontWeight="600" align="center" gutterBottom>
                 Mean Time To Repair
             </Typography>
             <Grid container spacing={2}>

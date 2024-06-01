@@ -19,7 +19,7 @@ const avgRepairTimeData = {
     'default': '00:10:00'
 };
 
-export const generatePDF = async () => {
+export const generatePDF = async (selectedCompany) => {
     const doc = new jsPDF();
 
     // Add a title
@@ -50,7 +50,7 @@ export const generatePDF = async () => {
     doc.addPage();
     doc.setFontSize(14);
     doc.text('Mean Time To Repair (MTTR)', 14, 22);
-    const alertsResponse = await getAlerts(); // Fetch alerts data
+    const alertsResponse = await getAlerts(selectedCompany);
     const alerts = alertsResponse.data;
     const issueCounts = alerts.reduce((acc, alert) => {
         const issue = alert.rule;

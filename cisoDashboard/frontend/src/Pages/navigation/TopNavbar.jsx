@@ -13,7 +13,6 @@ import {
   Avatar,
   styled,
   InputBase,
-  MenuProps as MuiMenuProps,
 } from "@mui/material";
 import { useContext, useState, useEffect } from "react";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
@@ -80,7 +79,6 @@ const TopNavbar = ({ handleDrawerToggle }) => {
       try {
         if (user) {
           const response = await getUserOrganizations(user.id);
-          console.log("Orgs are: ", response);
           setOrganizations(response.data);
           const defaultOrgId = response.data[0]?.id;
           if (defaultOrgId) {
@@ -178,12 +176,12 @@ const TopNavbar = ({ handleDrawerToggle }) => {
           <Hidden mdDown>
             <Box display="flex" alignItems="center" mr={2}>
               <img
-                  src="../../assets/homeLogo2.png"
+                  src= {theme.palette.mode === "dark" ? "../../assets/whiteLogo.png" : "../../assets/blackLogo.png"}
                   alt="Logo"
-                  style={{ height: "70px" }}
+                  style={{ height: "50px" }}
               />
               {user?.role === 'ADMIN' && (
-                  <FormControl variant="filled" sx={{ minWidth: 200 }}>
+                  <FormControl variant="filled" sx={{ minWidth: 200,  marginLeft: "20px" }}>
                     <InputLabel id="demo-simple-select-label">Select Unit</InputLabel>
                     <CustomSelect
                         labelId="demo-simple-select-label"
