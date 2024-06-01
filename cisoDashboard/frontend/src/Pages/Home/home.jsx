@@ -45,7 +45,7 @@ const HomePage = ({ showLogin }) => {
             }}
         >
             <AppBar
-                position="static"
+                position="sticky"
                 sx={{ backgroundColor: "#24303F", boxShadow: "none" }}
             >
                 <Toolbar>

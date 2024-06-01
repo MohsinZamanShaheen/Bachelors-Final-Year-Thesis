@@ -1,125 +1,148 @@
 [
-    {
-      "expanded": true,
-      "type": "person",
-      "data": {
-        "image": "https://primefaces.org/cdn/primereact/images/avatar/amyelsner.png",
-        "name": "Amy Elsner",
-        "title": "CEO"
+  {
+    "expanded": true,
+    "type": "person",
+    "data": {
+      "image": "../../assets/person1.png",
+      "name": "Amy Elsner",
+      "title": "CEO"
+    },
+    "children": [
+      {
+        "label": "Development",
+        "children": [
+          {
+            "expanded": true,
+            "type": "person",
+            "data": {
+              "image": "../../assets/person2.png",
+              "name": "Rachel Adams",
+              "title": "Senior Developer"
+            }
+          },
+          {
+            "expanded": true,
+            "type": "person",
+            "data": {
+              "image": "../../assets/person3.png",
+              "name": "John Doe",
+              "title": "Lead Developer"
+            }
+          }
+        ]
       },
-      "children": [
-        {
-          "label": "Development",
-          "children": [
-            {
-              "expanded": true,
-              "type": "person",
-              "data": {
-                "image": "https://primefaces.org/cdn/primereact/images/avatar/annafali.png",
-                "name": "Anna Fali",
-                "title": "CMO"
-              }
-            },
-            {
-              "expanded": true,
-              "type": "person",
-              "data": {
-                "image": "https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png",
-                "name": "Stephen Shaw",
-                "title": "CTO"
-              }
+      {
+        "label": "UI/UX Design",
+        "children": [
+          {
+            "expanded": true,
+            "type": "person",
+            "data": {
+              "image": "../../assets/person4.png",
+              "name": "Michael Smith",
+              "title": "UI/UX Designer"
             }
-          ]
-        },
-        {
-          "label": "UI/UX Design",
-          "children": [
-            {
-              "expanded": true,
-              "type": "person",
-              "data": {
-                "image": "https://primefaces.org/cdn/primereact/images/avatar/annafali.png",
-                "name": "Anna Fali",
-                "title": "CMO"
-              }
+          },
+          {
+            "expanded": true,
+            "type": "person",
+            "data": {
+              "image": "../../assets/person5.png",
+              "name": "Noah Shah",
+              "title": "Senior UI/UX Designer"
             },
-            {
-              "expanded": true,
-              "type": "person",
-              "data": {
-                "image": "https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png",
-                "name": "Stephen Shaw",
-                "title": "CTO"
-              },
-              "children": [
-                {
-                  "expanded": true,
-                  "type": "person",
-                  "data": {
-                    "image": "https://primefaces.org/cdn/primereact/images/avatar/annafali.png",
-                    "name": "Anna Fali",
-                    "title": "CMO"
-                  }
-                },
-                {
-                  "expanded": true,
-                  "type": "person",
-                  "data": {
-                    "image": "https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png",
-                    "name": "Stephen Shaw",
-                    "title": "CTO"
-                  }
+            "children": [
+              {
+                "expanded": true,
+                "type": "person",
+                "data": {
+                  "image": "../../assets/person6.png",
+                  "name": "David Brown",
+                  "title": "Junior UI/UX Designer"
                 }
-              ]
+              },
+              {
+                "expanded": true,
+                "type": "person",
+                "data": {
+                  "image": "../../assets/person7.png",
+                  "name": "Elizabeth Wilson",
+                  "title": "UI/UX Intern"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "label": "Sales",
+        "children": [
+          {
+            "expanded": true,
+            "type": "person",
+            "data": {
+              "image": "../../assets/person8.png",
+              "name": "Emily White",
+              "title": "Sales Manager"
             }
-          ]
-        },
-        {
-          "label": "Sales",
-          "children": [
-            {
-              "expanded": true,
-              "type": "person",
-              "data": {
-                "image": "https://primefaces.org/cdn/primereact/images/avatar/annafali.png",
-                "name": "Anna Fali",
-                "title": "CMO"
-              }
-            },
-            {
-              "expanded": true,
-              "type": "person",
-              "data": {
-                "image": "https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png",
-                "name": "Stephen Shaw",
-                "title": "CTO"
-              }
+          },
+          {
+            "expanded": true,
+            "type": "person",
+            "data": {
+              "image": "../../assets/person9.png",
+              "name": "Robert Brown",
+              "title": "Sales Executive"
             }
-          ]
-        },
-        {
-          "label": "Marketing",
-          "children": [
-            {
-              "expanded": true,
-              "type": "person",
-              "data": {
-                "image": "https://primefaces.org/cdn/primereact/images/avatar/annafali.png",
-                "name": "Anna Fali",
-                "title": "CMO"
-              }
-            },
-            {
-              "expanded": true,
-              "type": "person",
-              "data": {
-                "image": "https://primefaces.org/cdn/primereact/images/avatar/stephenshaw.png",
-                "name": "Stephen Shaw",
-                "title": "CTO"
-              }
+          }
+        ]
+      },
+      {
+        "label": "Marketing",
+        "children": [
+          {
+            "expanded": true,
+            "type": "person",
+            "data": {
+              "image": "../../assets/person10.png",
+              "name": "Henry Black",
+              "title": "Marketing Manager"
             }
-          ]
-        }
-      ]
-    }
-  ]
+          },
+          {
+            "expanded": true,
+            "type": "person",
+            "data": {
+              "image": "../../assets/person11.png",
+              "name": "Samantha Green",
+              "title": "Marketing Specialist"
+            }
+          }
+        ]
+      },
+      {
+        "label": "Security",
+        "children": [
+          {
+            "expanded": true,
+            "type": "person",
+            "data": {
+              "image": "../../assets/person12.png",
+              "name": "James Jones",
+              "title": "Threat Analyst"
+            }
+          },
+          {
+            "expanded": true,
+            "type": "person",
+            "data": {
+              "image": "../../assets/person13.png",
+              "name": "David Clark",
+              "title": "Threat Hunter"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

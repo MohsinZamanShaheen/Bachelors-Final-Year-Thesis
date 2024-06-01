@@ -153,31 +153,6 @@ const Requirements = () => {
                         ]}
                     />
                 </Grid>
-                <Grid
-                    item
-                    xs={12}
-                    md={3.5}
-                    sx={{ display: "flex", justifyContent: "flex-end", mr: "40px"}}
-                >
-                    <Button
-                        sx={{
-                            backgroundColor: colors.buttonColor[100],
-                            color: "white",
-                            fontSize: "14px",
-                            fontWeight: "bold",
-                            padding: "10px 20px",
-                            "&:hover": {
-                                backgroundColor:
-                                    theme.palette.mode === "dark"
-                                        ? colors.primary[100]
-                                        : colors.primary[200],
-                            },
-                        }}
-                    >
-                        <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-                        Download PDF file
-                    </Button>
-                </Grid>
             </Grid>
             <Grid
                 container
