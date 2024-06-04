@@ -74,7 +74,6 @@ public class AuthService {
             throw new IllegalArgumentException("Invalid email or password");
         }
         UserDetails userDetails = userService.loadUserByEmail(userLoginDto.getEmail());
-        System.out.printf("USERNAME ES: " + userDetails.getUsername());
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userLoginDto.getPassword()));
         String token = jwtService.createToken(user);
         response.addHeader("Set-Cookie", "token=" + token + "; HttpOnly; Path=/; Max-Age=" + (86400)); // Cookie valid for 1 day

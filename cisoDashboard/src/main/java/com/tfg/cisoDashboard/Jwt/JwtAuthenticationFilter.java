@@ -40,7 +40,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         }
-
         if (token != null && tokenProvider.validateToken(token)) {
             try {
                 // If the token is valid, set the authentication in the security context
