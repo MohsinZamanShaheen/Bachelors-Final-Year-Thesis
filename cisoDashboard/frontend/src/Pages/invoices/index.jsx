@@ -20,7 +20,6 @@ const Invoices = () => {
             if (selectedCompany) {
                 try {
                     const response = await getInvoices(selectedCompany);
-                    console.log("Invoice:", response);
                     setInvoices(response.data);
                 } catch (error) {
                     console.error("Error fetching invoices", error);

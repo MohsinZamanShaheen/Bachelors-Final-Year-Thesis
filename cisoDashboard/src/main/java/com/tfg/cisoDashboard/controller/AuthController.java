@@ -29,12 +29,10 @@ public class AuthController {
     private final UserService service;
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerUser(@RequestBody UserRegisterDto userRegisterDto, HttpServletResponse response) {
-        System.out.println("Register call received");
         return ResponseEntity.ok(authService.registerUser(userRegisterDto));
     }
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> loginUser(@RequestBody UserLoginDto userLoginDto, HttpServletResponse response) {
-        System.out.println("Login call received");
         return ResponseEntity.ok(authService.loginUser(userLoginDto, response));
     }
 

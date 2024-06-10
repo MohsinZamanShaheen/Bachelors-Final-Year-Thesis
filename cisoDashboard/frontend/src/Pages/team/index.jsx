@@ -22,7 +22,6 @@ const Team = () => {
         if (selectedCompany) {
             try {
                 const response = await getTeam(selectedCompany);
-                console.log("TEAM GOT: ", response)
                 setTeam(response.data);
             } catch (error) {
                 console.error("Failed to fetch team data", error);

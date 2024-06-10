@@ -21,7 +21,6 @@ const Providers = () => {
             if (selectedCompany) {
                 try {
                     const response = await getProviders(selectedCompany);
-                    console.log("Providers fetched:", response);
                     setProviders(response.data);
                 } catch (error) {
                     console.error("Failed to fetch providers data", error);
