@@ -4,7 +4,7 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import Header from "../../Components/global/Header";
 import { useTheme, Button } from "@mui/material";
-import { getProviders, addProvider } from "../../apiClient";
+import { getProviders } from "../../apiClient";
 import HomeIcon from "@mui/icons-material/Home";
 import AddProviderModal from "./addProviderModal";
 import { useCompany } from "../../Context/CompanyContext";

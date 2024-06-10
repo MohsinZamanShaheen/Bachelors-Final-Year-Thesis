@@ -1,16 +1,10 @@
 import React, { memo } from 'react';
-import { Handle, useStore, Position } from 'reactflow';
+import { Handle, Position } from 'reactflow';
 import { Box } from '@mui/material';
-import RouterIcon from '@mui/icons-material/Router';
 import CustomIcon from './customIcons/CustomIcon';
-
-const iconMap = {
-  firewall: CustomIcon
-};
 
 const labelStyle = {
   position: 'absolute',
-  color: '#fff',
   bottom: -15,
   fontSize: 8,
 };
