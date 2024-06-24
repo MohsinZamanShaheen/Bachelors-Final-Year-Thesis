@@ -58,5 +58,5 @@ jobs:
         with:
           app-name: 'reactdashsecure'
           slot-name: 'Production'
-          package: .
+          package: ./cisoDashboard/frontend/
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
