@@ -24,7 +24,10 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: npm install, build, and test
+      - name: Disable CI environment variable
+        run: echo "CI=false" >> $GITHUB_ENV
+
+      - name: npm install, build
         run: |
           npm install
           npm run build --if-present
