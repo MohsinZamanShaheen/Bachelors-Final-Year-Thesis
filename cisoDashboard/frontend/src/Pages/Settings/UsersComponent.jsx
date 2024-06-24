@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
     Box,
     IconButton,
@@ -21,25 +21,24 @@ const UsersComponent = () => {
     const colors = tokens(theme.palette.mode);
     const [users, setUsers] = useState([]);
     const { selectedCompany } = useCompany();
-    const [roles, setRoles] = useState(["ADMIN", "USER"]);
+    const [roles] = useState(["ADMIN", "USER"]);
     const [error, setError] = useState(null);
 
-    useEffect(() => {
-        if (selectedCompany) {
-            fetchUsers();
-        }
-    }, [selectedCompany]);
-
-    const fetchUsers = async () => {
+    const fetchUsers = useCallback(async () => {
         if (selectedCompany) {
             try {
                 const response = await getUsers(selectedCompany);
                 setUsers(response.data);
             } catch (error) {
                 console.error("Error fetching users", error);
+                setError(error);
             }
         }
-    };
+    }, [selectedCompany]);
+
+    useEffect(() => {
+        fetchUsers();
+    }, [fetchUsers]);
 
     const handleDeleteUser = async (id) => {
         try {

@@ -8,13 +8,11 @@ import {
     Box,
     Divider,
     useTheme,
-    Button,
     Grid,
 } from "@mui/material";
 import Header from "../../../Components/global/Header";
 import { tokens } from "../../../theme";
 import HomeIcon from "@mui/icons-material/Home";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import { getSections } from "../../../apiClient";
 
 const Sidebar = ({ sections, activeSectionId }) => {
@@ -108,11 +106,9 @@ const ContentArea = ({ sections, sectionRefs }) => {
 };
 
 const Requirements = () => {
-    const [activeSectionId, setActiveSectionId] = useState("");
+    const [activeSectionId] = useState("");
     const sectionRefs = useRef({});
     const [sections, setSections] = useState([]);
-    const theme = useTheme();
-    const colors = tokens(theme.palette.mode);
 
     useEffect(() => {
         const fetchSections = async () => {

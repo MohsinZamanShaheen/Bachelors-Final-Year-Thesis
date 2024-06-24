@@ -43,11 +43,11 @@ const OverviewFlow = () => {
     };
 
     fetchData();
-  }, []);
+  }, [setNodes, setEdges]);
 
   const onConnect = useCallback(
       (params) => setEdges((eds) => addEdge(params, eds)),
-      []
+      [setEdges]
   );
 
   return (
