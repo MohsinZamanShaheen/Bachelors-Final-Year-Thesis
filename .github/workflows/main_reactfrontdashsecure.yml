@@ -24,11 +24,10 @@ jobs:
         with:
           node-version: '18.x'
 
-      - name: Disable CI environment variable
-        run: echo "CI=" >> $GITHUB_ENV
-
       - name: npm install, build
         run: |
+          env:
+            CI:""
           npm install
           npm run build --if-present
         working-directory: ./cisoDashboard/frontend
