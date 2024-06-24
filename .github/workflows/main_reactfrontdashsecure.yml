@@ -26,10 +26,8 @@ jobs:
 
       - name: npm install, build
         run: |
-          env:
-            CI:""
           npm install
-          npm run build --if-present
+          CI="" npm run build --if-present
         working-directory: ./cisoDashboard/frontend
       
       - name: Upload artifact for deployment job
