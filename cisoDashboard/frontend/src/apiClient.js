@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const backendUrl = process.env.DASHSECURE_APP_BACKEND_URL;
 const apiClient = axios.create({
-  baseURL: `${backendUrl}/api`,
+  baseURL: "https://springdashsecure.azurewebsites.net/api",
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
