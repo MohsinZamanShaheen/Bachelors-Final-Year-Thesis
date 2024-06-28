@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from 'react';
 import apiClient, { logout } from "../apiClient";
 import {useNavigate} from "react-router-dom";
+import {getCookie} from "../utils";
 
 // Create a context
 export const AuthContext = createContext();
@@ -13,11 +14,17 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const verifyToken = async () => {
+      const token = getCookie('token');
+      if (!token) {
+        setIsLoggedIn(false);
+        return;
+      }
       try {
         const response = await apiClient.get('/auth/verify-token');
         setIsLoggedIn(true);
         setUser(response.data);
       } catch (error) {
+        console.error('Token verification failed:', error);
         setIsLoggedIn(false);
       }
     };
