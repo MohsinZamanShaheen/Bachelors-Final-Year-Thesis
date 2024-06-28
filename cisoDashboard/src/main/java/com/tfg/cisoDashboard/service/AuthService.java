@@ -7,6 +7,7 @@ import com.tfg.cisoDashboard.dto.PasswordChangeDto;
 import com.tfg.cisoDashboard.model.Organization;
 import com.tfg.cisoDashboard.model.Role;
 import com.tfg.cisoDashboard.repository.OrganizationRepository;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,15 @@ public class AuthService {
         UserDetails userDetails = userService.loadUserByEmail(userLoginDto.getEmail());
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userLoginDto.getPassword()));
         String token = jwtService.createToken(user);
-        response.addHeader("Set-Cookie", "token=" + token + "; HttpOnly; Path=/; Max-Age=" + (86400)); // Cookie valid for 1 day
+        Cookie cookie = new Cookie("token", token);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(86400);
+        response.addCookie(cookie);
+
+        //System.out.println("Cookie set: " + cookie.getName() + " = " + cookie.getValue());
+
         return AuthResponse.builder()
                 .token(token)
                 .build();
