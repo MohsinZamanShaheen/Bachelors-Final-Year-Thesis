@@ -89,7 +89,6 @@ public class AuthService {
         response.addHeader("Set-Cookie", cookieHeader);
 
         //System.out.println("Cookie set: " + cookie.getName() + " = " + cookie.getValue());
-
         return AuthResponse.builder()
                 .token(token)
                 .build();
