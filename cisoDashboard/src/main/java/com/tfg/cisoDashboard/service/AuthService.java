@@ -82,7 +82,11 @@ public class AuthService {
         cookie.setSecure(true);
         cookie.setPath("/");
         cookie.setMaxAge(86400);
-        response.addCookie(cookie);
+        String cookieHeader = String.format(
+                "%s=%s; HttpOnly; Secure; Path=/; Max-Age=%d; SameSite=None",
+                cookie.getName(), cookie.getValue(), cookie.getMaxAge()
+        );
+        response.addHeader("Set-Cookie", cookieHeader);
 
         //System.out.println("Cookie set: " + cookie.getName() + " = " + cookie.getValue());
 
