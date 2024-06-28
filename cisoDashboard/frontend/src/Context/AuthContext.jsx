@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   const handleLogin = () => {
     setIsLoggedIn(true);
     navigate("/dashboard");
-    window.location.reload();
+    //window.location.reload();
   };
 
   const handleLogout =  async () => {
