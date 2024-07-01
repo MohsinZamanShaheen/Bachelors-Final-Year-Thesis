@@ -2,6 +2,7 @@ import axios from 'axios';
 
 
 const apiClient = axios.create({
+  //baseURL: "http://localhost:8080/api",
   baseURL: "https://springdashsecure.azurewebsites.net/api",
   withCredentials: true,
   headers: {

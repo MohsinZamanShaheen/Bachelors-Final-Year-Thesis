@@ -35,7 +35,7 @@ public class WebSecurityConfig{
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedHeader("*");
-        configuration.setAllowedOrigins(Arrays.asList("https://reactdashsecure.azurewebsites.net"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000","https://reactdashsecure.azurewebsites.net"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
