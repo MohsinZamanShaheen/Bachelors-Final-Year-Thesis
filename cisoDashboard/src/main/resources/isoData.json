@@ -1,6 +1,6 @@
 {
     "controls": {
-    "Organizational Controls": {
+    "Org Controls": {
         "data": {
             "org_1": {
                 "title": "Policies for information security",
@@ -248,7 +248,7 @@
             }
         }
     },
-    "Technological Controls": {
+    "Tech Controls": {
         "data": {
             "tech_1": {
                 "title": "User endpoint devices",
